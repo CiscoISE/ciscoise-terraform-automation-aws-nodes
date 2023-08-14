@@ -1,0 +1,12 @@
+#!/bin/bash
+hostname=${var.Node1Hostname}
+dnsdomain=${var.DNSDomain}
+primarynameserver=169.254.169.253
+ntpserver=169.254.169.123
+username=iseadmin
+password=${var.password}
+timezone=${var.TimeZone}
+ersapi=${var.ERSapi}
+openapi=${var.OpenAPI}
+pxGrid=${var.PXGrid}
+pxgrid_cloud=${var.PXGridCloud}
