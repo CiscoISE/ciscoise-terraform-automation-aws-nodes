@@ -112,6 +112,7 @@ variable "key_pair_name" {
     NOTE: The username for ISE 3.1 is "admin" and for ISE 3.2+ is "iseadmin".
   EOT  
   type        = string
+  default = null
 }
 
 variable "ise_instance_type" {
@@ -180,6 +181,10 @@ variable "desired_size" {
 #   type = string
 # }
 
+variable "vpc_zone_identifier" {
+  description = "List of subnet IDs to launch resources in. Subnets automatically determine which availability zones the group will reside"
+  type = list(string)
+}
 
 
 

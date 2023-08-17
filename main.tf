@@ -40,11 +40,12 @@ resource "aws_launch_template" "ise_launch_template" {
 
 
 resource "aws_autoscaling_group" "ise_autoscaling_group" {
-  name_prefix       = "ise-autoscaling-group"
-  desired_capacity  = var.desired_size
-  max_size          = var.max_size
-  min_size          = var.min_size
-  target_group_arns = [aws_lb_target_group.psn_target_groupfor_radius1645.arn, aws_lb_target_group.psn_target_groupfor_radius1646.arn, aws_lb_target_group.psn_target_groupfor_radius1812.arn, aws_lb_target_group.psn_target_groupfor_radius1813.arn, aws_lb_target_group.psn_target_groupfor_tacacs49.arn]
+  name_prefix         = "ise-autoscaling-group"
+  desired_capacity    = var.desired_size
+  max_size            = var.max_size
+  min_size            = var.min_size
+  target_group_arns   = [aws_lb_target_group.psn_target_groupfor_radius1645.arn, aws_lb_target_group.psn_target_groupfor_radius1646.arn, aws_lb_target_group.psn_target_groupfor_radius1812.arn, aws_lb_target_group.psn_target_groupfor_radius1813.arn, aws_lb_target_group.psn_target_groupfor_tacacs49.arn]
+  vpc_zone_identifier = var.vpc_zone_identifier
   # Launch Template
   launch_template {
     id      = aws_launch_template.ise_launch_template.id
