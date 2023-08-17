@@ -8,7 +8,7 @@ resource "aws_launch_template" "ise_launch_template" {
   key_name               = var.key_pair_name
   image_id               = var.ami_ids[var.aws_region][var.ise_version]["ami_id"] # Access the AMI ID based on region and version
   vpc_security_group_ids = [aws_security_group.ise-sg.id]
-  user_data              = file("${path.module}/user_data.sh")
+  #user_data              = file("${path.module}/user_data.sh")
 
   dynamic "block_device_mappings" {
     for_each = var.ami_ids[var.aws_region][var.ise_version]
@@ -18,7 +18,7 @@ resource "aws_launch_template" "ise_launch_template" {
       ebs {
         volume_type = "gp3"
         volume_size = var.storage_size
-        snapshot_id = block_device_mappings.value
+        #snapshot_id = block_device_mappings.value["ami_id"]
       }
     }
   }

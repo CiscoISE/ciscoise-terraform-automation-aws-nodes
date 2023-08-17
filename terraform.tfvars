@@ -1,5 +1,5 @@
 #key_pair_name       = "ise3.1pem"
-ise_instance_type   = "c5.4xlarge"
+ise_instance_type   = "t3.xlarge"
 ise_version         = "3.1"
 storage_size        = 600
 private_subnet1_a   = "subnet-0df14f124d0600552"

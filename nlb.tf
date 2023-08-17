@@ -9,12 +9,12 @@ resource "aws_lb" "psn_nlb" {
 
   subnet_mapping {
     subnet_id            = var.private_subnet1_a // from Kalyan vpc module variable
-    private_ipv4_address = "10.0.11.1"       // from Kalyan vpc module variable
+    private_ipv4_address = null      // from Kalyan vpc module variable, this is giving specific ip for alb in each AZ. Manual input needed. Take this as a user inputd
   }
 
   subnet_mapping {
     subnet_id            = var.private_subnet1_b // from Kalyan vpc module variable
-    private_ipv4_address = "10.0.12.1"        // from Kalyan vpc module variable
+    private_ipv4_address = null        // from Kalyan vpc module variable
   }
 
   enable_cross_zone_load_balancing = true

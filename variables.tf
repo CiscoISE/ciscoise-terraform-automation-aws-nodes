@@ -160,6 +160,7 @@ variable "vpccidr" {
 
 variable "max_size" {
   description = "Max Size for ISE Auto scaling group"
+  default     = 5
 }
 
 variable "min_size" {
@@ -169,7 +170,6 @@ variable "min_size" {
 
 variable "desired_size" {
   description = "Desired Size for ISE Auto scaling group"
-  default     = 2
 }
 # variable lb_private_address_subnet1 {
 #   description = "Private IP Address of Load Balancer for Private Subnet-1"
