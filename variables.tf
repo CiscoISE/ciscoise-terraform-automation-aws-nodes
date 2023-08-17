@@ -20,6 +20,78 @@ variable "ami_ids" {
         ami_id = "ami-068b6e34ad1266819"
       }
     }
+    us-west-1 = {
+      3.1 = {
+        ami_id = "ami-0965fef2e601ad4d0"
+      }
+      3.2 = {
+        ami_id = "ami-0768dd8e82836d887"
+      }
+    }
+    us-west-2 = {
+      3.1 = {
+        ami_id = "ami-0ffd69a117dbcbb9e"
+      }
+      3.2 = {
+        ami_id = "ami-0531d829a9e4d6b83"
+      }
+    }
+    ca-central-1 = {
+      3.1 = {
+        ami_id = "ami-0715d661908b3c937"
+      }
+      3.2 = {
+        ami_id = "ami-0d440428a5401cd3e"
+      }
+    }
+    eu-central-1 = {
+      3.1 = {
+        ami_id = "ami-0526fe132f57b4dd5"
+      }
+      3.2 = {
+        ami_id = "ami-0959760bb044c3247"
+      }
+    }
+    eu-west-1 = {
+      3.1 = {
+        ami_id = "ami-0c0078c6bc939b794"
+      }
+      3.2 = {
+        ami_id = "ami-0c3b9a181c1c91a3a"
+      }
+    }
+    eu-west-2 = {
+      3.1 = {
+        ami_id = "ami-0a0e17dd5fa1643e9"
+      }
+      3.2 = {
+        ami_id = "ami-00e0b109d715904ad"
+      }
+    }
+    eu-west-3 = {
+      3.1 = {
+        ami_id = "ami-0f766d122c0b5c7b1"
+      }
+      3.2 = {
+        ami_id = "ami-04dee19d63c2edb18"
+      }
+    }
+    eu-north-1 = {
+      3.1 = {
+        ami_id = "ami-06d5092c5d2de909d"
+      }
+      3.2 = {
+        ami_id = "ami-00e9fa9b6e9bcec20"
+      }
+    }
+    eu-south-1 = {
+      3.1 = {
+        ami_id = "ami-0941a499217ec268e"
+      }
+      3.2 = {
+        ami_id = "ami-060ed864daf36bcac"
+      }
+    }
     # Add other regions and versions...
   }
 }
@@ -46,6 +118,10 @@ variable "ise_instance_type" {
   description = "Choose the required Cisco ISE instance type."
   type        = string
   default     = "c5.4xlarge"
+  validation {
+    condition     = contains(["c5.4xlarge", "m5.4xlarge", "c5.9xlarge", "t3.xlarge"], var.ise_instance_type)
+    error_message = "The instance type should be one of the values in [c5.4xlarge, m5.4xlarge, c5.9xlarge, t3.xlarge]"
+  }
 }
 
 variable "ise_version" {
