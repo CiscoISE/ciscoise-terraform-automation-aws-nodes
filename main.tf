@@ -1,33 +1,33 @@
 provider "aws" {
-  region = "us-east-1"  # Update this to your desired region
+  region = var.aws_region # Update this to your desired region
 }
 
 resource "aws_launch_template" "ise_launch_template" {
-  name_prefix   = "ise-launch-template"
-  instance_type = var.ISEInstanceType
-  key_name      = var.KeyPairName
-
-  user_data = file("${path.module}/user_data.sh")
-
+  name_prefix            = "ise-launch-template"
+  instance_type          = var.ise_instance_type
+  key_name               = var.key_pair_name
+  image_id               = var.ami_ids[var.aws_region][var.ise_version]["ami_id"] # Access the AMI ID based on region and version
+  vpc_security_group_ids = [aws_security_group.ise-sg.id]
+  user_data              = file("${path.module}/user_data.sh")
 
   dynamic "block_device_mappings" {
-    for_each = var.ISE_AMI_MAPPING[var.AWS_REGION][var.ISEVersion]
+    for_each = var.ami_ids[var.aws_region][var.ise_version]
 
     content {
       device_name = "/dev/sda1"
       ebs {
-        volume_type = "gp2"
-        volume_size = var.StorageSize
+        volume_type = "gp3"
+        volume_size = var.storage_size
+        snapshot_id = block_device_mappings.value
       }
-      # Optionally, you can use the AMI ID from the mapping
-      ami = block_device_mappings.value.AMI
     }
   }
 
   # Other launch template properties...
 }
 
-data "aws_ami" "ise_ami" {
+
+/* data "aws_ami" "ise_ami" {
   most_recent = true
 
   filter {
@@ -35,56 +35,47 @@ data "aws_ami" "ise_ami" {
     values = [var.ISEVersion]
   }
 
-  owners = ["self"]  # Assuming you have your own AMIs
-}
+  owners = ["self"]  
+} */
 
-# Define security groups, subnets, etc...
 
 resource "aws_autoscaling_group" "ise_autoscaling_group" {
-  name                 = "ise-autoscaling-group"
-  launch_template     = aws_launch_template.ise_launch_template.id
-  min_size             = 2
-  max_size             = 5
-  desired_capacity    = 2  # Adjust as needed
-
-  # Other autoscaling group properties...
-}
-
-resource "aws_lb" "ise_lb" {
-  name               = "ise-load-balancer"
-  internal           = true
-  load_balancer_type = "network"
-  subnets            = [var.PrivateSubnet1A, var.PrivateSubnet1B]
-
-  # Other load balancer properties...
-}
-
-resource "aws_lb_target_group" "ise_target_group" {
-  name_prefix = "ise-target-group"
-  port        = 443
-  protocol    = "TCP"
-  vpc_id      = var.VPCID
-
-  # Other target group properties...
-}
-
-resource "aws_lb_listener" "ise_listener" {
-  load_balancer_arn = aws_lb.ise_lb.arn
-  port              = 443
-  protocol          = "TCP"
-
-  default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.ise_target_group.arn
+  name_prefix       = "ise-autoscaling-group"
+  desired_capacity  = var.desired_size
+  max_size          = var.max_size
+  min_size          = var.min_size
+  target_group_arns = [aws_lb_target_group.psn_target_groupfor_radius1645.arn, aws_lb_target_group.psn_target_groupfor_radius1646.arn, aws_lb_target_group.psn_target_groupfor_radius1812.arn, aws_lb_target_group.psn_target_groupfor_radius1813.arn, aws_lb_target_group.psn_target_groupfor_tacacs49.arn]
+  # Launch Template
+  launch_template {
+    id      = aws_launch_template.ise_launch_template.id
+    version = aws_launch_template.ise_launch_template.latest_version
+  }
+  tag {
+    key                 = "Name"
+    value               = "ISE-Node"
+    propagate_at_launch = true
   }
 }
 
-# Define other target groups, listeners, and related resources...
+resource "aws_security_group" "ise-sg" {
+  name   = "ISE-Security-group"
+  vpc_id = var.vpcid
 
-# Configure autoscaling group to use target groups
-resource "aws_autoscaling_attachment" "ise_autoscaling_attachment" {
-  autoscaling_group_name = aws_autoscaling_group.ise_autoscaling_group.name
-  alb_target_group_arn   = aws_lb_target_group.ise_target_group.arn
+  ingress {
+    description = "Within VPC"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = [var.vpccidr]
+  }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }
 
-# Create Route53 records, reverse DNS, etc...
+
+
+

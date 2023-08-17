@@ -1,7 +1,4 @@
-output "ise_node1_id" {
-  value = aws_instance.ise_node1.id
+/* output "ise_lb_dns_name" {
+  value = aws_lb.ise_lb.dns_name
 }
-
-output "ise_node2_id" {
-  value = aws_instance.ise_node2.id
-}
+ */
