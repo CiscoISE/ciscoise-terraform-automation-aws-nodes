@@ -112,7 +112,7 @@ variable "key_pair_name" {
     NOTE: The username for ISE 3.1 is "admin" and for ISE 3.2+ is "iseadmin".
   EOT  
   type        = string
-  default = null
+  default     = null
 }
 
 variable "ise_instance_type" {
@@ -140,6 +140,7 @@ variable "private_subnet1_b" {
   description = "ID of the subnet to be used for the ISE deployment  in an Availability Zone B."
   type        = string
 }
+
 
 variable "storage_size" {
   description = "Specify the storage in GB (Minimum 300GB and Maximum 2400GB). 600GB is recommended for production use, storage lesser than 600GB can be used for evaluation purpose only. On terminating the instance, volume will be deleted as well."
@@ -171,19 +172,21 @@ variable "min_size" {
 variable "desired_size" {
   description = "Desired Size for ISE Auto scaling group"
 }
-# variable lb_private_address_subnet1 {
-#   description = "Private IP Address of Load Balancer for Private Subnet-1"
-#   type = string
-# }
+variable "lb_private_address_subnet1" {
+  description = "Private IP Address of Load Balancer for Private Subnet-1"
+  type        = string
+  default     = null
+}
 
-# variable lb_private_address_subnet2 {
-#   description = "Private IP Address of Load Balancer for Private Subnet-2"
-#   type = string
-# }
+variable "lb_private_address_subnet2" {
+  description = "Private IP Address of Load Balancer for Private Subnet-2"
+  type        = string
+  default     = null
+}
 
 variable "vpc_zone_identifier" {
   description = "List of subnet IDs to launch resources in. Subnets automatically determine which availability zones the group will reside"
-  type = list(string)
+  type        = list(string)
 }
 
 

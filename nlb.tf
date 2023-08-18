@@ -8,13 +8,13 @@ resource "aws_lb" "psn_nlb" {
   ip_address_type    = "ipv4"
 
   subnet_mapping {
-    subnet_id            = var.private_subnet1_a // from Kalyan vpc module variable
-    private_ipv4_address = null      // from Kalyan vpc module variable, this is giving specific ip for alb in each AZ. Manual input needed. Take this as a user inputd
+    subnet_id            = var.private_subnet1_a          // from Kalyan vpc module variable
+    private_ipv4_address = var.lb_private_address_subnet1 // this is giving specific ip for alb in each AZ. Manual input needed. Take this as a user inputd
   }
 
   subnet_mapping {
     subnet_id            = var.private_subnet1_b // from Kalyan vpc module variable
-    private_ipv4_address = null        // from Kalyan vpc module variable
+    private_ipv4_address = var.lb_private_address_subnet2
   }
 
   enable_cross_zone_load_balancing = true
@@ -24,6 +24,29 @@ resource "aws_lb" "psn_nlb" {
   }
 }
 
+resource "aws_route53_zone" "forward_dns" {
+  name    = var.dns_domain
+  comment = "Private hosted forward zone for ISE"
+  vpc {
+    vpc_id = var.vpcid
+  }
+
+  tags = {
+    Name = "Forwardzone-${var.dns_domain}"
+  }
+}
+
+resource "aws_route53_record" "lb_dns_record" {
+  zone_id = aws_route53_zone.forward_dns.zone_id
+  name    = "lb.${var.dns_domain}"
+  type    = "A"
+
+  alias {
+    name                   = aws_lb.psn_nlb.dns_name
+    zone_id                = aws_lb.psn_nlb.zone_id
+    evaluate_target_health = true
+  }
+}
 # Required Target groups
 
 resource "aws_lb_target_group" "psn_target_groupfor_radius1812" {
