@@ -223,22 +223,22 @@ variable "time_zone" {
 
 variable "ers_api" {
   type    = string
-  default = "ers_api_value" # Set to the appropriate ERS API value
+  default = "yes" # Set to the appropriate ERS API value
 }
 
 variable "open_api" {
   type    = string
-  default = "open_api_value" # Set to the appropriate Open API value
+  default = "yes" # Set to the appropriate Open API value
 }
 
 variable "px_grid" {
   type    = string
-  default = "px_grid_value" # Set to the appropriate PX Grid value
+  default = "yes" # Set to the appropriate PX Grid value
 }
 
 variable "px_grid_cloud" {
   type    = string
-  default = "px_grid_cloud_value" # Set to the appropriate PX Grid Cloud value
+  default = "yes" # Set to the appropriate PX Grid Cloud value
 }
 
 

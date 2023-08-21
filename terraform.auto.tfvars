@@ -1,1 +1,0 @@
-ISEVersion = "ise-ami-name"
