@@ -9,8 +9,7 @@ resource "aws_launch_template" "ise_launch_template" {
   key_name               = var.key_pair_name
   image_id               = var.ami_ids[var.aws_region][var.ise_version]["ami_id"] # Access the AMI ID based on region and version
   vpc_security_group_ids = [aws_security_group.ise-sg.id]
-  user_data              = templatefile("./modules/ec2_modules/userdata.tftpl", { dns_domain = var.dns_domain, password = var.password, time_zone = var.time_zone, ers_api = var.ers_api, open_api = var.open_api, px_grid = var.px_grid, px_grid_cloud = var.px_grid_cloud })
-
+  user_data              = base64encode(templatefile("${path.module}/userdata.tftpl", { dns_domain = var.dns_domain, password = var.password, time_zone = var.time_zone, ers_api = var.ers_api, open_api = var.open_api, px_grid = var.px_grid, px_grid_cloud = var.px_grid_cloud }))
   dynamic "block_device_mappings" {
     for_each = var.ami_ids[var.aws_region][var.ise_version]
 

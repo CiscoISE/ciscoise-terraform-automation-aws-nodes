@@ -132,12 +132,12 @@ variable "ise_version" {
 }
 
 variable "private_subnet1_a" {
-  description = "ID of the subnet to be used for the ISE deployment  in an Availability Zone A."
+  description = "ID of the subnet to be used for the ISE deployment in an Availability Zone A."
   type        = string
 }
 
 variable "private_subnet1_b" {
-  description = "ID of the subnet to be used for the ISE deployment  in an Availability Zone B."
+  description = "ID of the subnet to be used for the ISE deployment in an Availability Zone B."
   type        = string
 }
 
