@@ -55,3 +55,8 @@ variable "dns_domain" {
   type    = string
   default = "drilldevops.in" # Set to the appropriate DNS domain
 }
+
+variable "psn_node_count" {
+  description = "Specify the number of PSN nodes"
+  default     = 0
+}

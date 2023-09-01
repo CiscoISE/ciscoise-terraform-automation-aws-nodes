@@ -131,6 +131,16 @@ variable "ise_version" {
   default     = "3.1"
 }
 
+variable "psn_node_count" {
+  description = "Specify the number of PSN nodes"
+  default     = 6
+}
+
+variable "ebs_encrypt" {
+  description = "Choose true to enable EBS encryption"
+  default     = false
+}
+
 variable "private_subnet1_a" {
   description = "ID of the subnet to be used for the ISE deployment in an Availability Zone A."
   type        = string
@@ -171,7 +181,9 @@ variable "min_size" {
 
 variable "desired_size" {
   description = "Desired Size for ISE Auto scaling group"
+  default     = 3
 }
+
 variable "lb_private_address_subnet1" {
   description = "Private IP Address of Load Balancer for Private Subnet-1"
   type        = string
@@ -213,7 +225,7 @@ variable "dns_domain" {
 
 variable "password" {
   type    = string
-  default = "your_password" # Set to the appropriate password
+  default = "aisndmoVLa3@" # Set to the appropriate password
 }
 
 variable "time_zone" {

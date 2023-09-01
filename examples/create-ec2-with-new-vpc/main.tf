@@ -5,7 +5,7 @@ provider "aws" {
 
 
 module "cisco_ise_vpc" {
-  source = "git::ssh://git@github3.cisco.com/techops-operation/ise_launch_template-terraform-aws-vpc.git//modules/vpc_modules"
+  source                = "git::ssh://git@github3.cisco.com/techops-operation/ise_launch_template-terraform-aws-vpc.git//modules/vpc_modules"
   vpc_cidr              = var.vpc_cidr
   vpc_name              = var.vpc_name
   availability_zones    = var.availability_zones
@@ -26,4 +26,5 @@ module "cisco_ise_ec2" {
   vpc_zone_identifier = slice(module.cisco_ise_vpc.private_subnet_ids, 0, 2)
   ise_instance_type   = var.ise_instance_type
   dns_domain          = var.dns_domain
+  psn_node_count      = var.psn_node_count
 }
