@@ -27,4 +27,6 @@ module "cisco_ise_ec2" {
   ise_instance_type   = var.ise_instance_type
   dns_domain          = var.dns_domain
   psn_node_count      = var.psn_node_count
+  ise_version         = var.ise_version
+  password            = var.password
 }

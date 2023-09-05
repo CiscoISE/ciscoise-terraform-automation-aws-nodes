@@ -58,5 +58,16 @@ variable "dns_domain" {
 
 variable "psn_node_count" {
   description = "Specify the number of PSN nodes"
-  default     = 0
+  default     = 2
+}
+
+variable "ise_version" {
+  description = "The version of Cisco ISE (3.1 or 3.2)"
+  type        = string
+  default     = "3.1"
+}
+
+variable "password" {
+  type    = string
+  default = "C!sc0Ind1@" # Set to the appropriate password
 }
