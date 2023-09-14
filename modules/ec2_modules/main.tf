@@ -59,9 +59,9 @@ resource "aws_instance" "PSN_node" {
     version = aws_launch_template.ise_launch_template.latest_version
   }
   tags = {
-    Name = "PSN-ise-server-${count.index+1}"
+    Name = "psn-ise-server-${count.index + 1}"
   }
-  user_data = base64encode(templatefile("${path.module}/userdata.tftpl", { hostname = "PSN-ise-server-${count.index+1}", dns_domain = var.dns_domain, username = local.ise_username, password = var.password, time_zone = var.time_zone, ers_api = var.ers_api, open_api = var.open_api, px_grid = var.px_grid, px_grid_cloud = var.px_grid_cloud }))
+  user_data = base64encode(templatefile("${path.module}/userdata.tftpl", { hostname = "psn-ise-server-${count.index + 1}", dns_domain = var.dns_domain, username = local.ise_username, password = var.password, time_zone = var.time_zone, ers_api = var.ers_api, open_api = var.open_api, px_grid = var.px_grid, px_grid_cloud = var.px_grid_cloud }))
 }
 
 
