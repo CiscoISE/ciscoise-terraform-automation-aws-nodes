@@ -8,4 +8,8 @@ output "nlb_dns_name" {
   value       = aws_lb.psn_nlb.dns_name
 }
 
+output "security_group_ids" {
+  description = "security group id"
+  value       = aws_security_group.ise-sg[*].id
+}
 # Define other outputs...

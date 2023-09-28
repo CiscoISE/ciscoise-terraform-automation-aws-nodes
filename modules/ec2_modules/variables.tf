@@ -100,7 +100,6 @@ variable "ami_ids" {
 variable "aws_region" {
   description = "The AWS region where resources will be created."
   type        = string
-  default     = "us-east-2" # Change this to your desired default region
 }
 
 
@@ -112,13 +111,11 @@ variable "key_pair_name" {
     NOTE: The username for ISE 3.1 is "admin" and for ISE 3.2+ is "iseadmin".
   EOT  
   type        = string
-  default     = null
 }
 
 variable "ise_instance_type" {
   description = "Choose the required Cisco ISE instance type."
   type        = string
-  default     = "c5.4xlarge"
   validation {
     condition     = contains(["c5.4xlarge", "m5.4xlarge", "c5.9xlarge", "t3.xlarge"], var.ise_instance_type)
     error_message = "The instance type should be one of the values in [c5.4xlarge, m5.4xlarge, c5.9xlarge, t3.xlarge]"
@@ -128,17 +125,14 @@ variable "ise_instance_type" {
 variable "ise_version" {
   description = "The version of Cisco ISE (3.1 or 3.2)"
   type        = string
-  default     = "3.1"
 }
 
 variable "psn_node_count" {
   description = "Specify the number of PSN nodes"
-  default     = 6
 }
 
 variable "ebs_encrypt" {
   description = "Choose true to enable EBS encryption"
-  default     = false
 }
 
 variable "private_subnet1_a" {
@@ -151,11 +145,15 @@ variable "private_subnet1_b" {
   type        = string
 }
 
+variable "private_subnet1_c" {
+  description = "ID of the subnet to be used for the ISE deployment in an Availability Zone C."
+  type        = string
+}
+
 
 variable "storage_size" {
   description = "Specify the storage in GB (Minimum 300GB and Maximum 2400GB). 600GB is recommended for production use, storage lesser than 600GB can be used for evaluation purpose only. On terminating the instance, volume will be deleted as well."
   type        = string
-  default     = "600"
 }
 
 variable "vpcid" {
@@ -163,10 +161,9 @@ variable "vpcid" {
   type        = string
 }
 
-variable "vpccidr" {
+variable "vpc_cidr" {
   description = "CIDR block for the VPC."
   type        = string
-  default     = "10.0.0.0/16"
 }
 
 variable "max_size" {
@@ -196,8 +193,14 @@ variable "lb_private_address_subnet2" {
   default     = null
 }
 
-variable "vpc_zone_identifier" {
-  description = "List of subnet IDs to launch resources in. Subnets automatically determine which availability zones the group will reside"
+variable "lb_private_address_subnet3" {
+  description = "Private IP Address of Load Balancer for Private Subnet-3"
+  type        = string
+  default     = null
+}
+
+variable "subnet_id_list" {
+  description = "List of subnet IDs to launch resources in."
   type        = list(string)
 }
 

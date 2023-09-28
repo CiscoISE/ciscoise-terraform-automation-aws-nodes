@@ -6,6 +6,12 @@ locals {
   ise_username = local.ise_username_map[var.ise_version]
 }
 
+
+resource "random_integer" "priority" {
+  min = 0
+  max = 1
+}
+
 resource "aws_launch_template" "ise_launch_template" {
   name_prefix            = "ise-launch-template"
   instance_type          = var.ise_instance_type
@@ -53,7 +59,7 @@ resource "aws_instance" "secondary_ise_server" {
 
 resource "aws_instance" "PSN_node" {
   count     = var.psn_node_count
-  subnet_id = var.private_subnet1_b
+  subnet_id = var.subnet_id_list[random_integer.priority.result]
   launch_template {
     id      = aws_launch_template.ise_launch_template.id
     version = aws_launch_template.ise_launch_template.latest_version
@@ -74,7 +80,7 @@ resource "aws_security_group" "ise-sg" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = [var.vpccidr]
+    cidr_blocks = [var.vpc_cidr]
   }
   egress {
     from_port   = 0

@@ -16,7 +16,7 @@ variable "vpcid" {
   default     = "vpc-0343606e"
 }
 
-variable "vpccidr" {
+variable "vpc_cidr" {
   description = "CIDR block for the VPC."
   type        = string
   default     = "10.0.0.0/16"

@@ -17,6 +17,13 @@ resource "aws_lb" "psn_nlb" {
     private_ipv4_address = var.lb_private_address_subnet2
   }
 
+  subnet_mapping {
+    subnet_id            = var.private_subnet1_c
+    private_ipv4_address = var.lb_private_address_subnet3
+  }
+
+
+
   enable_cross_zone_load_balancing = true
 
   tags = {
