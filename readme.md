@@ -26,7 +26,7 @@ Default region name [us-east-2]:
 
 Clone this git repo by using this command - git clone <URL>
 
-- Choose on of the following options to setup ISE infra
+Choose on of the following options to setup ISE infra
 1. [Deploy using an existing VPC](./examples/create-ec2-with-existing-vpc/)
 2. [Deploy using a new VPC](./examples/create-ec2-with-new-vpc/)
 
