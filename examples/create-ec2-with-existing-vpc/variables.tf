@@ -1,6 +1,7 @@
-###################################
-### Block to Update VPC Details ###
-###################################
+################################################
+### Block to Update VPC Details ################
+### Please Update Existing VPC Details Below ###
+################################################
 variable "vpc_cidr" {
   description = "CIDR block for the VPC"
   type        = string
