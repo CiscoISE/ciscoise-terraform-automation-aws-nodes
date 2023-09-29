@@ -24,8 +24,7 @@ Default region name [us-east-2]:
 
 ## Run terraform modules
 
-Clone this git repo by using below command
-git clone <URL>
+Clone this git repo by using this command - git clone <URL>
 
 - Choose on of the following options to setup ISE infra
 1. [Deploy using an existing VPC](./examples/create-ec2-with-existing-vpc/)
