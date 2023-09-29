@@ -1,4 +1,4 @@
-# Automated ISE setup with Infrastructure as Code using Terraform
+# Automated ISE setup with Infrastructure as Code using Terraform on AWS
 
 This project runs terraform module to setup ISE infrastructure on AWS
 
@@ -9,10 +9,10 @@ This project runs terraform module to setup ISE infrastructure on AWS
 ## Installations
 1. To install terraform, follow the instructions as per your operating system - [Install Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
 
-2. to install AWS CLIv2, follow the instructions mentioned here - [Install AWS CLIv2](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+2. To install AWS CLIv2, follow the instructions mentioned here - [Install AWS CLIv2](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 
 ## Configure AWS
-To configure and allow access to AWS account, create IAM user and access credentials. (AWS Access key and Secret key). Run aws configure as below and enter the access and secret keys.
+To configure and allow access to AWS account, create IAM user and create Programmatic Access Key (AWS Access key and Secret key). Run aws configure as below and enter the access and secret keys.
 
 ```
 aws configure
@@ -23,6 +23,9 @@ Default region name [us-east-2]:
 ```
 
 ## Run terraform modules
+
+Clone this git repo by using below command
+git clone <URL>
 
 - Choose on of the following options to setup ISE infra
 1. [Deploy using an existing VPC](./examples/create-ec2-with-existing-vpc/)
