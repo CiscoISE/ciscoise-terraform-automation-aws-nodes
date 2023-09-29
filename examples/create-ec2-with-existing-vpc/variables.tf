@@ -10,7 +10,7 @@ variable "vpc_cidr" {
 variable "vpc_id" {
   description = "VPC ID"
   type        = string
-  default     = "vpc-123"
+  default     = "vpc-057efe0e8a68a3b55"
 }
 
 variable "aws_region" {
@@ -46,7 +46,7 @@ variable "private_subnet_cidrs" {
 variable "subnet_id_list" {
   description = "List of subnet IDs to launch resources in. The list should contain subnet id's in following order - [\"subnetid in A AZ\", \"subnetid in B AZ\", \"subnetid in C AZ\"]"
   type        = list(string)
-  default     = ["sg-1", "sg-2", "sg-3"]
+  default     = [ "subnet-045716712cef0ea64", "subnet-00951b7d1a25cd789", "subnet-00c1fd9e924862a07"]
 }
 
 variable "internet_gateway_name" {
