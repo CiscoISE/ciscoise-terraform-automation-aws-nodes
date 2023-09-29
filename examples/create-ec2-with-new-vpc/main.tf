@@ -12,8 +12,7 @@ locals {
 }
 
 module "cisco_ise_vpc" {
-  source = "git::ssh://git@github3.cisco.com/techops-operation/ise_launch_template-terraform-aws-vpc.git//modules/vpc_modules"
-  # source                = "git::ssh://git@github3.cisco.com/techops-operation/ise_launch_template-terraform-aws-vpc.git//modules/vpc_modules?ref=kchitiki-custom-requirements"
+  source                = "git::ssh://git@github3.cisco.com/techops-operation/ise_launch_template-terraform-aws-vpc.git//modules/vpc_modules"
   vpc_cidr              = var.vpc_cidr
   vpc_name              = var.vpc_name
   availability_zones    = var.availability_zones
@@ -25,11 +24,10 @@ module "cisco_ise_vpc" {
 }
 
 module "cisco_ise_ec2" {
-  source     = "../../modules/ec2_modules"
-  aws_region = var.aws_region
-  vpcid      = module.cisco_ise_vpc.vpc_id
-  vpc_cidr   = var.vpc_cidr
-  #subnet_id           = random_element(module.cisco_ise_vpc.private_subnet_ids)
+  source            = "../../modules/ec2_modules"
+  aws_region        = var.aws_region
+  vpcid             = module.cisco_ise_vpc.vpc_id
+  vpc_cidr          = var.vpc_cidr
   private_subnet1_a = module.cisco_ise_vpc.private_subnet_ids[0]
   private_subnet1_b = module.cisco_ise_vpc.private_subnet_ids[1]
   private_subnet1_c = module.cisco_ise_vpc.private_subnet_ids[2]
