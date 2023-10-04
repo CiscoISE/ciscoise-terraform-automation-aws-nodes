@@ -31,7 +31,7 @@ Before running terraform modules, follow below steps
 - Login to AWS console and search for AWS Marketplace Subscriptions. 
 - In the Manage subscriptions window, select Discover Products in the left pane. Search for Cisco Identity Services Engine (ISE) in the search bar and subsribe to it.
 
-2. 
+2. Create a ec2 key pair by following this documentation - [Create ec2 key pair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-key-pairs.html)
 
 ## Run terraform modules
 
