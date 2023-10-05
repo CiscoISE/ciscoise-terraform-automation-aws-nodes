@@ -1,6 +1,5 @@
 terraform {
   backend "s3" {
-    bucket  = "ise-terraform-test"
     key     = "terraform/ec2_with_existing_vpc/ec2.tfstate"
     region  = "us-east-2"
     encrypt = "true"

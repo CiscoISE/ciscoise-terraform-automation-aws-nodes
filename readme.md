@@ -12,7 +12,9 @@ This project runs terraform module to setup ISE infrastructure on AWS
 2. To install AWS CLIv2, follow the instructions mentioned here - [Install AWS CLIv2](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 
 ## Configure AWS
-To configure and allow access to AWS account, create IAM user and create Programmatic Access Key (AWS Access key and Secret key). Run aws configure as below and enter the access and secret keys.
+To configure and allow access to AWS account, create IAM user with Administrator access policy and create Programmatic Access Key (AWS Access key and Secret key). Follow this document to manage access keys - [How to manage aws access keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey). 
+
+Run aws configure as below and enter the access and secret keys.
 
 ```
 aws configure
@@ -21,6 +23,17 @@ AWS Secret Access Key [********************]: <Enter secret key>
 Default region name [us-east-2]: 
 
 ```
+
+## Prerequisites
+Before running terraform modules, follow below steps
+
+1. Susbsribe to Cisco ISE product in AWS marketplace
+- Login to AWS console and search for AWS Marketplace Subscriptions. 
+- In the Manage subscriptions window, select Discover Products in the left pane. Search for Cisco Identity Services Engine (ISE) in the search bar and subsribe to it.
+
+2. Create a ec2 key pair by following this documentation - [Create ec2 key pair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-key-pairs.html)
+
+3. Create a s3 bucket to store terraform backend state files. Refer this documentation - [How to create a s3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html).
 
 ## Run terraform modules
 
@@ -45,7 +58,7 @@ cd examples/create-ec2-with-new-vpc
 
 Run below commands
  ```
- terraform init --upgrade
+ terraform init --upgrade -backend-config="<s3_bucket_name>"    # specify the s3 bucket name created in prerequisites - step 3
  terraform plan
  terraform apply
  ```
