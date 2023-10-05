@@ -58,7 +58,10 @@ cd examples/create-ec2-with-new-vpc
 
 Run below commands
  ```
- terraform init --upgrade -backend-config="<s3_bucket_name>"    # specify the s3 bucket name created in prerequisites - step 3
+ terraform init --upgrade \
+   -backend-config="bucket=<bucket_name>" \            # Specify the s3 bucket name created in prerequisites - step 3
+   -backend-config="region=<bucket_region>"            # Specify the s3 bucket region
+   
  terraform plan
  terraform apply
  ```
