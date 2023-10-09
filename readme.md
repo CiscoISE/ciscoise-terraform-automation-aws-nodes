@@ -33,7 +33,9 @@ Before running terraform modules, follow below steps
 
 2. Create a ec2 key pair by following this documentation - [Create ec2 key pair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-key-pairs.html)
 
-3. Create a s3 bucket to store terraform backend state files. Refer this documentation - [How to create a s3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html).
+3. Setup SSH for git, follow this documentation - [How to setup SSH for git](https://www.warp.dev/terminus/git-clone-ssh) 
+
+4. Create a s3 bucket to store terraform backend state files. Refer this documentation - [How to create a s3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html).
 
 ## Run terraform modules
 
