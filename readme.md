@@ -62,7 +62,7 @@ Run below commands
  ```
  terraform init --upgrade \
    -backend-config="bucket=<bucket_name>" \            # Specify the s3 bucket name created in prerequisites - step 3
-   -backend-config="region=<bucket_region>" \           # Specify the s3 bucket region
+   -backend-config="region=<bucket_region>" \           # Specify the s3 bucket region e.g., us-east-1 for N. Virginia
    -reconfigure
  terraform plan
  terraform apply

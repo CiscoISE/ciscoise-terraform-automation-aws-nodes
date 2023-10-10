@@ -6,7 +6,7 @@ provider "aws" {
 data "aws_caller_identity" "current" {}
 
 locals {
-  trigger_time        = replace(timeadd(timestamp(), "40m"), "Z", "")
+  trigger_time        = replace(timeadd(timestamp(), "50m"), "Z", "")
   trigger_lambda_time = replace(timeadd(timestamp(), "2m"), "Z", "")
   layer_arn           = "arn:aws:lambda:${var.aws_region}:${data.aws_caller_identity.current.account_id}:layer:CiscoISEPackageLayer:1"
 }
