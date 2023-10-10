@@ -6,7 +6,7 @@ provider "aws" {
 data "aws_caller_identity" "current" {}
 
 locals {
-  trigger_time        = replace(timeadd(timestamp(), "40m"), "Z", "")
+  trigger_time        = replace(timeadd(timestamp(), "50m"), "Z", "")
   trigger_lambda_time = replace(timeadd(timestamp(), "2m"), "Z", "")
   layer_arn           = "arn:aws:lambda:${var.aws_region}:${data.aws_caller_identity.current.account_id}:layer:CiscoISEPackageLayer:1"
 }
@@ -19,7 +19,6 @@ module "cisco_ise_vpc" {
   public_subnet_cidrs   = var.public_subnet_cidrs
   private_subnet_cidrs  = var.private_subnet_cidrs
   internet_gateway_name = var.internet_gateway_name
-  dhcp_domain_name      = var.dhcp_domain_name
   aws_region            = var.aws_region
 }
 

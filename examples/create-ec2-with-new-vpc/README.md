@@ -1,44 +1,15 @@
 <!-- BEGIN_TF_DOCS -->
-## Requirements
+## Terraform variables documentation
 
-No requirements.
+This module uses below terraform variables as input. Update the terraform variables as per requirement
 
-## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.19.0 |
-| <a name="provider_time"></a> [time](#provider\_time) | 0.9.1 |
-
-## Modules
-
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_CheckISEStatusLambda"></a> [CheckISEStatusLambda](#module\_CheckISEStatusLambda) | ../../modules/lambda_modules/CheckISEStatusLambda | n/a |
-| <a name="module_PipLayerLambda"></a> [PipLayerLambda](#module\_PipLayerLambda) | ../../modules/lambda_modules/PipLayerLambda | n/a |
-| <a name="module_RegisterPSNNodesLambda"></a> [RegisterPSNNodesLambda](#module\_RegisterPSNNodesLambda) | ../../modules/lambda_modules/RegisterPSNNodesLambda | n/a |
-| <a name="module_RegisterSecondaryNodeLambda"></a> [RegisterSecondaryNodeLambda](#module\_RegisterSecondaryNodeLambda) | ../../modules/lambda_modules/RegisterSecondaryNodeLambda | n/a |
-| <a name="module_SetPrimaryPANLambda"></a> [SetPrimaryPANLambda](#module\_SetPrimaryPANLambda) | ../../modules/lambda_modules/SetPrimaryPANLambda | n/a |
-| <a name="module_StepFuntionExecution"></a> [StepFuntionExecution](#module\_StepFuntionExecution) | ../../modules/lambda_modules/StepFunction | n/a |
-| <a name="module_TriggerLambdaSchedule"></a> [TriggerLambdaSchedule](#module\_TriggerLambdaSchedule) | ../../modules/lambda_modules/IseScheduler | n/a |
-| <a name="module_TriggerSchedule"></a> [TriggerSchedule](#module\_TriggerSchedule) | ../../modules/lambda_modules/IseScheduler | n/a |
-| <a name="module_cisco_ise_ec2"></a> [cisco\_ise\_ec2](#module\_cisco\_ise\_ec2) | ../../modules/ec2_modules | n/a |
-| <a name="module_cisco_ise_vpc"></a> [cisco\_ise\_vpc](#module\_cisco\_ise\_vpc) | git::ssh://git@github3.cisco.com/techops-operation/ise_launch_template-terraform-aws-vpc.git//modules/vpc_modules | n/a |
-
-## Resources
-
-| Name | Type |
-|------|------|
-| [time_sleep.wait_8_minutes](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
-| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 
 ## Inputs
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_availability_zones"></a> [availability\_zones](#input\_availability\_zones) | List of availability zones | `list(string)` | <pre>[<br>  "us-east-1a",<br>  "us-east-1b",<br>  "us-east-1c"<br>]</pre> | no |
+| Name | Description | Type | Default |
+|------|-------------|------|---------|
+| <a name="input_availability_zones"></a> [availability\_zones](#input\_availability\_zones) | List of availability zones | `list(string)` | <pre>[<br>  "us-east-1a",<br>  "us-east-1b",<br>  "us-east-1c"<br>]</pre>
 | <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | AWS region | `string` | `"us-east-1"` | no |
-| <a name="input_dhcp_domain_name"></a> [dhcp\_domain\_name](#input\_dhcp\_domain\_name) | Domain name for DHCP options | `string` | `"ec2.internal"` | no |
 | <a name="input_dns_domain"></a> [dns\_domain](#input\_dns\_domain) | ###################################### ## Block to Update DNS Domain Name ### ###################################### | `string` | `"drilldevops.in"` | no |
 | <a name="input_ebs_encrypt"></a> [ebs\_encrypt](#input\_ebs\_encrypt) | Choose true to enable EBS encryption | `bool` | `false` | no |
 | <a name="input_ers_api"></a> [ers\_api](#input\_ers\_api) | n/a | `string` | `"yes"` | no |
