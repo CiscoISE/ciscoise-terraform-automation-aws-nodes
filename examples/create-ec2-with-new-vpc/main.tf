@@ -23,27 +23,28 @@ module "cisco_ise_vpc" {
 }
 
 module "cisco_ise_ec2" {
-  source            = "../../modules/ec2_modules"
-  aws_region        = var.aws_region
-  vpcid             = module.cisco_ise_vpc.vpc_id
-  vpc_cidr          = var.vpc_cidr
-  private_subnet1_a = module.cisco_ise_vpc.private_subnet_ids[0]
-  private_subnet1_b = module.cisco_ise_vpc.private_subnet_ids[1]
-  private_subnet1_c = module.cisco_ise_vpc.private_subnet_ids[2]
-  subnet_id_list    = module.cisco_ise_vpc.private_subnet_ids
-  ise_instance_type = var.ise_instance_type
-  dns_domain        = var.dns_domain
-  psn_node_count    = var.psn_node_count
-  ise_version       = var.ise_version
-  password          = var.password
-  key_pair_name     = var.key_pair_name
-  ebs_encrypt       = var.ebs_encrypt
-  storage_size      = var.storage_size
-  time_zone         = var.time_zone
-  ers_api           = var.ers_api
-  open_api          = var.open_api
-  px_grid           = var.px_grid
-  px_grid_cloud     = var.px_grid_cloud
+  source                = "../../modules/ec2_modules"
+  aws_region            = var.aws_region
+  vpcid                 = module.cisco_ise_vpc.vpc_id
+  vpc_cidr              = var.vpc_cidr
+  private_subnet1_a     = module.cisco_ise_vpc.private_subnet_ids[0]
+  private_subnet1_b     = module.cisco_ise_vpc.private_subnet_ids[1]
+  private_subnet1_c     = module.cisco_ise_vpc.private_subnet_ids[2]
+  subnet_id_list        = module.cisco_ise_vpc.private_subnet_ids
+  dns_domain            = var.dns_domain
+  psn_node_count        = var.psn_node_count
+  primary_instance_type = var.primary_instance_type
+  psn_instance_type     = var.psn_instance_type
+  ise_version           = var.ise_version
+  password              = var.password
+  key_pair_name         = var.key_pair_name
+  ebs_encrypt           = var.ebs_encrypt
+  storage_size          = var.storage_size
+  time_zone             = var.time_zone
+  ers_api               = var.ers_api
+  open_api              = var.open_api
+  px_grid               = var.px_grid
+  px_grid_cloud         = var.px_grid_cloud
 
 }
 

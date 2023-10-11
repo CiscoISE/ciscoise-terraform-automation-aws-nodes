@@ -46,8 +46,15 @@ variable "internet_gateway_name" {
 ###################################
 ### Block to Update EC2 Details ###
 ###################################
-variable "ise_instance_type" {
-  description = "Choose the required Cisco ISE instance type. Valid values are c5.4xlarge , m5.4xlarge, c5.9xlarge, t3.xlarge"
+
+variable "primary_instance_type" {
+  description = "Choose the required primary/Secondary node instance type. Valid values are c5.4xlarge , m5.4xlarge, c5.9xlarge, t3.xlarge"
+  type        = string
+  default     = "t3.xlarge"
+}
+
+variable "psn_instance_type" {
+  description = "Choose the required instance type for PSN nodes. Valid values are c5.4xlarge , m5.4xlarge, c5.9xlarge, t3.xlarge"
   type        = string
   default     = "t3.xlarge"
 }
