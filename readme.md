@@ -43,7 +43,7 @@ Clone this git repo by using below this command
   ```
   git clone https://github3.cisco.com/techops-operation/ise_launch_template-terraform-aws-ec2.git
   ```
-Refer the detailed structure of cloned replository here - [Module structure](./docs/directory-structure.md)
+To refer the detailed structure of cloned replository, check here - [Module structure](./docs/directory-structure.md)
 
 Choose on of the following options to setup ISE infra
 1. [Deploy using an existing VPC](./examples/create-ec2-with-existing-vpc/)
@@ -53,18 +53,20 @@ To deploy using an existing VPC
   ```
   cd examples/create-ec2-with-existing-vpc
   ```
+  Refer [create-ec2-with-existing-vpc README](./examples/create-ec2-with-existing-vpc/README.md) and update the variables in variables.tf
 
 To deploy using a new VPC
 ```
 cd examples/create-ec2-with-new-vpc
 ```
+Refer [create-ec2-with-new-vpc README](./examples/create-ec2-with-new-vpc/README.md) and update the variables in variables.tf
 
-Run below commands
+After updating variables.tf run the below commands
  ```
- terraform init --upgrade \
-   -backend-config="bucket=<bucket_name>" \            # Specify the s3 bucket name created in prerequisites - step 3
-   -backend-config="region=<bucket_region>" \           # Specify the s3 bucket region e.g., us-east-1 for N. Virginia
-   -reconfigure
+ terraform init \
+    -backend-config="bucket=ise-terraform-test" \    # Specify the s3 bucket name created in prerequisites - step 3
+    -backend-config="region=us-east-2" \             # Specify the s3 bucket region e.g., us-east-1 for N. Virginia
+    -reconfigure
  terraform plan
  terraform apply
  ```
