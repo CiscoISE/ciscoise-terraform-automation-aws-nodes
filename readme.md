@@ -43,6 +43,7 @@ Clone this git repo by using below this command
   ```
   git clone https://github3.cisco.com/techops-operation/ise_launch_template-terraform-aws-ec2.git
   ```
+Refer the detailed structure of cloned replository here - [Module structure](./docs/directory-structure.md)
 
 Choose on of the following options to setup ISE infra
 1. [Deploy using an existing VPC](./examples/create-ec2-with-existing-vpc/)
