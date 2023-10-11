@@ -8,7 +8,7 @@ variable "vpc_cidr" {
 }
 
 variable "aws_region" {
-  description = "AWS region"
+  description = "Specify the AWS region"
   type        = string
   default     = "us-east-1"
 }
@@ -41,12 +41,6 @@ variable "internet_gateway_name" {
   description = "Name tag for the Internet Gateway"
   type        = string
   default     = "Cisco_ISE_IGW"
-}
-
-variable "dhcp_domain_name" {
-  description = "Domain name for DHCP options"
-  type        = string
-  default     = "ec2.internal"
 }
 
 ###################################
@@ -100,39 +94,46 @@ variable "ise_version" {
 }
 
 variable "password" {
-  type    = string
-  default = "C!sc0Ind1@" # Set to the appropriate password
+  description = "The password for username (admin) to log in to the Cisco ISE GUI. The password must contain a minimum of 6 and maximum of 25 characters, and must include at least one numeral, one uppercase letter, and one lowercase letter. Password should not be the same as username or its reverse(admin or nimdaesi) or (cisco or ocsic). Allowed Special Characters @~*!,+=_-"
+  type        = string
+  default     = "C!sc0Ind1@" # Set to the appropriate password
 }
 
 variable "time_zone" {
-  type    = string
-  default = "UTC" # Set to the appropriate timezone
+  description = "Enter a timezone, for example, Etc/UTC"
+  type        = string
+  default     = "UTC" # Set to the appropriate timezone
 }
 
 variable "ers_api" {
-  type    = string
-  default = "yes" # Set to the appropriate ERS API value
+  description = "Enter yes/no to enable/disable ERS"
+  type        = string
+  default     = "yes" # Set to the appropriate ERS API value
 }
 
 variable "open_api" {
-  type    = string
-  default = "yes" # Set to the appropriate Open API value
+  description = "Enter yes/no to enable/disable OpenAPI"
+  type        = string
+  default     = "yes" # Set to the appropriate Open API value
 }
 
 variable "px_grid" {
-  type    = string
-  default = "yes" # Set to the appropriate PX Grid value
+  description = "Enter yes/no to enable/disable pxGrid"
+  type        = string
+  default     = "yes" # Set to the appropriate PX Grid value
 }
 
 variable "px_grid_cloud" {
-  type    = string
-  default = "yes" # Set to the appropriate PX Grid Cloud value
+  description = "Enter yes/no to enable/disable pxGrid Cloud. To enable pxGrid Cloud, you must enable pxGrid. If you disallow pxGrid, but enable pxGrid Cloud, pxGrid Cloud services are not enabled on launch"
+  type        = string
+  default     = "yes" # Set to the appropriate PX Grid Cloud value
 }
 
 #######################################
 ### Block to Update DNS Domain Name ###
 #######################################
 variable "dns_domain" {
-  type    = string
-  default = "drilldevops.in" # Set to the appropriate DNS domain
+  description = "Enter a domain name in correct syntax (for example, cisco.com). The valid characters for this field are ASCII characters, numerals, hyphen (-), and period (.). If you use the wrong syntax, Cisco ISE services might not come up on launch."
+  type        = string
+  default     = "drilldevops.in" # Set to the appropriate DNS domain
 }

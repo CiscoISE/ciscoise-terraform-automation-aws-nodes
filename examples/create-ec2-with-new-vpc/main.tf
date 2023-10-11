@@ -19,7 +19,6 @@ module "cisco_ise_vpc" {
   public_subnet_cidrs   = var.public_subnet_cidrs
   private_subnet_cidrs  = var.private_subnet_cidrs
   internet_gateway_name = var.internet_gateway_name
-  dhcp_domain_name      = var.dhcp_domain_name
   aws_region            = var.aws_region
 }
 
