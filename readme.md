@@ -63,7 +63,7 @@ Refer [create-ec2-with-new-vpc README](./examples/create-ec2-with-new-vpc/README
 
 After updating variables.tf run the below commands
  ```
- terraform init \
+ terraform init --upgrade \
     -backend-config="bucket=<bucket_name>" \    # Specify the s3 bucket name created in prerequisites - step 3
     -backend-config="region=<bucket_region>" \             # Specify the s3 bucket region e.g., us-east-1 for N. Virginia
     -reconfigure
