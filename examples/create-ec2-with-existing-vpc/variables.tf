@@ -14,16 +14,16 @@ variable "vpc_id" {
   default     = "vpc-057efe0e8a68a3b55"
 }
 
-variable "aws_region" {
-  description = "Specify the AWS region"
-  type        = string
-  default     = "us-east-1"
-}
-
 variable "vpc_name" {
   description = "Name tag for the VPC"
   type        = string
   default     = "cisco_ise"
+}
+
+variable "aws_region" {
+  description = "Specify the AWS region"
+  type        = string
+  default     = "us-east-1"
 }
 
 variable "availability_zones" {

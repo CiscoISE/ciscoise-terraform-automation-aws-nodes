@@ -7,16 +7,16 @@ variable "vpc_cidr" {
   default     = "10.0.0.0/16"
 }
 
-variable "aws_region" {
-  description = "Specify the AWS region"
-  type        = string
-  default     = "us-east-1"
-}
-
 variable "vpc_name" {
   description = "Name tag for the VPC"
   type        = string
   default     = "cisco_ise"
+}
+
+variable "aws_region" {
+  description = "Specify the AWS region"
+  type        = string
+  default     = "us-east-1"
 }
 
 variable "availability_zones" {

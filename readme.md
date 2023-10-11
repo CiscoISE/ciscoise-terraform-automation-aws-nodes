@@ -27,7 +27,7 @@ Default region name [us-east-2]:
 ## Prerequisites
 Before running terraform modules, follow below steps
 
-1. Susbsribe to Cisco ISE product in AWS marketplace
+1. Subscribe to Cisco ISE product in AWS marketplace
 - Login to AWS console and search for AWS Marketplace Subscriptions. 
 - In the Manage subscriptions window, select Discover Products in the left pane. Search for Cisco Identity Services Engine (ISE) in the search bar and subscribe to it.
 
@@ -43,8 +43,9 @@ Clone this git repo by using below this command
   ```
   git clone https://github3.cisco.com/techops-operation/ise_launch_template-terraform-aws-ec2.git
   ```
+To refer the detailed structure of cloned repository, check here - [Module structure](./docs/directory-structure.md)
 
-Choose on of the following options to setup ISE infra
+Choose one of the following options to setup ISE infra
 1. [Deploy using an existing VPC](./examples/create-ec2-with-existing-vpc/)
 2. [Deploy using a new VPC](./examples/create-ec2-with-new-vpc/)
 
@@ -52,18 +53,20 @@ To deploy using an existing VPC
   ```
   cd examples/create-ec2-with-existing-vpc
   ```
+  Refer [create-ec2-with-existing-vpc README](./examples/create-ec2-with-existing-vpc/README.md) and update the variables in variables.tf
 
 To deploy using a new VPC
 ```
 cd examples/create-ec2-with-new-vpc
 ```
+Refer [create-ec2-with-new-vpc README](./examples/create-ec2-with-new-vpc/README.md) and update the variables in variables.tf
 
-Run below commands
+After updating variables.tf run the below commands
  ```
  terraform init --upgrade \
-   -backend-config="bucket=<bucket_name>" \            # Specify the s3 bucket name created in prerequisites - step 3
-   -backend-config="region=<bucket_region>" \           # Specify the s3 bucket region e.g., us-east-1 for N. Virginia
-   -reconfigure
+    -backend-config="bucket=<bucket_name>" \    # Specify the s3 bucket name created in prerequisites - step 3
+    -backend-config="region=<bucket_region>" \             # Specify the s3 bucket region e.g., us-east-1 for N. Virginia
+    -reconfigure
  terraform plan
  terraform apply
  ```
