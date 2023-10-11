@@ -47,13 +47,14 @@ To refer the detailed structure of cloned repository, check here - [Module struc
 
 Choose one of the following options to setup ISE infra
 1. [Deploy using an existing VPC](./examples/create-ec2-with-existing-vpc/)
-2. [Deploy using a new VPC](./examples/create-ec2-with-new-vpc/)
 
 To deploy using an existing VPC
   ```
   cd examples/create-ec2-with-existing-vpc
   ```
   Refer [create-ec2-with-existing-vpc README](./examples/create-ec2-with-existing-vpc/README.md) and update the variables in variables.tf
+
+2. [Deploy using a new VPC](./examples/create-ec2-with-new-vpc/)
 
 To deploy using a new VPC
 ```
