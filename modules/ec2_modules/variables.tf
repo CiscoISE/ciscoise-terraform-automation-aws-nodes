@@ -113,11 +113,20 @@ variable "key_pair_name" {
   type        = string
 }
 
-variable "ise_instance_type" {
-  description = "Choose the required Cisco ISE instance type."
+variable "primary_instance_type" {
+  description = "Choose the required Cisco ISE instance type for primary/secondary nodes"
   type        = string
   validation {
-    condition     = contains(["c5.4xlarge", "m5.4xlarge", "c5.9xlarge", "t3.xlarge"], var.ise_instance_type)
+    condition     = contains(["c5.4xlarge", "m5.4xlarge", "c5.9xlarge", "t3.xlarge"], var.primary_instance_type)
+    error_message = "The instance type should be one of the values in [c5.4xlarge, m5.4xlarge, c5.9xlarge, t3.xlarge]"
+  }
+}
+
+variable "psn_instance_type" {
+  description = "Choose the required Cisco ISE instance type for PSN nodes"
+  type        = string
+  validation {
+    condition     = contains(["c5.4xlarge", "m5.4xlarge", "c5.9xlarge", "t3.xlarge"], var.psn_instance_type)
     error_message = "The instance type should be one of the values in [c5.4xlarge, m5.4xlarge, c5.9xlarge, t3.xlarge]"
   }
 }
