@@ -7,9 +7,14 @@ locals {
 }
 
 
-resource "random_integer" "priority" {
-  min = 0
-  max = 1
+# resource "random_integer" "priority" {
+#   min = 0
+#   max = 1
+# }
+
+resource "random_shuffle" "subnet" {
+  input        = var.subnet_id_list
+  result_count = var.psn_node_count
 }
 
 resource "aws_launch_template" "ise_launch_template" {
@@ -60,11 +65,15 @@ resource "aws_instance" "secondary_ise_server" {
 
 resource "aws_instance" "PSN_node" {
   count     = var.psn_node_count
-  subnet_id = var.subnet_id_list[random_integer.priority.result]
+  subnet_id     = random_shuffle.subnet.result[count.index]
+  # subnet_id = var.subnet_id_list[random_integer.priority.result]
   launch_template {
     id      = aws_launch_template.ise_launch_template["psn_instance_type"].id
     version = aws_launch_template.ise_launch_template["psn_instance_type"].latest_version
   }
+  # tags = {
+  #   Name = "psn-ise-server-${count.index + 1}"
+  # }
   tags = {
     Name = "psn-ise-server-${count.index + 1}"
   }
