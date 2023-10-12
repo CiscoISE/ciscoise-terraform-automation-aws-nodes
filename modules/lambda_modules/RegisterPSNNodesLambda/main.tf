@@ -6,7 +6,7 @@ resource "aws_lambda_function" "pip_layer_lambda" {
   role          = aws_iam_role.pip_layer_lambda_role.arn
   runtime       = "python3.9"
   timeout       = 300
-  filename      = "${path.module}/index.zip"
+  filename      = "${path.module}/RegisterPSNNodesLambda.zip"
   vpc_config {
     subnet_ids         = var.subnet_ids
     security_group_ids = var.security_group_ids

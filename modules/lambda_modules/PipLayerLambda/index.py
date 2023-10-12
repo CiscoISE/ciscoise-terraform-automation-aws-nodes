@@ -62,14 +62,6 @@ def _delete(physical_id):
 def handler(event, context):
     logger.info('{"event": %s}', json.dumps(event))
     try:
-        # if event["RequestType"].upper() in ("CREATE", "UPDATE"):
-        #     # Note: treat UPDATE as CREATE; it will create a new physical ID,
-        #     # signalling CloudFormation that it's a replace and the old should be
-        #     # deleted
-        #     physicalId, attributes = _create()
-        # else:
-        #     assert event["RequestType"].upper() == "DELETE"
-        #     _delete(event["PhysicalResourceId"])
         _create()
            
     except Exception as e:

@@ -6,7 +6,6 @@ import logging
 import threading
 import time
 import requests
-# from botocore.vendored import requests
 import boto3
 import sys
 import os
@@ -42,16 +41,13 @@ def handler(event, context):
     timer = threading.Timer((context.get_remaining_time_in_millis() / 1000.00) - 0.5, timeout, args=[event, context])
     logger.info("#Retriving SSM parameters...")
     Primary_IP = get_ssm_parameter(ssm_client,"Primary_IP")
-    # Secondary_IP = get_ssm_parameter(ssm_client,"Secondary_IP")
     ADMIN_USERNAME = get_ssm_parameter(ssm_client,"ADMIN_USERNAME")
     ADMIN_PASSWORD = get_ssm_parameter(ssm_client,"ADMIN_PASSWORD",WithDecryption=True)
     API_AUTH = (ADMIN_USERNAME, ADMIN_PASSWORD)
     API_HEADER = {'Content-Type': 'application/json', 'Accept': 'application/json'}
 
     logger.info("Primmary Polcy Administration node ip : {}".format(Primary_IP))
-    # logger.info("Secondary Polcy Administration node ip : {}".format(Secondary_IP))
     logger.info("ADMIN_USERNAME : {}".format(ADMIN_USERNAME))
-    #logger.info("API_AUTH : {}".format(API_AUTH))
     logger.info("API_HEADER : {}".format(API_HEADER))
 
     try:
@@ -69,8 +65,5 @@ def handler(event, context):
         raise PromoteToPrimaryFailed({"Setting ISE Node to Primary Failed"})
 
     except Exception as e:
-        # requests_data=json.dumps(dict(Status='FAILURE',Reason='Setting ISE Node to Primary Failed',UniqueId='ISENodeStates',Data='exception')).encode('utf-8')
-        # response = requests.put(event['ResourceProperties']['WaitHandle'], data=requests_data, headers={'Content-Type':''})
-        # logger.info(response)
         logging.error('Exception: %s' % e, exc_info=True)
         timer.cancel()

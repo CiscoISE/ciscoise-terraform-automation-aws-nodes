@@ -6,7 +6,6 @@ import logging
 import threading
 import time
 import requests
-# from botocore.vendored import requests
 import boto3
 import sys
 import os
@@ -51,7 +50,6 @@ def handler(event, context):
     logger.info("Primmary Polcy Administration node ip : {}".format(Primary_IP))
     logger.info("Secondary Polcy Administration node ip : {}".format(Secondary_IP))
     logger.info("ADMIN_USERNAME : {}".format(ADMIN_USERNAME))
-    #logger.info("API_AUTH : {}".format(API_AUTH))
     logger.info("API_HEADER : {}".format(API_HEADER))
     logger.info("# Register Secondary node to deployment - start...")
     try:
@@ -81,15 +79,10 @@ def handler(event, context):
 
     except RegisterSecondaryNodeFailed:
         requests_data=json.dumps(dict(Status='FAILURE',Reason='Secondary Node Registration Failed',UniqueId='ISENodeStates',Data='exception')).encode('utf-8')
-        response = requests.put(event['ResourceProperties']['WaitHandle'], data=requests_data, headers={'Content-Type':''})
-        logger.info(response)
-        timer.cancel()
         logging.error('Exception: %s', exc_info=True)
 
 
     except Exception as e:
         requests_data=json.dumps(dict(Status='FAILURE',Reason='Secondary Node Registration Failed',UniqueId='ISENodeStates',Data='exception')).encode('utf-8')
-        response = requests.put(event['ResourceProperties']['WaitHandle'], data=requests_data, headers={'Content-Type':''})
-        logger.info(response)
         timer.cancel()
         logging.error('Exception: %s' % e, exc_info=True)
