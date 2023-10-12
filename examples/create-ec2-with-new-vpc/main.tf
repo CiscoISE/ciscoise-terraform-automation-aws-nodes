@@ -29,7 +29,7 @@ module "cisco_ise_ec2" {
   vpc_cidr              = var.vpc_cidr
   private_subnet1_a     = module.cisco_ise_vpc.private_subnet_ids[0]
   private_subnet1_b     = module.cisco_ise_vpc.private_subnet_ids[1]
-  private_subnet1_c     = module.cisco_ise_vpc.private_subnet_ids[2]
+  # private_subnet1_c     = module.cisco_ise_vpc.private_subnet_ids[2]
   subnet_id_list        = module.cisco_ise_vpc.private_subnet_ids
   dns_domain            = var.dns_domain
   psn_node_count        = var.psn_node_count
