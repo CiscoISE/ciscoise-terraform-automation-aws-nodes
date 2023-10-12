@@ -1,4 +1,3 @@
-
 resource "aws_sfn_state_machine" "DeploymentStateMachine" {
   name     = "DeploymentStateMachine"
   role_arn = aws_iam_role.step_function_role.arn
@@ -25,13 +24,18 @@ resource "aws_sfn_state_machine" "DeploymentStateMachine" {
       "InvokeRegisterPSNNodesLambda" = {
         Type     = "Task",
         Resource = var.register_psn_nodes_lambda_arn,
-        End      = true,
+        Next     = "Wait",
       },
-      # "InvokeCheckSyncStatusLambda" = {
-      #   Type     = "Task",
-      #   Resource = module.CheckSyncStatusLambda.check_sync_status_lambda_arn,
-      #   End      = true,
-      # },
+      "Wait" = {
+        Type    = "Wait",
+        Seconds = 1800,
+        Next     = "InvokeCheckSyncStatusLambda",
+      },
+      "InvokeCheckSyncStatusLambda" = {
+        Type = "Task",
+        Resource = var.check_sync_status_lambda_arn,
+        End = true,
+      },
     },
   })
 }

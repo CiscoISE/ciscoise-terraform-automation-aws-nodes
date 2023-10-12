@@ -12,3 +12,6 @@ variable "register_secondary_node_lambda_arn" {
 
 variable "register_psn_nodes_lambda_arn" {
 }
+
+variable "check_sync_status_lambda_arn" {
+}
