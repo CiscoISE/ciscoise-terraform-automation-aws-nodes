@@ -108,6 +108,7 @@ module "StepFuntionExecution" {
   set_primary_pan_lambda_arn         = module.SetPrimaryPANLambda.SetPrimaryPANlambda_function_arn
   register_secondary_node_lambda_arn = module.RegisterSecondaryNodeLambda.RegisterSecondaryNodelambda_function_arn
   register_psn_nodes_lambda_arn      = module.RegisterPSNNodesLambda.lambda_function_arn
+  check_sync_status_lambda_arn       = module.checkSyncStatusLambda.lambda_function_arn
 }
 
 module "TriggerSchedule" {
