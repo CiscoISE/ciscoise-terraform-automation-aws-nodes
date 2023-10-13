@@ -1,20 +1,3 @@
-
-
-resource "aws_security_group" "my_lambda_sg" {
-  name        = "my-lambda-sg"
-  description = "Security group for Lambda function"
-  vpc_id      = var.vpc_id
-
-  # Define your security group rules here
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-
-}
 resource "aws_lambda_function" "check_sync_status_lambda" {
   function_name = var.function_name
   description   = "Checks for Successful  Deployment until Sync Completes between ISENodes"
@@ -35,5 +18,5 @@ resource "aws_lambda_function" "check_sync_status_lambda" {
 }
 
 resource "aws_cloudwatch_log_group" "lambda_logs" {
-  name = "/aws/lambda/test-tf-ISE-${var.function_name}"
+  name = "/aws/lambda/TF-ISE-${var.function_name}"
 }
