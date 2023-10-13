@@ -18,5 +18,5 @@ resource "aws_lambda_function" "check_sync_status_lambda" {
 }
 
 resource "aws_cloudwatch_log_group" "lambda_logs" {
-  name = "/aws/lambda/test-tf-ISE-${var.function_name}"
+  name = "/aws/lambda/TF-ISE-${var.function_name}"
 }

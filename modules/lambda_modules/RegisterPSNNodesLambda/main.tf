@@ -1,4 +1,3 @@
-
 resource "aws_lambda_function" "pip_layer_lambda" {
   function_name = var.function_name
   handler       = "index.handler"
@@ -15,21 +14,5 @@ resource "aws_lambda_function" "pip_layer_lambda" {
 }
 
 resource "aws_cloudwatch_log_group" "lambda_logs" {
-  name = "/aws/lambda/test-tf-ISE-${var.function_name}"
+  name = "/aws/lambda/TF-ISE-${var.function_name}"
 }
-
-# resource "aws_lambda_layer_version" "cisco_ise_layer" {
-#   layer_name          = var.layer_name
-#   compatible_runtimes = ["python3.9"]
-#   description         = "Create layers based on pip"
-#   filename            = "${path.module}/piplayer.zip"
-# }
-
-/* resource "custom_resource_type" "cisco_ise_custom_resource" {
-  service_token = aws_lambda_function.pip_layer_lambda.arn
-
-  # Pass necessary parameters to your custom resource
-  region       = var.aws_region
-  layer_name   = aws_lambda_layer_version.cisco_ise_layer.layer_name
-  packages     = var.packages
-} */
