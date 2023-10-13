@@ -154,10 +154,10 @@ variable "private_subnet1_b" {
   type        = string
 }
 
-variable "private_subnet1_c" {
-  description = "ID of the subnet to be used for the ISE deployment in an Availability Zone C."
-  type        = string
-}
+# variable "private_subnet1_c" {
+#   description = "ID of the subnet to be used for the ISE deployment in an Availability Zone C."
+#   type        = string
+# }
 
 
 variable "storage_size" {

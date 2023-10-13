@@ -63,16 +63,7 @@ module "TriggerLambdaSchedule" {
   schedule_time     = "at(${local.trigger_lambda_time})"
 }
 
-# resource "time_sleep" "wait_5_minutes" {
-#   depends_on = [module.TriggerLambdaSchedule]
 
-#   create_duration = "500s"
-# }
-# resource "time_sleep" "wait_7_minutes" {
-#   depends_on = [module.TriggerLambdaSchedule]
-
-#   create_duration = "500s"
-# }
 resource "time_sleep" "wait_8_minutes" {
   depends_on = [module.TriggerLambdaSchedule]
 
