@@ -96,11 +96,18 @@ variable "ebs_encrypt" {
   default     = false
 }
 
-variable "storage_size" {
-  description = "Specify the storage in GB (Minimum 300GB and Maximum 2400GB). 600GB is recommended for production use, storage lesser than 600GB can be used for evaluation purpose only. On terminating the instance, volume will be deleted as well."
+variable "primary_storage_size" {
+  description = "Specify the storage in GB for primary/secondary nodes (Minimum 300GB and Maximum 2400GB). 600GB is recommended for production use, storage lesser than 600GB can be used for evaluation purpose only. On terminating the instance, volume will be deleted as well."
   type        = string
   default     = "600"
 }
+
+variable "psn_storage_size" {
+  description = "Specify the storage in GB for PSN nodes (Minimum 300GB and Maximum 2400GB). 600GB is recommended for production use, storage lesser than 600GB can be used for evaluation purpose only. On terminating the instance, volume will be deleted as well."
+  type        = string
+  default     = "600"
+}
+
 
 ###########################################
 ### Block to Update Application Details ###

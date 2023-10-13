@@ -6,5 +6,5 @@ locals {
   ise_ssm_host_map    = merge({ Primary_FQDN = "${local.ise_hostnames_list[0]}.${var.dns_domain}", Secondary_FQDN = "${local.ise_hostnames_list[1]}.${var.dns_domain}" }, { for i, v in slice(local.ise_hostnames_list, 2, length(local.ise_hostnames_list)) : "PSN_ISE_SERVER_${i + 1}_FQDN" => "${v}.${var.dns_domain}" })
   ise_ssm_ip_map      = merge({ Primary_IP = local.ise_private_ip_list[0], Secondary_IP = local.ise_private_ip_list[1] }, { for i, v in slice(local.ise_private_ip_list, 2, length(local.ise_private_ip_list)) : "PSN_ISE_SERVER_${i + 1}_IP" => v })
   ise_ssm_full_map    = merge({ SyncStatus = "INITIAL", Maintenance = "DISABLED", ADMIN_USERNAME = local.ise_username }, local.ise_ssm_host_map, local.ise_ssm_ip_map)
-  ise_instance_map    = { primary_instance_type = var.primary_instance_type, psn_instance_type = var.psn_instance_type }
+  ise_instance_map    = { primary = { "instance_type" = var.primary_instance_type, "storage_size" = var.primary_storage_size }, psn = { "instance_type" = var.psn_instance_type, "storage_size" = var.psn_storage_size } }
 }

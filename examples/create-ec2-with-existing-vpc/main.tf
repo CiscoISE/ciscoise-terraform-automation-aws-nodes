@@ -13,23 +13,24 @@ locals {
 }
 
 module "cisco_ise_ec2" {
-  source                = "../../modules/ec2_modules"
-  aws_region            = var.aws_region
-  vpcid                 = var.vpc_id
-  vpc_cidr              = var.vpc_cidr
-  private_subnet1_a     = var.subnet_id_list[0]
-  private_subnet1_b     = var.subnet_id_list[1]
+  source            = "../../modules/ec2_modules"
+  aws_region        = var.aws_region
+  vpcid             = var.vpc_id
+  vpc_cidr          = var.vpc_cidr
+  private_subnet1_a = var.subnet_id_list[0]
+  private_subnet1_b = var.subnet_id_list[1]
   # private_subnet1_c     = var.subnet_id_list[2]
   subnet_id_list        = var.subnet_id_list
   primary_instance_type = var.primary_instance_type
   psn_instance_type     = var.psn_instance_type
+  primary_storage_size  = var.primary_storage_size
+  psn_storage_size      = var.psn_storage_size
   dns_domain            = var.dns_domain
   psn_node_count        = var.psn_node_count
   ise_version           = var.ise_version
   password              = var.password
   key_pair_name         = var.key_pair_name
   ebs_encrypt           = var.ebs_encrypt
-  storage_size          = var.storage_size
   time_zone             = var.time_zone
   ers_api               = var.ers_api
   open_api              = var.open_api

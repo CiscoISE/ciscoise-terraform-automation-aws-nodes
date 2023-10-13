@@ -20,7 +20,7 @@ resource "random_shuffle" "subnet" {
 resource "aws_launch_template" "ise_launch_template" {
   for_each               = local.ise_instance_map
   name_prefix            = "ise-launch-template"
-  instance_type          = each.value
+  instance_type          = each.value["instance_type"]
   key_name               = var.key_pair_name
   image_id               = var.ami_ids[var.aws_region][var.ise_version]["ami_id"] # Access the AMI ID based on region and version
   vpc_security_group_ids = [aws_security_group.ise-sg.id]
@@ -31,7 +31,7 @@ resource "aws_launch_template" "ise_launch_template" {
       device_name = "/dev/sda1"
       ebs {
         volume_type           = "gp3"
-        volume_size           = var.storage_size
+        volume_size           = each.value["storage_size"]
         delete_on_termination = true
         encrypted             = var.ebs_encrypt
       }
@@ -42,8 +42,8 @@ resource "aws_launch_template" "ise_launch_template" {
 resource "aws_instance" "primary_ise_server" {
   subnet_id = var.private_subnet1_a
   launch_template {
-    id      = aws_launch_template.ise_launch_template["primary_instance_type"].id
-    version = aws_launch_template.ise_launch_template["primary_instance_type"].latest_version
+    id      = aws_launch_template.ise_launch_template["primary"].id
+    version = aws_launch_template.ise_launch_template["primary"].latest_version
   }
   tags = {
     Name = "primary-ise-server"
@@ -54,8 +54,8 @@ resource "aws_instance" "primary_ise_server" {
 resource "aws_instance" "secondary_ise_server" {
   subnet_id = var.private_subnet1_b
   launch_template {
-    id      = aws_launch_template.ise_launch_template["primary_instance_type"].id
-    version = aws_launch_template.ise_launch_template["primary_instance_type"].latest_version
+    id      = aws_launch_template.ise_launch_template["primary"].id
+    version = aws_launch_template.ise_launch_template["primary"].latest_version
   }
   tags = {
     Name = "secondary-ise-server"
@@ -65,11 +65,11 @@ resource "aws_instance" "secondary_ise_server" {
 
 resource "aws_instance" "PSN_node" {
   count     = var.psn_node_count
-  subnet_id     = random_shuffle.subnet.result[count.index]
+  subnet_id = random_shuffle.subnet.result[count.index]
   # subnet_id = var.subnet_id_list[random_integer.priority.result]
   launch_template {
-    id      = aws_launch_template.ise_launch_template["psn_instance_type"].id
-    version = aws_launch_template.ise_launch_template["psn_instance_type"].latest_version
+    id      = aws_launch_template.ise_launch_template["psn"].id
+    version = aws_launch_template.ise_launch_template["psn"].latest_version
   }
   # tags = {
   #   Name = "psn-ise-server-${count.index + 1}"

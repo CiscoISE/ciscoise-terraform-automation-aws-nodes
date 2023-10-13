@@ -144,6 +144,16 @@ variable "ebs_encrypt" {
   description = "Choose true to enable EBS encryption"
 }
 
+variable "primary_storage_size" {
+  description = "Specify the storage in GB for primary/secondary nodes (Minimum 300GB and Maximum 2400GB). 600GB is recommended for production use, storage lesser than 600GB can be used for evaluation purpose only. On terminating the instance, volume will be deleted as well."
+  type        = string
+}
+
+variable "psn_storage_size" {
+  description = "Specify the storage in GB for PSN nodes (Minimum 300GB and Maximum 2400GB). 600GB is recommended for production use, storage lesser than 600GB can be used for evaluation purpose only. On terminating the instance, volume will be deleted as well."
+  type        = string
+}
+
 variable "private_subnet1_a" {
   description = "ID of the subnet to be used for the ISE deployment in an Availability Zone A."
   type        = string
@@ -158,12 +168,6 @@ variable "private_subnet1_b" {
 #   description = "ID of the subnet to be used for the ISE deployment in an Availability Zone C."
 #   type        = string
 # }
-
-
-variable "storage_size" {
-  description = "Specify the storage in GB (Minimum 300GB and Maximum 2400GB). 600GB is recommended for production use, storage lesser than 600GB can be used for evaluation purpose only. On terminating the instance, volume will be deleted as well."
-  type        = string
-}
 
 variable "vpcid" {
   description = "ID of the VPC (e.g., vpc-0343606e)"
