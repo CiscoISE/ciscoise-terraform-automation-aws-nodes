@@ -23,23 +23,24 @@ module "cisco_ise_vpc" {
 }
 
 module "cisco_ise_ec2" {
-  source                = "../../modules/ec2_modules"
-  aws_region            = var.aws_region
-  vpcid                 = module.cisco_ise_vpc.vpc_id
-  vpc_cidr              = var.vpc_cidr
-  private_subnet1_a     = module.cisco_ise_vpc.private_subnet_ids[0]
-  private_subnet1_b     = module.cisco_ise_vpc.private_subnet_ids[1]
-  private_subnet1_c     = module.cisco_ise_vpc.private_subnet_ids[2]
+  source            = "../../modules/ec2_modules"
+  aws_region        = var.aws_region
+  vpcid             = module.cisco_ise_vpc.vpc_id
+  vpc_cidr          = var.vpc_cidr
+  private_subnet1_a = module.cisco_ise_vpc.private_subnet_ids[0]
+  private_subnet1_b = module.cisco_ise_vpc.private_subnet_ids[1]
+  # private_subnet1_c     = module.cisco_ise_vpc.private_subnet_ids[2]
   subnet_id_list        = module.cisco_ise_vpc.private_subnet_ids
   dns_domain            = var.dns_domain
   psn_node_count        = var.psn_node_count
   primary_instance_type = var.primary_instance_type
   psn_instance_type     = var.psn_instance_type
+  primary_storage_size  = var.primary_storage_size
+  psn_storage_size      = var.psn_storage_size
   ise_version           = var.ise_version
   password              = var.password
   key_pair_name         = var.key_pair_name
   ebs_encrypt           = var.ebs_encrypt
-  storage_size          = var.storage_size
   time_zone             = var.time_zone
   ers_api               = var.ers_api
   open_api              = var.open_api
@@ -63,16 +64,7 @@ module "TriggerLambdaSchedule" {
   schedule_time     = "at(${local.trigger_lambda_time})"
 }
 
-# resource "time_sleep" "wait_5_minutes" {
-#   depends_on = [module.TriggerLambdaSchedule]
 
-#   create_duration = "500s"
-# }
-# resource "time_sleep" "wait_7_minutes" {
-#   depends_on = [module.TriggerLambdaSchedule]
-
-#   create_duration = "500s"
-# }
 resource "time_sleep" "wait_8_minutes" {
   depends_on = [module.TriggerLambdaSchedule]
 
@@ -144,7 +136,7 @@ module "StepFuntionExecution" {
   set_primary_pan_lambda_arn         = module.SetPrimaryPANLambda.SetPrimaryPANlambda_function_arn
   register_secondary_node_lambda_arn = module.RegisterSecondaryNodeLambda.RegisterSecondaryNodelambda_function_arn
   register_psn_nodes_lambda_arn      = module.RegisterPSNNodesLambda.lambda_function_arn
-  check_sync_status_lambda_arn        = module.checkSyncStatusLambda.lambda_function_arn
+  check_sync_status_lambda_arn       = module.checkSyncStatusLambda.lambda_function_arn
 }
 
 module "TriggerSchedule" {

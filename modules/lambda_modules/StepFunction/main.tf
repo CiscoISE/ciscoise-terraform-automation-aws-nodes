@@ -29,12 +29,12 @@ resource "aws_sfn_state_machine" "DeploymentStateMachine" {
       "Wait" = {
         Type    = "Wait",
         Seconds = 1800,
-        Next     = "InvokeCheckSyncStatusLambda",
+        Next    = "InvokeCheckSyncStatusLambda",
       },
       "InvokeCheckSyncStatusLambda" = {
-        Type = "Task",
+        Type     = "Task",
         Resource = var.check_sync_status_lambda_arn,
-        End = true,
+        End      = true,
       },
     },
   })

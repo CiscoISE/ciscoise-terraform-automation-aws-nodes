@@ -76,10 +76,10 @@ def handler(event, context):
                 "password": admin_password,
                 "services": ["Session", "Profiler"]
             }
-
+            logger.info('Url: {}, Data: {}'.format(url, data))
             try:
                 resp = requests.post(url, headers=api_header, auth=api_auth, data=json.dumps(data), verify=False)
-                logger.info("Response psn nodes",resp)
+                logger.info('Register psn response: {}, {}'.format(resp.status_code, resp.text))
                 if resp.status_code == 200:
                     logger.info("Registered PSN node {} successfully".format(psn_node['fqdn']))
                 else:
@@ -98,4 +98,3 @@ def handler(event, context):
 
     except Exception as e:
         logging.error('Exception: %s' % e, exc_info=True)
-

@@ -22,19 +22,19 @@ variable "aws_region" {
 variable "availability_zones" {
   description = "List of availability zones"
   type        = list(string)
-  default     = ["us-east-1a", "us-east-1b", "us-east-1c"]
+  default     = ["us-east-1a", "us-east-1b"]
 }
 
 variable "public_subnet_cidrs" {
   description = "List of CIDR blocks for public subnets"
   type        = list(string)
-  default     = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
+  default     = ["10.0.1.0/24", "10.0.2.0/24"]
 }
 
 variable "private_subnet_cidrs" {
   description = "List of CIDR blocks for private subnets"
   type        = list(string)
-  default     = ["10.0.11.0/24", "10.0.12.0/24", "10.0.13.0/24"]
+  default     = ["10.0.11.0/24", "10.0.12.0/24"]
 }
 
 variable "internet_gateway_name" {
@@ -62,7 +62,7 @@ variable "psn_instance_type" {
 ### Based of below input, it will launch N number of PSN Nodes ###
 variable "psn_node_count" {
   description = "Specify the number of PSN nodes"
-  default     = 2
+  default     = 6
 }
 
 ### User needs to create a keypair and pass the key pair name
@@ -84,8 +84,14 @@ variable "ebs_encrypt" {
   default     = false
 }
 
-variable "storage_size" {
-  description = "Specify the storage in GB (Minimum 300GB and Maximum 2400GB). 600GB is recommended for production use, storage lesser than 600GB can be used for evaluation purpose only. On terminating the instance, volume will be deleted as well."
+variable "primary_storage_size" {
+  description = "Specify the storage in GB for primary/secondary nodes (Minimum 300GB and Maximum 2400GB). 600GB is recommended for production use, storage lesser than 600GB can be used for evaluation purpose only. On terminating the instance, volume will be deleted as well."
+  type        = string
+  default     = "600"
+}
+
+variable "psn_storage_size" {
+  description = "Specify the storage in GB for PSN nodes (Minimum 300GB and Maximum 2400GB). 600GB is recommended for production use, storage lesser than 600GB can be used for evaluation purpose only. On terminating the instance, volume will be deleted as well."
   type        = string
   default     = "600"
 }

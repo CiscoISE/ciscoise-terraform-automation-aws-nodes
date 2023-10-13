@@ -36,9 +36,9 @@ resource "aws_iam_policy" "lambda_policy" {
           "ec2:DeleteNetworkInterface",
           "ssm:GetParameter",
           "ssm:PutParameter"
-          
+
         ],
-        Effect = "Allow",
+        Effect   = "Allow",
         Resource = ["*"]
       },
       # Add other permissions as needed

@@ -21,7 +21,9 @@ The module uses below inputs. Update the terraform input variables in variables.
 | <a name="input_psn_instance_type"></a> [psn\_instance\_type](#input\_psn\_instance\_type) | Choose the required instance type for PSN nodes. Valid values are c5.4xlarge , m5.4xlarge, c5.9xlarge, t3.xlarge | `string` | `"t3.xlarge"` |
 | <a name="input_psn_node_count"></a> [psn\_node\_count](#input\_psn\_node\_count) | Specify the number of PSN nodes | `number` | `2` |  
 | <a name="input_key_pair_name"></a> [key\_pair\_name](#input\_key\_pair\_name) | To access the Cisco ISE instance via SSH, choose the key pair that you created/imported in AWS.<br>Create/import a key pair in AWS now if you have not configured one already.<br>Usage example:  ssh -i mykeypair.pem admin@myhostname.compute-1.amazonaws.com.<br>NOTE: The username for ISE 3.1 is "admin" and for ISE 3.2+ is "iseadmin". | `string` | `"ise-test-nv"` |  
-| <a name="input_ebs_encrypt"></a> [ebs\_encrypt](#input\_ebs\_encrypt) | Choose true to enable EBS encryption | `bool` | `false` |  
+| <a name="input_ebs_encrypt"></a> [ebs\_encrypt](#input\_ebs\_encrypt) | Choose true to enable EBS encryption | `bool` | `false` |
+| <a name="input_primary_storage_size"></a> [primary\_storage\_size](#input\_primary\_storage\_size) | Specify the storage in GB for primary/secondary nodes (Minimum 300GB and Maximum 2400GB). 600GB is recommended for production use, storage lesser than 600GB can be used for evaluation purpose only. On terminating the instance, volume will be deleted as well. | `string` | `"600"` |
+| <a name="input_psn_storage_size"></a> [psn\_storage\_size](#input\_psn\_storage\_size) | Specify the storage in GB for PSN nodes (Minimum 300GB and Maximum 2400GB). 600GB is recommended for production use, storage lesser than 600GB can be used for evaluation purpose only. On terminating the instance, volume will be deleted as well. | `string` | `"600"` |  
 | <a name="input_storage_size"></a> [storage\_size](#input\_storage\_size) | Specify the storage in GB (Minimum 300GB and Maximum 2400GB). 600GB is recommended for production use, storage lesser than 600GB can be used for evaluation purpose only. On terminating the instance, volume will be deleted as well. | `string` | `"600"` |  
 | <a name="input_ise_version"></a> [ise\_version](#input\_ise\_version) | The version of Cisco ISE (3.1 or 3.2) | `string` | `"3.1"` |  
 | <a name="input_password"></a> [password](#input\_password) | The password for username (admin) to log in to the Cisco ISE GUI. The password must contain a minimum of 6 and maximum of 25 characters, and must include at least one numeral, one uppercase letter, and one lowercase letter. Password should not be the same as username or its reverse(admin or nimdaesi) or (cisco or ocsic). Allowed Special Characters @~*!,+=\_- | `string` | `""` |  
@@ -31,4 +33,18 @@ The module uses below inputs. Update the terraform input variables in variables.
 | <a name="input_px_grid"></a> [px\_grid](#input\_px\_grid) | Enter yes/no to enable/disable pxGrid | `string` | `"yes"` |  
 | <a name="input_px_grid_cloud"></a> [px\_grid\_cloud](#input\_px\_grid\_cloud) | Enter yes/no to enable/disable pxGrid Cloud. To enable pxGrid Cloud, you must enable pxGrid. If you disallow pxGrid, but enable pxGrid Cloud, pxGrid Cloud services are not enabled on launch | `string` | `"yes"` |  
 | <a name="input_dns_domain"></a> [dns\_domain](#input\_dns\_domain) | Enter a domain name in correct syntax (for example, cisco.com). The valid characters for this field are ASCII characters, numerals, hyphen (-), and period (.). If you use the wrong syntax, Cisco ISE services might not come up on launch. | `string` | `"drilldevops.in"` |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_primary_instance_id"></a> [primary\_instance\_id](#output\_primary\_instance\_id) | Instance id of the primary ISE node |
+| <a name="output_secondary_instance_id"></a> [secondary\_instance\_id](#output\_secondary\_instance\_id) | Instance id of the secondary ISE node |
+| <a name="output_psn_instance_id"></a> [psn\_instance\_id](#output\_psn\_instance\_id) | Instance id of the PSN ISE nodes |
+| <a name="output_primary_private_ip"></a> [primary\_private\_ip](#output\_primary\_private\_ip) | Private IP address of primary ISE node |
+| <a name="output_secondary_private_ip"></a> [secondary\_private\_ip](#output\_secondary\_private\_ip) | Private IP address of Secondary ISE node |
+| <a name="output_psn_private_ip"></a> [psn\_private\_ip](#output\_psn\_private\_ip) | Private IP address of PSN ISE nodes |
+| <a name="output_primary_dns_name"></a> [primary\_dns\_name](#output\_primary\_dns\_name) | Private DNSName of the primary ISE node |
+| <a name="output_secondary_dns_name"></a> [secondary\_dns\_name](#output\_secondary\_dns\_name) | Private DNSName of the primary ISE node |
+| <a name="output_psn_dns_name"></a> [psn\_dns\_name](#output\_psn\_dns\_name) | Private DNSName of the PSN ISE nodes |
 <!-- END_TF_DOCS -->
