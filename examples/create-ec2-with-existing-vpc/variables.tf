@@ -11,7 +11,7 @@ variable "vpc_cidr" {
 variable "vpc_id" {
   description = "VPC ID"
   type        = string
-  default     = "vpc-057efe0e8a68a3b55"
+  default     = "vpc-0b7ac3f142b892dc8"
 }
 
 variable "vpc_name" {
@@ -29,25 +29,25 @@ variable "aws_region" {
 variable "availability_zones" {
   description = "List of availability zones"
   type        = list(string)
-  default     = ["us-east-1a", "us-east-1b", "us-east-1c"]
+  default     = ["us-east-1a", "us-east-1b"]
 }
 
 variable "public_subnet_cidrs" {
   description = "List of CIDR blocks for public subnets"
   type        = list(string)
-  default     = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
+  default     = ["10.0.1.0/24", "10.0.2.0/24"]
 }
 
 variable "private_subnet_cidrs" {
   description = "List of CIDR blocks for private subnets"
   type        = list(string)
-  default     = ["10.0.11.0/24", "10.0.12.0/24", "10.0.13.0/24"]
+  default     = ["10.0.11.0/24", "10.0.12.0/24"]
 }
 
 variable "subnet_id_list" {
   description = "List of subnet IDs to launch resources in. The list should contain subnet id's in following order - [\"subnetid in A AZ\", \"subnetid in B AZ\", \"subnetid in C AZ\"]"
   type        = list(string)
-  default     = ["subnet-045716712cef0ea64", "subnet-00951b7d1a25cd789", "subnet-00c1fd9e924862a07"]
+  default     = ["subnet-0c0b7a01b2eef0dd0", "subnet-0dd4e7d6c021fc83e"]
 }
 
 variable "internet_gateway_name" {

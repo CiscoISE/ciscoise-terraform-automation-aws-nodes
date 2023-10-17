@@ -81,7 +81,7 @@
                 "ec2:DescribeNatGateways",
                 "ec2:ModifyVpcAttribute",
                 "ec2:AllocateAddress",
-                "ec2:CreateVpcEndpoint",        
+                "ec2:CreateVpcEndpoint",
                 "iam:ListRolePolicies",
                 "iam:GetRole",
                 "iam:TagPolicy",
@@ -199,7 +199,6 @@
                 "kms:Encrypt",
                 "kms:Decrypt",
                 "kms:DescribeKey"
- 
             ],
             "Resource": "*"
         },
@@ -213,7 +212,7 @@
                 "s3:DeleteObject"
             ],
             "Resource": [
-                "arn:aws:s3:::ise-terraform-test-poc/",
+                "arn:aws:s3:::ise-terraform-test-poc",
                 "arn:aws:s3:::ise-terraform-test-poc/*"
             ]
         }
