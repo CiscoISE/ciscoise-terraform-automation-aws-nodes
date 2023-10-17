@@ -11,8 +11,13 @@ This project runs terraform module to setup ISE infrastructure on AWS
 
 2. To install AWS CLIv2, follow the instructions mentioned here - [Install AWS CLIv2](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 
+
 ## Configure AWS
-To configure and allow access to AWS account, create IAM user with Administrator access policy and create Programmatic Access Key (AWS Access key and Secret key). Follow this document to manage access keys - [How to manage aws access keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey). 
+1. To configure and allow access to AWS account, create IAM user with least privilege access policy- [create terraform-iam-policy](./docs/terraform-policy.json). 
+
+      For more comprehensive information on configuring Identity and  Access Management You can find detailed guidance  [here](./docs/iampolicyreadme.md).
+
+ 2. create Programmatic Access Key (AWS Access key and Secret key). Follow this document to manage access keys - [How to manage aws access keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey). 
 
 Run aws configure as below and enter the access and secret keys.
 
@@ -37,13 +42,17 @@ Before running terraform modules, follow below steps
 
 4. Create a s3 bucket to store terraform backend state files. Refer this documentation - [How to create a s3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html).
 
+
+## Terraform module structure
+
+To refer the detailed structure of this terraform module, check here - [Module structure](./docs/directory-structure.md)
+
 ## Run terraform modules
 
 Clone this git repo by using below this command 
   ```
   git clone https://github3.cisco.com/techops-operation/ise_launch_template-terraform-aws-ec2.git
   ```
-To refer the detailed structure of cloned repository, check here - [Module structure](./docs/directory-structure.md)
 
 Choose one of the following options to setup ISE infra
 1. [Deploy using an existing VPC](./examples/create-ec2-with-existing-vpc/)

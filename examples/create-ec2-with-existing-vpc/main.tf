@@ -100,6 +100,18 @@ module "RegisterPSNNodesLambda" {
   layer_arn          = local.layer_arn
   depends_on         = [time_sleep.wait_8_minutes]
 }
+module "checkSyncStatusLambda" {
+  source             = "../../modules/lambda_modules/checkSyncStatusLambda"
+  function_name      = "CheckSyncStatusLambda"
+  vpc_id             = var.vpc_id
+  subnet_ids         = [var.subnet_id_list[0]]
+  security_group_ids = [module.cisco_ise_ec2.security_group_ids[0]]
+  aws_region         = var.aws_region
+  layer_arn          = local.layer_arn
+  depends_on         = [time_sleep.wait_8_minutes]
+  # security_group_ids = ["sg-073a9133478431344"]
+}
+
 
 module "StepFuntionExecution" {
   source                             = "../../modules/lambda_modules/StepFunction"
