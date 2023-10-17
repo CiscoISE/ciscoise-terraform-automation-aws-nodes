@@ -66,6 +66,13 @@ Below is the cloned repository directory structure
 │       │   ├── outputs.tf
 │       │   ├── index.py
 │       │   └── index.zip
+│       ├── CheckSyncStatusLambda
+│       │   ├── main.tf
+│       │   ├── iam.tf
+│       │   ├── variables.tf
+│       │   ├── outputs.tf
+│       │   ├── index.py
+│       │   └── CheckSyncStatusLambda.zip
 │       ├── StepFunction
 │       │   ├── main.tf
 │       │   ├── iam.tf

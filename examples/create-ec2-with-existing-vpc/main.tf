@@ -103,7 +103,7 @@ module "RegisterPSNNodesLambda" {
 module "checkSyncStatusLambda" {
   source             = "../../modules/lambda_modules/checkSyncStatusLambda"
   function_name      = "CheckSyncStatusLambda"
-  vpc_id             =  var.vpc_id
+  vpc_id             = var.vpc_id
   subnet_ids         = [var.subnet_id_list[0]]
   security_group_ids = [module.cisco_ise_ec2.security_group_ids[0]]
   aws_region         = var.aws_region
@@ -120,7 +120,7 @@ module "StepFuntionExecution" {
   set_primary_pan_lambda_arn         = module.SetPrimaryPANLambda.SetPrimaryPANlambda_function_arn
   register_secondary_node_lambda_arn = module.RegisterSecondaryNodeLambda.RegisterSecondaryNodelambda_function_arn
   register_psn_nodes_lambda_arn      = module.RegisterPSNNodesLambda.lambda_function_arn
-   check_sync_status_lambda_arn       = module.checkSyncStatusLambda.lambda_function_arn
+  check_sync_status_lambda_arn       = module.checkSyncStatusLambda.lambda_function_arn
 }
 
 module "TriggerSchedule" {

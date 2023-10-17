@@ -42,13 +42,17 @@ Before running terraform modules, follow below steps
 
 4. Create a s3 bucket to store terraform backend state files. Refer this documentation - [How to create a s3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html).
 
+
+## Terraform module structure
+
+To refer the detailed structure of this terraform module, check here - [Module structure](./docs/directory-structure.md)
+
 ## Run terraform modules
 
 Clone this git repo by using below this command 
   ```
   git clone https://github3.cisco.com/techops-operation/ise_launch_template-terraform-aws-ec2.git
   ```
-To refer the detailed structure of cloned repository, check here - [Module structure](./docs/directory-structure.md)
 
 Choose one of the following options to setup ISE infra
 1. [Deploy using an existing VPC](./examples/create-ec2-with-existing-vpc/)
