@@ -19,8 +19,9 @@ def get_ssm_parameter(ssm_client, ssm_parameter_name,WithDecryption=False):
     Name=ssm_parameter_name,
     WithDecryption=WithDecryption
 )
-
-    return param_value.get('Parameter').get('Value')
+    value = param_value.get('Parameter').get('Value')
+    logger.info(f"Retrieved SSM parameter {ssm_parameter_name}: {value}")
+    return value
 def set_ssm_parameter(ssm_client, ssm_parameter_name, value, Overwrite=True, Type="String"):
     response = ssm_client.put_parameter(
     Name=ssm_parameter_name,
@@ -69,12 +70,26 @@ def handler(event, context):
         data = {}
         nodes_to_check = [Primary_IP, Secondary_IP]
         nodes_list = [Primary_IP, Secondary_IP]
-        num_psn_nodes = len([param for param in ssm_client.describe_parameters(ParameterFilters=[{'Key': 'Name', 'Values': ['PSN_ISE_SERVER_*_IP']}])['Parameters']])
+        counter = 1
+        psn_ips = []
+        while True:
+            try:
+                psn_ips.append(get_ssm_parameter(ssm_client,"PSN_ISE_SERVER_" + str(counter) + "_IP"))
+                counter += 1
+            except Exception as e:
+                logging.info('Exception: %s' % e)
+                break
+        print("PSN IP {}".format(psn_ips))
+
+        nodes_to_check.extend(psn_ips)
+        nodes_list.extend(psn_ips)
+        print("Nodes to check {}".format(nodes_to_check))
         for ip in nodes_to_check:
             url = 'https://{}/api/v1/deployment/node'.format(ip)
+            print("Nodes remaining to check: ", nodes_list)
             try:
                 resp = requests.get(url, headers=API_HEADER, auth=API_AUTH, data=json.dumps(data), verify=False)
-                logger.info("API response for {} is {} ".format(ip, resp.text))
+                #logger.info("API response for {} is {} ".format(ip, resp.text))
                 if resp.status_code == 200:
                     nodes_list.remove(ip)
                     logger.info("ISE - {} is up and running".format(ip))
@@ -87,28 +102,6 @@ def handler(event, context):
                         "retries": str(retries)
                         }
             
-         # Check the health of PSN nodes
-        psn_nodes_to_check = [get_ssm_parameter(ssm_client, "PSN_ISE_SERVER_{}_IP".format(i + 1)) for i in range(num_psn_nodes)]
-        for psn_ip in psn_nodes_to_check:
-            url = 'https://{}/api/v1/health'.format(psn_ip)
-            try:
-                resp = requests.get(url, headers=API_HEADER, auth=API_AUTH, data=json.dumps(data), verify=False)
-                logger.info("Health check response for PSN node {} is {} ".format(psn_ip, resp.text))
-                if resp.status_code != 200:
-                    logger.error("PSN node - {} is not healthy".format(psn_ip))
-                    retries -= 1
-                    return {
-                        "IseState": "unhealthy",
-                        "retries": str(retries)
-                    }
-            except Exception as e:
-                logging.error('Exception: %s' % e, exc_info=True)
-                logger.error("Exception occurred while executing health check for PSN node {}".format(psn_ip))
-                retries -= 1
-                return {
-                    "IseState": "pending",
-                    "retries": str(retries)
-                }
         if nodes_list:
             timer.cancel()
             retries -= 1
