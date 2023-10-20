@@ -4,40 +4,44 @@ resource "aws_sfn_state_machine" "DeploymentStateMachine" {
 
   definition = jsonencode({
     Comment = "AWS Step Function",
-    StartAt = "InvokeCheckISEStatusLambda",
+    StartAt = "Explicit Wait for ISE boot start",
     States = {
+      "Explicit Wait for ISE boot start" = {
+        Type    = "Wait",
+        Seconds = 1500,
+        Next    = "InvokeCheckISEStatusLambda"
+      },
       "InvokeCheckISEStatusLambda" = {
         Type     = "Task",
         Resource = var.check_ise_status_lambda_arn,
         Next     = "CheckIseState"
       },
-      "CheckIseState": {
-        Type: "Choice",
-        Choices: [
+      "CheckIseState" : {
+        Type : "Choice",
+        Choices : [
           {
-            Variable: "$.IseState",
-            StringEquals: "running",
-            Next: "InvokeSetPrimaryPANLambda"
+            Variable : "$.IseState",
+            StringEquals : "running",
+            Next : "InvokeSetPrimaryPANLambda"
           },
           {
-            Variable: "$.IseState",
-            StringEquals: "pending",
-            Next: "WaitAndRetryHealthCheck"
+            Variable : "$.IseState",
+            StringEquals : "pending",
+            Next : "WaitAndRetryHealthCheck"
           },
-          
-            {
-      Variable: "$.retries",
-      StringEquals: "0",
-      Next: "TerminateStateMachine"
-    }  
+          {
+            Variable : "$.retries",
+            StringEquals : "0",
+            Next : "TerminateStateMachine"
+          }
         ],
-        Default: "WaitAndRetryHealthCheck"
+        Default : "WaitAndRetryHealthCheck"
       },
-     "TerminateStateMachine": {
-        Type: "Fail",
-        Error: "UnhealthyState",
-        Cause: "The health check resulted in an unhealthy state."
-        },
+      "TerminateStateMachine" : {
+        Type : "Fail",
+        Error : "UnhealthyState",
+        Cause : "The health check resulted in an unhealthy state."
+      },
       "InvokeSetPrimaryPANLambda" = {
         Type     = "Task",
         Resource = var.set_primary_pan_lambda_arn,
