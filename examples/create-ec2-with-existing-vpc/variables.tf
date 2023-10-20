@@ -11,7 +11,7 @@ variable "vpc_cidr" {
 variable "vpc_id" {
   description = "VPC ID"
   type        = string
-  default     = "vpc-0b7ac3f142b892dc8"
+  default     = "vpc-097307fa29694210f"
 }
 
 variable "vpc_name" {
@@ -47,7 +47,7 @@ variable "private_subnet_cidrs" {
 variable "subnet_id_list" {
   description = "List of subnet IDs to launch resources in. The list should contain subnet id's in following order - [\"subnetid in A AZ\", \"subnetid in B AZ\", \"subnetid in C AZ\"]"
   type        = list(string)
-  default     = ["subnet-0c0b7a01b2eef0dd0", "subnet-0dd4e7d6c021fc83e"]
+  default     = ["subnet-0131e37d2c18d799e", "subnet-0d350714aa3381c32"]
 }
 
 variable "internet_gateway_name" {

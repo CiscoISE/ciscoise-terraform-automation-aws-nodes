@@ -9,33 +9,65 @@ resource "aws_sfn_state_machine" "DeploymentStateMachine" {
       "InvokeCheckISEStatusLambda" = {
         Type     = "Task",
         Resource = var.check_ise_status_lambda_arn,
-        Next     = "InvokeSetPrimaryPANLambda",
+        Next     = "CheckIseState"
       },
+      "CheckIseState": {
+        Type: "Choice",
+        Choices: [
+          {
+            Variable: "$.IseState",
+            StringEquals: "running",
+            Next: "InvokeSetPrimaryPANLambda"
+          },
+          {
+            Variable: "$.IseState",
+            StringEquals: "pending",
+            Next: "WaitAndRetryHealthCheck"
+          },
+          
+            {
+      Variable: "$.retries",
+      StringEquals: "0",
+      Next: "TerminateStateMachine"
+    }  
+        ],
+        Default: "WaitAndRetryHealthCheck"
+      },
+     "TerminateStateMachine": {
+        Type: "Fail",
+        Error: "UnhealthyState",
+        Cause: "The health check resulted in an unhealthy state."
+        },
       "InvokeSetPrimaryPANLambda" = {
         Type     = "Task",
         Resource = var.set_primary_pan_lambda_arn,
-        Next     = "InvokeRegisterSecondaryNodeLambda",
+        Next     = "InvokeRegisterSecondaryNodeLambda"
       },
       "InvokeRegisterSecondaryNodeLambda" = {
         Type     = "Task",
         Resource = var.register_secondary_node_lambda_arn,
-        Next     = "InvokeRegisterPSNNodesLambda",
+        Next     = "InvokeRegisterPSNNodesLambda"
       },
       "InvokeRegisterPSNNodesLambda" = {
         Type     = "Task",
         Resource = var.register_psn_nodes_lambda_arn,
-        Next     = "Wait",
+        Next     = "Wait"
       },
       "Wait" = {
         Type    = "Wait",
         Seconds = 1800,
-        Next    = "InvokeCheckSyncStatusLambda",
+        Next    = "InvokeCheckSyncStatusLambda"
       },
       "InvokeCheckSyncStatusLambda" = {
         Type     = "Task",
         Resource = var.check_sync_status_lambda_arn,
         End      = true,
       },
-    },
+      "WaitAndRetryHealthCheck" = {
+        Type    = "Wait",
+        Seconds = 600, // Adjust the wait time as needed
+        Next    = "InvokeCheckISEStatusLambda"
+      }
+    }
   })
 }
