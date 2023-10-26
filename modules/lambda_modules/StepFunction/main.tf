@@ -31,16 +31,11 @@ resource "aws_sfn_state_machine" "DeploymentStateMachine" {
           },
           {
             Variable : "$.retries",
-            StringEquals : "0",
+            StringGreaterThanEquals : "2",
             Next : "TerminateStateMachine"
-          }
+          },
         ],
         Default : "WaitAndRetryHealthCheck"
-      },
-      "TerminateStateMachine" : {
-        Type : "Fail",
-        Error : "UnhealthyState",
-        Cause : "The health check resulted in an unhealthy state."
       },
       "InvokeSetPrimaryPANLambda" = {
         Type     = "Task",
@@ -55,23 +50,68 @@ resource "aws_sfn_state_machine" "DeploymentStateMachine" {
       "InvokeRegisterPSNNodesLambda" = {
         Type     = "Task",
         Resource = var.register_psn_nodes_lambda_arn,
-        Next     = "Wait"
-      },
-      "Wait" = {
-        Type    = "Wait",
-        Seconds = 1800,
-        Next    = "InvokeCheckSyncStatusLambda"
+        Next     = "InvokeCheckSyncStatusLambda"
       },
       "InvokeCheckSyncStatusLambda" = {
         Type     = "Task",
         Resource = var.check_sync_status_lambda_arn,
-        End      = true,
+        Next     = "CheckSyncStatus",
+        Catch : [
+          {
+            ErrorEquals : ["Lambda.Unknown"],
+            Next : "WaitAndRetrySyncStatusCheck"
+          }
+        ],
+      },
+      "CheckSyncStatus" : {
+        Type : "Choice",
+        Choices : [
+          {
+            Variable : "$.SyncStatus",
+            StringEquals : "SYNC_COMPLETED",
+            Next : "SyncCOMPLETED"
+          },
+          {
+            Variable : "$.SyncStatus",
+            StringEquals : "SYNC_FAILED",
+            Next : "SyncFailed"
+          },
+          {
+            Variable : "$.SyncStatus",
+            StringEquals : "SYNC_INPROGRESS",
+            Next : "WaitAndRetrySyncStatusCheck"
+          },
+          {
+            Variable : "$.SyncStatus",
+            StringEquals : "TIMED_OUT",          // Handle the response indicating a timeout
+            Next : "WaitAndRetrySyncStatusCheck" // Transition to the retry state
+          },
+        ],
+        Default : "TerminateStateMachine",
+      },
+      "SyncFailed" : {
+        Type : "Fail",
+        Error : "SyncFailed",
+        Cause : "The health check resulted in a failed state.",
+      },
+      "SyncCOMPLETED" : {
+        Type : "Succeed",
+      },
+      "WaitAndRetrySyncStatusCheck" : {
+        Type    = "Wait",
+        Seconds = 600, // Adjust the wait time as needed
+        Next    = "InvokeCheckSyncStatusLambda",
       },
       "WaitAndRetryHealthCheck" = {
         Type    = "Wait",
         Seconds = 600, // Adjust the wait time as needed
         Next    = "InvokeCheckISEStatusLambda"
-      }
-    }
+      },
+      "TerminateStateMachine" : {
+        Type : "Fail",
+        Error : "UnhealthyState",
+        Cause : "The health check resulted in an unhealthy state."
+      },
+    },
   })
 }

@@ -37,7 +37,29 @@ def timeout(event, context):
     requests_data=json.dumps(data=dict(Status='FAILURE',Reason='Lambda timeout',UniqueId='ISENodeStates',Data='failed due to timeout')).encode('utf-8')
     response = requests.put(event['ResourceProperties']['WaitHandle'], data=requests_data, headers={'Content-Type':''})
     sys.exit(1)
+# Helper function to get and increment the retry count in SSM
+def get_and_increment_retry_count(ssm_client):
+    try:
+        # Retrieve the current retry count
+        param_name = "RETRY_COUNT"  # Replace with your SSM parameter name
+        response = ssm_client.get_parameter(Name=param_name, WithDecryption=False)
+        current_retry_count = int(response['Parameter']['Value'])
 
+        # Increment the retry count
+        current_retry_count += 1
+
+        # Update the SSM Parameter with the new retry count
+        ssm_client.put_parameter(
+            Name=param_name,
+            Value=str(current_retry_count),
+            Overwrite=True,
+            Type="String"
+        )
+
+        return current_retry_count
+    except Exception as e:
+        logger.error(f"Error while getting/incrementing retry count from SSM: {e}")
+        return 0  # In case of an error, start with 0
 def handler(event, context):
     runtime_region = os.environ['AWS_REGION']
     ssm_client = boto3.client('ssm',region_name=runtime_region)
@@ -97,20 +119,31 @@ def handler(event, context):
                 logging.error('Exception: %s' % e, exc_info=True)
                 logger.error("Exception occured while executing get node details api for {}".format(ip))
                 retries -= 1
+                 # Increment the retry count and store it in SSM
+                current_retry_count = get_and_increment_retry_count(ssm_client)
                 return {
                         "IseState": "pending",
-                        "retries": str(retries)
+                        "retries": str(current_retry_count)
                         }
             
         if nodes_list:
             timer.cancel()
             retries -= 1
+            # Increment the retry count and store it in SSM
+            current_retry_count = get_and_increment_retry_count(ssm_client)
             return {
                     "IseState": "pending",
-                    "retries": str(retries)
+                    "retries": str(current_retry_count)
                     }
         else:
             timer.cancel()
+            # Reset the retry count to 0
+            ssm_client.put_parameter(
+                Name="RETRY_COUNT",
+                Value="0",
+                Overwrite=True,
+                Type="String"
+            )
             return {
                     "IseState": "running",
                     "retries": "0"

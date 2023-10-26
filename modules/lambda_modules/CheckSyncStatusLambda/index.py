@@ -35,8 +35,10 @@ def check_node_sync_status(primary_ip, admin_username, admin_password):
     data = {}
 
     url = 'https://{}/api/v1/deployment/node'.format(primary_ip)
+
     
     try:
+        
         resp = requests.get(url, headers=API_HEADER, auth=API_AUTH, data=json.dumps(data), verify=False)
         logger.info("API response for checking node sync status and roles is: {} ".format(resp.text))
    
@@ -67,6 +69,10 @@ def check_node_sync_status(primary_ip, admin_username, admin_password):
 def handler(event, context):
     runtime_region = os.environ['AWS_REGION']
     ssm_client = boto3.client('ssm', region_name=runtime_region)
+    remaining_time = context.get_remaining_time_in_millis()
+    if remaining_time < 10000:  # If less than 10 seconds remaining
+        # Handle timeout proactively
+        return "TIMED_OUT"
 
     try:
         logger.info("#Retrieving SSM parameters...")
@@ -78,7 +84,12 @@ def handler(event, context):
         status = check_node_sync_status(primary_ip, admin_username, admin_password)
         logger.info(status)
         set_ssm_parameter(ssm_client, "SyncStatus", status)
+         # Create a response object with SyncStatus
+        response = {
+            "SyncStatus": status
+        }
 
+        return response
 
     except Exception as e:
         logging.error('Exception: %s' % e, exc_info=True)

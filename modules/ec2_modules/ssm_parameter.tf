@@ -13,3 +13,9 @@ resource "aws_ssm_parameter" "ise_ssm" {
   type     = "String"
   value    = each.value
 }
+
+resource "aws_ssm_parameter" "retry_count" {
+  name  = "RETRY_COUNT" 
+  type  = "String"  
+  value = "0"  
+}
