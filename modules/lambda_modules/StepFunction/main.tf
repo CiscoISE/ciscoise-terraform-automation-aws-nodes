@@ -25,15 +25,16 @@ resource "aws_sfn_state_machine" "DeploymentStateMachine" {
             Next : "InvokeSetPrimaryPANLambda"
           },
           {
+            Variable : "$.retries",
+            StringGreaterThanEquals : "10",
+            Next : "TerminateStateMachine"
+          },
+          {
             Variable : "$.IseState",
             StringEquals : "pending",
             Next : "WaitAndRetryHealthCheck"
           },
-          {
-            Variable : "$.retries",
-            StringGreaterThanEquals : "2",
-            Next : "TerminateStateMachine"
-          },
+
         ],
         Default : "WaitAndRetryHealthCheck"
       },
