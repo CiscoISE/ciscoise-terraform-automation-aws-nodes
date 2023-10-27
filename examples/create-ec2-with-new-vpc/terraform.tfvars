@@ -21,7 +21,7 @@ primary_instance_type = "t3.xlarge" # Choose the required primary/Secondary node
 psn_instance_type = "t3.xlarge" # Choose the required instance type for PSN nodes
 
 ### Based of below input, it will launch N number of PSN Nodes ###
-psn_node_count = 2 # Specify the number of PSN nodes
+psn_node_count = 5 # Specify the number of PSN nodes
 
 ### User needs to create a keypair and pass the key pair name
 key_pair_name = "ise-test-nv" # Name of the key pair for SSH access
