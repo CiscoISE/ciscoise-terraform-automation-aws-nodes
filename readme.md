@@ -61,7 +61,7 @@ To deploy using an existing VPC
   ```
   cd examples/create-ec2-with-existing-vpc
   ```
-  Refer [create-ec2-with-existing-vpc README](./examples/create-ec2-with-existing-vpc/README.md) and update the variables in variables.tf
+  Refer [create-ec2-with-existing-vpc README](./examples/create-ec2-with-existing-vpc/README.md) and update the variables in terraform.tfvars
 
 2. [Deploy using a new VPC](./examples/create-ec2-with-new-vpc/)
 
@@ -69,9 +69,9 @@ To deploy using a new VPC
 ```
 cd examples/create-ec2-with-new-vpc
 ```
-Refer [create-ec2-with-new-vpc README](./examples/create-ec2-with-new-vpc/README.md) and update the variables in variables.tf
+Refer [create-ec2-with-new-vpc README](./examples/create-ec2-with-new-vpc/README.md) and update the variables in terraform.tfvars
 
-After updating variables.tf run the below commands
+After updating terraform.tfvars run the below commands
  ```
  terraform init --upgrade \
     -backend-config="bucket=<bucket_name>" \        # Specify the s3 bucket name created in prerequisites - step 3
