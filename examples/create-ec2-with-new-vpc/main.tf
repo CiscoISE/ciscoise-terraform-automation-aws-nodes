@@ -144,5 +144,5 @@ module "TriggerSchedule" {
   aws_region        = var.aws_region
   scheduler_name    = "ise-scheduler"
   step_function_arn = module.StepFuntionExecution.step_function_arn
-  schedule_time     = "at(${local.trigger_time})"
+  /* schedule_time     = "at(${local.trigger_time})" */
 }
