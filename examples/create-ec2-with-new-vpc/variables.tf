@@ -4,19 +4,19 @@
 variable "vpc_cidr" {
   description = "CIDR block for the VPC"
   type        = string
-  
+
 }
 
 variable "vpc_name" {
   description = "Name tag for the VPC"
   type        = string
-  
+
 }
 
 variable "aws_region" {
   description = "Specify the AWS region"
   type        = string
-  
+
 }
 
 variable "availability_zones" {
@@ -28,19 +28,19 @@ variable "availability_zones" {
 variable "public_subnet_cidrs" {
   description = "List of CIDR blocks for public subnets"
   type        = list(string)
- 
+
 }
 
 variable "private_subnet_cidrs" {
   description = "List of CIDR blocks for private subnets"
   type        = list(string)
-  
+
 }
 
 variable "internet_gateway_name" {
   description = "Name tag for the Internet Gateway"
   type        = string
- 
+
 }
 
 ###################################
@@ -56,13 +56,13 @@ variable "primary_instance_type" {
 variable "psn_instance_type" {
   description = "Choose the required instance type for PSN nodes. Valid values are c5.4xlarge , m5.4xlarge, c5.9xlarge, t3.xlarge"
   type        = string
-  
+
 }
 
 ### Based of below input, it will launch N number of PSN Nodes ###
 variable "psn_node_count" {
   description = "Specify the number of PSN nodes"
-  
+
 }
 
 ### User needs to create a keypair and pass the key pair name
@@ -74,7 +74,7 @@ variable "key_pair_name" {
     NOTE: The username for ISE 3.1 is "admin" and for ISE 3.2+ is "iseadmin".
   EOT  
   type        = string
-  
+
 }
 
 ###Storage Details###

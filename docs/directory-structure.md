@@ -8,11 +8,15 @@ Below is the cloned repository directory structure
 │   │   ├── main.tf
 │   │   ├── variables.tf
 │   |   ├── backend.tf
+│   |   ├── terraform.tfvars
+│   |   ├── outputs.tf
 │   │   └── README.md
 │   └── create-ec2-with-new-vpc
 │       ├── main.tf
 │       ├── variables.tf
 │       ├── backend.tf
+│       ├── terraform.tfvars
+│       ├── outputs.tf
 │       └── README.md
 ├── modules
 │   ├── ec2_modules
@@ -26,7 +30,7 @@ Below is the cloned repository directory structure
 │   │   ├── versions.tf
 │   │   └── outputs.tf
 │   └── lambda_modules
-│       └── PipLayerLambda
+│       ├── PipLayerLambda
 │       │   ├── main.tf
 │       │   ├── variables.tf
 │       │   ├── versions.tf
@@ -40,8 +44,7 @@ Below is the cloned repository directory structure
 │       │   ├── versions.tf
 │       │   ├── outputs.tf
 │       │   ├── index.py
-│       │   ├── CheckISEStatusLambda.zip
-│       │   └── CheckISEStatusLambda_test.zip
+│       │   └── CheckISEStatusLambda.zip
 │       ├── SetPrimaryPANLambda
 │       │   ├── main.tf
 │       │   ├── iam.tf
@@ -57,7 +60,7 @@ Below is the cloned repository directory structure
 │       │   ├── versions.tf
 │       │   ├── outputs.tf
 │       │   ├── index.py
-│       │   └── index.zip
+│       │   └── RegisterSecondaryNodeLambda.zip
 │       ├── RegisterPSNNodesLambda
 │       │   ├── main.tf
 │       │   ├── iam.tf
@@ -65,7 +68,7 @@ Below is the cloned repository directory structure
 │       │   ├── versions.tf
 │       │   ├── outputs.tf
 │       │   ├── index.py
-│       │   └── index.zip
+│       │   └── RegisterPSNNodesLambda.zip
 │       ├── CheckSyncStatusLambda
 │       │   ├── main.tf
 │       │   ├── iam.tf

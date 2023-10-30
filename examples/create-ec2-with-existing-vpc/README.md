@@ -1,7 +1,7 @@
 <!-- BEGIN_TF_DOCS -->
 ## Terraform variables
 
-The module uses below inputs. Update the terraform input variables in variables.tf file as per requirement
+The module uses below input variables. Update the values in terraform.tfvars file as per requirement
 
 
 ## Inputs

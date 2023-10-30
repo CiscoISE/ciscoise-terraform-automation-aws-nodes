@@ -15,7 +15,7 @@ resource "aws_ssm_parameter" "ise_ssm" {
 }
 
 resource "aws_ssm_parameter" "retry_count" {
-  name  = "RETRY_COUNT" 
-  type  = "String"  
-  value = "0"  
+  name  = "RETRY_COUNT"
+  type  = "String"
+  value = "0"
 }
