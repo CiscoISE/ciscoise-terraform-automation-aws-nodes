@@ -55,7 +55,7 @@ Clone this git repo by using below this command
   ```
 
 Choose one of the following options to setup ISE infra
-1. [Deploy using an existing VPC](./examples/create-ec2-with-existing-vpc/)
+### 1. [Deploy using an existing VPC](./examples/create-ec2-with-existing-vpc/)
 
 To deploy using an existing VPC
   ```
@@ -63,7 +63,7 @@ To deploy using an existing VPC
   ```
   Refer [create-ec2-with-existing-vpc README](./examples/create-ec2-with-existing-vpc/README.md) and update the variables in terraform.tfvars
 
-2. [Deploy using a new VPC](./examples/create-ec2-with-new-vpc/)
+### 2. [Deploy using a new VPC](./examples/create-ec2-with-new-vpc/)
 
 To deploy using a new VPC
 ```
