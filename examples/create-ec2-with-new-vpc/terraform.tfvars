@@ -6,9 +6,9 @@ vpc_name           = "cisco_ise"                  # Name tag for the VPC
 aws_region         = "us-east-1"                  # Specify the AWS region
 availability_zones = ["us-east-1a", "us-east-1b"] # List of availability zones
 
-###################################
+######################################
 ### Block to Update  Subnet Details###
-###################################
+######################################
 
 public_subnet_cidrs   = ["10.0.1.0/24", "10.0.2.0/24"]   # List of CIDR blocks for public subnets
 private_subnet_cidrs  = ["10.0.11.0/24", "10.0.12.0/24"] # List of CIDR blocks for private subnets
@@ -17,6 +17,8 @@ internet_gateway_name = "Cisco_ISE_IGW"                  # Name tag for the Inte
 ###################################
 ### Block to Update EC2 Details ###
 ###################################
+#Valid instance types are c5.4xlarge, m5.4xlarge, c5.9xlarge, t3.xlarge
+
 primary_instance_type = "t3.xlarge" # Choose the required primary/Secondary node instance type
 psn_instance_type     = "t3.xlarge" # Choose the required instance type for PSN nodes
 
