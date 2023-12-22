@@ -15,32 +15,32 @@ output "security_group_ids" {
 
 output "primary_instance_id" {
   description = "Instance id of the primary ISE node"
-  value       = aws_instance.primary_ise_server.id
+  value       = join("", [for key in keys(var.primary_instance_config) : aws_instance.primary_ise_server[key].id])
 }
 
 output "secondary_instance_id" {
   description = "Instance id of the secondary ISE node"
-  value       = aws_instance.secondary_ise_server.id
+  value       = join("", [for key in keys(var.secondary_instance_config) : aws_instance.secondary_ise_server[key].id])
 }
 
 output "psn_instance_id" {
   description = "Instance id of the PSN ISE nodes"
-  value       = aws_instance.PSN_node.*.id
+  value       = [for key in keys(var.psn_instance_config) : aws_instance.PSN_node[key].id]
 }
 
 output "primary_private_ip" {
   description = "Private IP address of primary ISE node"
-  value       = aws_instance.primary_ise_server.private_ip
+  value       = join("", [for key in keys(var.primary_instance_config) : aws_instance.primary_ise_server[key].private_ip])
 }
 
 output "secondary_private_ip" {
   description = "Private IP address of Secondary ISE node"
-  value       = aws_instance.secondary_ise_server.private_ip
+  value       = join("", [for key in keys(var.secondary_instance_config) : aws_instance.secondary_ise_server[key].private_ip])
 }
 
 output "psn_private_ip" {
   description = "Private IP address of PSN ISE nodes"
-  value       = aws_instance.PSN_node.*.private_ip
+  value       = [for key in keys(var.psn_instance_config) : aws_instance.PSN_node[key].private_ip]
 }
 
 output "primary_dns_name" {

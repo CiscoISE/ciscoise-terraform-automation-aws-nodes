@@ -113,45 +113,141 @@ variable "key_pair_name" {
   type        = string
 }
 
-variable "primary_instance_type" {
-  description = "Choose the required Cisco ISE instance type for primary/secondary nodes"
-  type        = string
-  validation {
-    condition     = contains(["c5.4xlarge", "m5.4xlarge", "c5.9xlarge", "t3.xlarge"], var.primary_instance_type)
-    error_message = "The instance type should be one of the values in [c5.4xlarge, m5.4xlarge, c5.9xlarge, t3.xlarge]"
-  }
-}
-
-variable "psn_instance_type" {
-  description = "Choose the required Cisco ISE instance type for PSN nodes"
-  type        = string
-  validation {
-    condition     = contains(["c5.4xlarge", "m5.4xlarge", "c5.9xlarge", "t3.xlarge"], var.psn_instance_type)
-    error_message = "The instance type should be one of the values in [c5.4xlarge, m5.4xlarge, c5.9xlarge, t3.xlarge]"
-  }
-}
-
 variable "ise_version" {
   description = "The version of Cisco ISE (3.1 or 3.2)"
   type        = string
 }
 
-variable "psn_node_count" {
-  description = "Specify the number of PSN nodes"
+variable "primary_instance_config" {
+  description = <<-EOT
+  Specify the configuration for primary pan instance. It should follow below format where key is the hostname and values are instance attributes
+  {
+    <hostname> = {
+      instance_type = "<instance_type>"
+      storage_size = "<storage_size>"
+    }
+  }
+  Example usage - 
+  {
+  primary-ise-server = { 
+      instance_type = "t3.xlarge"
+      storage_size = 500
+    }
+  }
+  EOT
+  type = map(object({
+    instance_type = string
+    storage_size  = number
+  }))
+
+  validation {
+    condition     = contains(["t3.xlarge", "m5.2xlarge", "c5.4xlarge", "m5.4xlarge", "c5.9xlarge", "m5.8xlarge", "m5.16xlarge"], join("", [for val in var.primary_instance_config : val.instance_type]))
+    error_message = "Supported instance type for Cisco ISE nodes are t3.xlarge, m5.2xlarge, c5.4xlarge, m5.4xlarge, c5.9xlarge, m5.8xlarge, m5.16xlarge]"
+  }
+}
+
+variable "secondary_instance_config" {
+  description = <<-EOT
+  Specify the configuration for secondary pan instance. It should follow below format where key is the hostname and values are instance attributes.
+  {
+    <hostname> = {
+      instance_type = "<instance_type>"
+      storage_size = "<storage_size>"
+      services =  "<service_1>,<service_2>"
+      roles = "<role_1>,<role_2>"
+    }
+  }
+  Example usage -
+  {
+  secondary-ise-server = { 
+      instance_type = "t3.xlarge"
+      storage_size = 500
+      services = "Session,Profiler,pxGrid"
+      roles = "SecondaryAdmin"
+    }
+  }
+  EOT
+  type = map(object({
+    instance_type = string
+    storage_size  = number
+    services      = optional(string, "Session,Profiler,pxGrid")
+    roles         = optional(string, "SecondaryAdmin,SecondaryMonitoring")
+  }))
+
+  validation {
+    condition     = contains(["t3.xlarge", "m5.2xlarge", "c5.4xlarge", "m5.4xlarge", "c5.9xlarge", "m5.8xlarge", "m5.16xlarge"], join("", [for sec in var.secondary_instance_config : sec.instance_type]))
+    error_message = "Supported instance type for Cisco ISE nodes are t3.xlarge, m5.2xlarge, c5.4xlarge, m5.4xlarge, c5.9xlarge, m5.8xlarge, m5.16xlarge"
+  }
+
+  validation {
+    condition = length(flatten([for vm in values(var.secondary_instance_config) :
+      [for service in split(",", vm.services) :
+        service if service != "Session" && service != "Profiler" && service != "TC-NAC" &&
+        service != "SXP" && service != "DeviceAdmin" && service != "PassiveIdentity" &&
+    service != "pxGrid" && service != "pxGridCloud"]])) == 0
+    error_message = "Services for secondary node can only accept values from Session, Profiler, TC-NAC, SXP, DeviceAdmin, PassiveIdentity, pxGrid, pxGridCloud."
+  }
+
+  validation {
+    condition     = length(flatten([for vm in values(var.secondary_instance_config) : [for role in split(",", vm.roles) : role if role != "SecondaryAdmin" && role != "SecondaryMonitoring" && role != "PrimaryMonitoring"]])) == 0
+    error_message = "For secondary pan node, roles can only accept SecondaryAdmin, SecondaryMonitoring and PrimaryMonitoring values"
+  }
+}
+
+variable "psn_instance_config" {
+  description = <<-EOT
+  Specify the configuration for PSN nodes. It should follow below format where key is the hostname and values are instance attributes.
+  {
+    <hostname> = {
+      instance_type = "<instance_type>"
+      storage_size = "<storage_size>"
+      services =  "<service_1>,<service_2>"
+      roles = "<role_1>,<role_2>"
+    }
+  }
+   Example usage - 
+  {
+    secmonitoring-server = {
+      instance_type = "t3.xlarge"
+      storage_size  = 500
+      roles = "SecondaryMonitoring"
+    }
+    psn-ise-server-2 = {
+      instance_type = "t3.xlarge"
+      storage_size  = 600
+      services      = "Session,Profiler,PassiveIdentity"
+    }
+  }
+    EOT
+  type = map(object({
+    instance_type = string
+    storage_size  = number
+    services      = optional(string, "Session,Profiler")
+    roles         = optional(string, " ")
+  }))
+
+  validation {
+    condition     = alltrue(flatten([for psn in var.psn_instance_config : contains(["t3.xlarge", "m5.2xlarge", "c5.4xlarge", "m5.4xlarge", "c5.9xlarge", "m5.8xlarge", "m5.16xlarge"], psn.instance_type)]))
+    error_message = "Supported instance type for Cisco ISE nodes are t3.xlarge, m5.2xlarge, c5.4xlarge, m5.4xlarge, c5.9xlarge, m5.8xlarge, m5.16xlarge"
+  }
+
+  validation {
+    condition = length(flatten([for vm in values(var.psn_instance_config) :
+      [for service in split(",", vm.services) :
+        service if service != "Session" && service != "Profiler" && service != "TC-NAC" &&
+        service != "SXP" && service != "DeviceAdmin" && service != "PassiveIdentity" &&
+    service != "pxGrid" && service != "pxGridCloud"]])) == 0
+    error_message = "Services for PSN nodes can only accept values from Session, Profiler, TC-NAC, SXP, DeviceAdmin, PassiveIdentity, pxGrid, pxGridCloud."
+  }
+
+  validation {
+    condition     = length([for vm in values(var.psn_instance_config) : vm.roles if vm.roles != null && (vm.roles != "SecondaryMonitoring" && vm.roles != "SecondaryDedicatedMonitoring" && vm.roles != "PrimaryDedicatedMonitoring" && vm.roles != "PrimaryMonitoring" && vm.roles != " ")]) == 0
+    error_message = "For PSN nodes, roles can only accept one of these values - SecondaryMonitoring, SecondaryDedicatedMonitoring, PrimaryMonitoring, PrimaryDedicatedMonitoring"
+  }
 }
 
 variable "ebs_encrypt" {
   description = "Choose true to enable EBS encryption"
-}
-
-variable "primary_storage_size" {
-  description = "Specify the storage in GB for primary/secondary nodes (Minimum 300GB and Maximum 2400GB). 600GB is recommended for production use, storage lesser than 600GB can be used for evaluation purpose only. On terminating the instance, volume will be deleted as well."
-  type        = string
-}
-
-variable "psn_storage_size" {
-  description = "Specify the storage in GB for PSN nodes (Minimum 300GB and Maximum 2400GB). 600GB is recommended for production use, storage lesser than 600GB can be used for evaluation purpose only. On terminating the instance, volume will be deleted as well."
-  type        = string
 }
 
 variable "private_subnet1_a" {
@@ -163,11 +259,6 @@ variable "private_subnet1_b" {
   description = "ID of the subnet to be used for the ISE deployment in an Availability Zone B."
   type        = string
 }
-
-# variable "private_subnet1_c" {
-#   description = "ID of the subnet to be used for the ISE deployment in an Availability Zone C."
-#   type        = string
-# }
 
 variable "vpcid" {
   description = "ID of the VPC (e.g., vpc-0343606e)"
@@ -268,6 +359,3 @@ variable "px_grid_cloud" {
   type    = string
   default = "yes" # Set to the appropriate PX Grid Cloud value
 }
-
-
-

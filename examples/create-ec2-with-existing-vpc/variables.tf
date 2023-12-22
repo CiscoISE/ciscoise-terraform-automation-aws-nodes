@@ -1,5 +1,5 @@
 ################################################
-###  VPC Details ################
+##############  VPC Details  ###################
 ################################################
 variable "vpc_cidr" {
   description = "CIDR block for the VPC"
@@ -49,19 +49,90 @@ variable "internet_gateway_name" {
 ###################################
 ### Block to Update EC2 Details ###
 ###################################
-variable "primary_instance_type" {
-  description = "Choose the required primary/Secondary node instance type. Valid values are c5.4xlarge , m5.4xlarge, c5.9xlarge, t3.xlarge"
-  type        = string
+
+variable "primary_instance_config" {
+  description = <<-EOT
+  Specify the configuration for primary pan instance. It should follow below format where key is the hostname and values are instance attributes
+  {
+    <hostname> = {
+      instance_type = "<instance_type>"
+      storage_size = "<storage_size>"
+    }
+  }
+  Example usage - 
+  {
+  primary-ise-server = { 
+      instance_type = "t3.xlarge"
+      storage_size = 500
+    }
+  }
+  EOT
+  type = map(object({
+    instance_type = string
+    storage_size  = number
+  }))
 }
 
-variable "psn_instance_type" {
-  description = "Choose the required instance type for PSN nodes. Valid values are c5.4xlarge , m5.4xlarge, c5.9xlarge, t3.xlarge"
-  type        = string
+variable "secondary_instance_config" {
+  description = <<-EOT
+  Specify the configuration for secondary pan instance. It should follow below format where key is the hostname and values are instance attributes.
+  {
+    <hostname> = {
+      instance_type = "<instance_type>"
+      storage_size = "<storage_size>"
+      services =  "<service_1>,<service_2>"
+      roles = "<role_1>,<role_2>"
+    }
+  }
+  Example usage -
+  {
+  secondary-ise-server = { 
+      instance_type = "t3.xlarge"
+      storage_size = 500
+      services = "Session,Profiler,pxGrid"
+      roles = "SecondaryAdmin"
+    }
+  }
+  EOT
+  type = map(object({
+    instance_type = string
+    storage_size  = number
+    services      = optional(string, "Session,Profiler,pxGrid")
+    roles         = optional(string, "SecondaryAdmin,SecondaryMonitoring")
+  }))
 }
 
-### Based of below input, it will launch N number of PSN Nodes ###
-variable "psn_node_count" {
-  description = "Specify the number of PSN nodes"
+variable "psn_instance_config" {
+  description = <<-EOT
+  Specify the configuration for PSN nodes. It should follow below format where key is the hostname and values are instance attributes.
+  {
+    <hostname> = {
+      instance_type = "<instance_type>"
+      storage_size = "<storage_size>"
+      services =  "<service_1>,<service_2>"
+      roles = "<role_1>,<role_2>"
+    }
+  }
+   Example usage - 
+  {
+    secmonitoring-server = {
+      instance_type = "t3.xlarge"
+      storage_size  = 500
+      roles = "SecondaryMonitoring"
+    }
+    psn-ise-server-2 = {
+      instance_type = "t3.xlarge"
+      storage_size  = 600
+      services      = "Session,Profiler,PassiveIdentity"
+    }
+  }
+    EOT
+  type = map(object({
+    instance_type = string
+    storage_size  = number
+    services      = optional(string, "Session,Profiler")
+    roles         = optional(string, " ")
+  }))
 }
 
 ### User needs to create a keypair and pass the key pair name
@@ -80,17 +151,6 @@ variable "key_pair_name" {
 variable "ebs_encrypt" {
   description = "Choose true to enable EBS encryption"
 }
-
-variable "primary_storage_size" {
-  description = "Specify the storage in GB for primary/secondary nodes (Minimum 300GB and Maximum 2400GB). 600GB is recommended for production use, storage lesser than 600GB can be used for evaluation purpose only. On terminating the instance, volume will be deleted as well."
-  type        = string
-}
-
-variable "psn_storage_size" {
-  description = "Specify the storage in GB for PSN nodes (Minimum 300GB and Maximum 2400GB). 600GB is recommended for production use, storage lesser than 600GB can be used for evaluation purpose only. On terminating the instance, volume will be deleted as well."
-  type        = string
-}
-
 
 ###########################################
 ### Block to Update Application Details ###

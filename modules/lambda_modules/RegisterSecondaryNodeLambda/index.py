@@ -53,17 +53,33 @@ def handler(event, context):
     logger.info("API_HEADER : {}".format(API_HEADER))
     logger.info("# Register Secondary node to deployment - start...")
     try:
-        roles_enabled = ["SecondaryAdmin","SecondaryMonitoring"]
-        service_enabled = ["Session", "Profiler", "pxGrid"]
-
         url = 'https://{}/api/v1/deployment/node'.format(Primary_IP)
         data = {"allowCertImport": True,
                 "fqdn": Secondary_FQDN,
                 "userName": ADMIN_USERNAME,
                 "password": ADMIN_PASSWORD,
-                "roles": roles_enabled,
-                "services": service_enabled,
-                }
+               }
+                # Retrieve roles_enabled parameter from SSM
+        roles_enabled_str = get_ssm_parameter(ssm_client, "secondary_node_roles")
+        if roles_enabled_str:
+            roles_enabled = roles_enabled_str.split(',')
+            
+        else:
+            # If no roles are found, skip this node
+            roles_enabled = ["SecondaryAdmin"]
+        data["roles"] = roles_enabled  # Include roles_enabled parameter   
+        # Retrieve PSN services from SSM parameter
+        psn_services_str = get_ssm_parameter(ssm_client, "secondary_node_services")
+        if psn_services_str:
+            psn_services = psn_services_str.split(',')
+        else:
+            # If SSM parameter is empty or missing, provide default services
+            psn_services = ["Session", "Profiler"]
+
+        data["services"] = psn_services
+ 
+
+
         logger.info('Url: {}, Data: {}'.format(url, data))
 
         resp = requests.post(url, headers=API_HEADER, auth=API_AUTH, data=json.dumps(data), verify=False)

@@ -1,12 +1,12 @@
 import json
 import logging
 import threading
-import time
 import requests
 import boto3
 import sys
 import os
 import urllib3
+
 urllib3.disable_warnings()
 
 logging.basicConfig(stream=sys.stdout)
@@ -39,62 +39,92 @@ def handler(event, context):
     timer = threading.Timer((context.get_remaining_time_in_millis() / 1000.00) - 0.5, timeout, args=[event, context])
 
     try:
-        retries = 10  # Polling rate to restrict Step functions looping
-        counter = 1
-        psn_nodes = []
-
         while True:
-            psn_ip_param_name = "PSN_ISE_SERVER_" + str(counter) + "_IP"
-            psn_fqdn_param_name = "PSN_ISE_SERVER_" + str(counter) + "_FQDN"
-           
+            psn_roles_parameters = ssm_client.describe_parameters(ParameterFilters=[{"Key": "tag:type", "Values": ["psn_roles"]}])['Parameters']
+            psn_services_parameters = ssm_client.describe_parameters(ParameterFilters=[{"Key": "tag:type", "Values": ["psn_services"]}])['Parameters']
+            psn_ip_parameters = ssm_client.describe_parameters(ParameterFilters=[{"Key": "tag:type", "Values": ["psn_ip"]}])['Parameters']
+
+            psn_roles = {param['Name']: get_ssm_parameter(ssm_client, param['Name']) for param in psn_roles_parameters}
+            psn_services = {param['Name']: get_ssm_parameter(ssm_client, param['Name']) for param in psn_services_parameters}
+            psn_ips = {param['Name']: get_ssm_parameter(ssm_client, param['Name']) for param in psn_ip_parameters}
+
+            logger.info(f"PSN Roles: {psn_roles}")
+            logger.info(f"PSN Services: {psn_services}")
+            logger.info(f"PSN IPs: {psn_ips}")
+
+            # Fetch FQDN parameters
+            psn_fqdn_parameters = ssm_client.describe_parameters(ParameterFilters=[{"Key": "tag:type", "Values": ["psn_fqdn"]}])['Parameters']
+            psn_fqdn = {param['Name']: get_ssm_parameter(ssm_client, param['Name']) for param in psn_fqdn_parameters}
+
+            logger.info(f"PSN FQDN: {psn_fqdn}")
+            primary_ip = get_ssm_parameter(ssm_client, "Primary_IP")
+            admin_username = get_ssm_parameter(ssm_client, "ADMIN_USERNAME")
+            admin_password = get_ssm_parameter(ssm_client, "ADMIN_PASSWORD", WithDecryption=True)
+
+            api_auth = (admin_username, admin_password)
+            api_header = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+            logger.info(f"PSN IPs: {psn_ips}")
+
+            for psn_ip_param, psn_ip_value in psn_ips.items():
+                psn_node_roles = list(psn_roles.values())
+                psn_node_services = list(psn_services.values())
+                
+            for index, role in enumerate(psn_node_roles):
+                psn_fqdn_param = f"{psn_ip_param.split('_')[0]}_FQDN"
+                
+
+                logger.info(f"psn_ip_param: {psn_ip_param}, psn_ip_value: {psn_ip_value}")
+
+                psn_fqdn_list = list(psn_fqdn.values())
+                psn_fqdn_list_data = psn_fqdn_list[index].split(',') if index < len(psn_fqdn_list) else ""
+                print(psn_fqdn_list_data)
+                # Prepare the data for API request
+                url = 'https://{}/api/v1/deployment/node'.format(primary_ip)
+                data = {
+                    "allowCertImport": True,
+                    "fqdn": psn_fqdn_list_data[0],  # Using the extracted FQDN value
+                    "userName": admin_username,
+                    "password": admin_password,
+                }
+
+                logger.info(f"PSN Node Roles: {psn_node_roles}")
+                logger.info(f"PSN Node Services: {psn_node_services}")
+                
             
-            psn_ip = get_ssm_parameter(ssm_client, psn_ip_param_name)
-            psn_fqdn = get_ssm_parameter(ssm_client, psn_fqdn_param_name)
+                current_services = psn_node_services[index].split(',') if index < len(psn_node_services) else ""
+                current_role = role.split(',') if role else []
 
-            if psn_ip is None or psn_fqdn is None:
-                break
-
-            psn_nodes.append({'ip': psn_ip, 'fqdn': psn_fqdn})
-            counter += 1
-
-        logger.info("Found {} PSN nodes to register".format(len(psn_nodes)))
-
-        # Retrieve other necessary SSM parameters
-        primary_ip = get_ssm_parameter(ssm_client, "Primary_IP")
-        admin_username = get_ssm_parameter(ssm_client, "ADMIN_USERNAME")
-        admin_password = get_ssm_parameter(ssm_client, "ADMIN_PASSWORD", WithDecryption=True)
-
-        api_auth = (admin_username, admin_password)
-        api_header = {'Content-Type': 'application/json', 'Accept': 'application/json'}
-
-        for psn_node in psn_nodes:
-            url = 'https://{}/api/v1/deployment/node'.format(primary_ip)
-            data = {
-                "allowCertImport": True,
-                "fqdn": psn_node['fqdn'],
-                "userName": admin_username,
-                "password": admin_password,
-                "services": ["Session", "Profiler"]
-            }
-            logger.info('Url: {}, Data: {}'.format(url, data))
-            try:
-                resp = requests.post(url, headers=api_header, auth=api_auth, data=json.dumps(data), verify=False)
-                logger.info('Register psn response: {}, {}'.format(resp.status_code, resp.text))
-                if resp.status_code == 200:
-                    logger.info("Registered PSN node {} successfully".format(psn_node['fqdn']))
+                if current_role != [' ']:
+                    data["roles"] = current_role
                 else:
-                    raise RegisterPSNNodeFailed("Failed to register PSN node {}".format(psn_node['fqdn']))
-            except Exception as e:
-                logging.error('Exception: %s' % e, exc_info=True)
-                raise RegisterPSNNodeFailed("Exception occurred while registering PSN node {}".format(psn_node['fqdn']))
+                    logger.info(f"No roles found for PSN node {index}")
+                    
+                if "PrimaryDedicatedMonitoring" in current_role or "SecondaryDedicatedMonitoring" in current_role:
+                
+                    logger.info(f"No services required as it is dedicated monitoring node")
+                    
+                elif current_services:
+                    data["services"] = current_services
+                    
+                else:
+                    data["services"] = ["Session", "Profiler"]
 
-        timer.cancel()
-        return {"Status": "SUCCESS"}
+                logger.info('Url: {}, Data: {}'.format(url, data))
+                # Logic for API requests with these roles and services
 
-    except RegisterPSNNodeFailed as e:
-        logging.error('Registration failed: %s' % e)
-        timer.cancel()
-        sys.exit(1)
-
+                try:
+                    resp = requests.post(url, headers=api_header, auth=api_auth, data=json.dumps(data), verify=False)
+                    logger.info(f'Register psn response: {resp.status_code}, {resp.text}')
+                    if resp.status_code == 200:
+                        logger.info(f"Registered PSN node {psn_ip_param} successfully")
+                    else:
+                        raise RegisterPSNNodeFailed(f"Failed to register PSN node {psn_ip_param}")
+                except Exception as e:
+                    logging.error(f'Exception: {e}', exc_info=True)
+                    raise RegisterPSNNodeFailed(f"Exception occurred while registering PSN node {psn_ip_param}")
+        
+            timer.cancel()
+            return {"Status": "SUCCESS"}
+        
     except Exception as e:
-        logging.error('Exception: %s' % e, exc_info=True)
+            logging.error(f'Exception: {e}', exc_info=True)

@@ -28,7 +28,9 @@ resource "aws_iam_policy" "lambda_policy" {
           "ec2:CreateNetworkInterface",
           "ec2:DescribeNetworkInterfaces",
           "ec2:DeleteNetworkInterface",
-          "ssm:GetParameter"
+          "ssm:GetParameter",
+          "ssm:DescribeParameters",
+          "tag:GetResources"
         ],
         Effect = "Allow",
         Resource = [

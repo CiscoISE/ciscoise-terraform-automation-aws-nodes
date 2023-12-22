@@ -6,7 +6,6 @@ provider "aws" {
 data "aws_caller_identity" "current" {}
 
 locals {
-  trigger_time        = replace(timeadd(timestamp(), "50m"), "Z", "")
   trigger_lambda_time = replace(timeadd(timestamp(), "2m"), "Z", "")
   layer_arn           = "arn:aws:lambda:${var.aws_region}:${data.aws_caller_identity.current.account_id}:layer:CiscoISEPackageLayer:1"
 }
@@ -20,33 +19,30 @@ module "cisco_ise_vpc" {
   private_subnet_cidrs  = var.private_subnet_cidrs
   internet_gateway_name = var.internet_gateway_name
   aws_region            = var.aws_region
+  enable_dns_hostnames  = var.enable_dns_hostnames
 }
 
 module "cisco_ise_ec2" {
-  source            = "../../modules/ec2_modules"
-  aws_region        = var.aws_region
-  vpcid             = module.cisco_ise_vpc.vpc_id
-  vpc_cidr          = var.vpc_cidr
-  private_subnet1_a = module.cisco_ise_vpc.private_subnet_ids[0]
-  private_subnet1_b = module.cisco_ise_vpc.private_subnet_ids[1]
-  # private_subnet1_c     = module.cisco_ise_vpc.private_subnet_ids[2]
-  subnet_id_list        = module.cisco_ise_vpc.private_subnet_ids
-  dns_domain            = var.dns_domain
-  psn_node_count        = var.psn_node_count
-  primary_instance_type = var.primary_instance_type
-  psn_instance_type     = var.psn_instance_type
-  primary_storage_size  = var.primary_storage_size
-  psn_storage_size      = var.psn_storage_size
-  ise_version           = var.ise_version
-  password              = var.password
-  key_pair_name         = var.key_pair_name
-  ebs_encrypt           = var.ebs_encrypt
-  time_zone             = var.time_zone
-  ers_api               = var.ers_api
-  open_api              = var.open_api
-  px_grid               = var.px_grid
-  px_grid_cloud         = var.px_grid_cloud
-
+  source                    = "../../modules/ec2_modules"
+  aws_region                = var.aws_region
+  vpcid                     = module.cisco_ise_vpc.vpc_id
+  vpc_cidr                  = var.vpc_cidr
+  private_subnet1_a         = module.cisco_ise_vpc.private_subnet_ids[0]
+  private_subnet1_b         = module.cisco_ise_vpc.private_subnet_ids[1]
+  subnet_id_list            = module.cisco_ise_vpc.private_subnet_ids
+  dns_domain                = var.dns_domain
+  primary_instance_config   = var.primary_instance_config
+  secondary_instance_config = var.secondary_instance_config
+  psn_instance_config       = var.psn_instance_config
+  ise_version               = var.ise_version
+  password                  = var.password
+  key_pair_name             = var.key_pair_name
+  ebs_encrypt               = var.ebs_encrypt
+  time_zone                 = var.time_zone
+  ers_api                   = var.ers_api
+  open_api                  = var.open_api
+  px_grid                   = var.px_grid
+  px_grid_cloud             = var.px_grid_cloud
 }
 
 ##### step - lambda
@@ -63,7 +59,6 @@ module "TriggerLambdaSchedule" {
   step_function_arn = module.PipLayerLambda.lambda_function_arn
   schedule_time     = "at(${local.trigger_lambda_time})"
 }
-
 
 resource "time_sleep" "wait_8_minutes" {
   depends_on = [module.TriggerLambdaSchedule]
@@ -128,7 +123,6 @@ module "checkSyncStatusLambda" {
   # security_group_ids = ["sg-073a9133478431344"]
 }
 
-
 module "StepFuntionExecution" {
   source                             = "../../modules/lambda_modules/StepFunction"
   aws_region                         = var.aws_region
@@ -144,5 +138,4 @@ module "TriggerSchedule" {
   aws_region        = var.aws_region
   scheduler_name    = "ise-scheduler"
   step_function_arn = module.StepFuntionExecution.step_function_arn
-  /* schedule_time     = "at(${local.trigger_time})" */
 }
