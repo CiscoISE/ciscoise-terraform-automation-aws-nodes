@@ -28,7 +28,6 @@ internet_gateway_name = "Cisco_ISE_IGW"                  # Name tag for the Inte
 # 2. Secondary PAN node supports SecondaryAdmin, SecondaryMonitoring and PrimaryMonitoring roles
 # 3. PSN node can act as a Mnt (Monitoring) node by assigning any one of these roles - SecondaryMonitoring, SecondaryDedicatedMonitoring, PrimaryMonitoring or PrimaryDedicatedMonitoring
 # 4. Monitoring role can only be passed once across secondary_instance_config and psn_instance_config variable
-# 5. If any of dedicated monitoring is assiged as a Role (PrimaaryDedicatedMonitoring and SecondaryDedicatedMonitoring), then please make to not pass any service in the variable.
 
 
 #Specify instance configuration for Primary PAN node. It should follow below syntax where key is the hostname and values are instance attributes
@@ -100,7 +99,7 @@ Please use below example for the reference.
 
   psn_instance_config = {
     secmonitoring-server = {
-      instance_type = "t3.xlarge"
+      instance_type = "m5.2xlarge"
       storage_size  = 500
       roles = "SecondaryDedicatedMonitoring"
     }
@@ -110,7 +109,7 @@ Please use below example for the reference.
       services      = "Session,Profiler,PassiveIdentity"
     }
     psn-ise-server-3 = {
-      instance_type = "t3.xlarge"
+      instance_type = "c5.4xlarge"
       storage_size  = 700
     }
 }
@@ -119,7 +118,7 @@ Please use below example for the reference.
 
 psn_instance_config = {
   secmonitoring-server = {
-    instance_type = "t3.xlarge"
+    instance_type = "m5.2xlarge"
     storage_size  = 500
     roles         = "SecondaryMonitoring"
   }
@@ -130,7 +129,7 @@ psn_instance_config = {
 
   }
   psn-ise-server-3 = {
-    instance_type = "t3.xlarge"
+    instance_type = "c5.4xlarge"
     storage_size  = 700
   }
 }
