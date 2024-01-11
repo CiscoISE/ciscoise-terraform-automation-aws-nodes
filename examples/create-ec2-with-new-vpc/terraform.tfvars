@@ -140,6 +140,9 @@ key_pair_name = "ise-test-nv" # Name of the key pair for SSH access
 ###Storage Details###
 ebs_encrypt = false # Choose true to enable EBS encryption
 
+### Stickiness block ###
+enable_stickiness = true # Choose true to enable stickiness for the load balancer
+
 # Application Details
 ise_version   = "3.1"        # The version of Cisco ISE (3.1 or 3.2)
 password      = "C!sc0Ind1@" # The password for the Cisco ISE GUI

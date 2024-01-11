@@ -250,6 +250,11 @@ variable "ebs_encrypt" {
   description = "Choose true to enable EBS encryption"
 }
 
+variable "enable_stickiness" {
+  description = "Choose true or false to enable/disable stickiness for the load balancer"
+  type        = bool
+}
+
 variable "private_subnet1_a" {
   description = "ID of the subnet to be used for the ISE deployment in an Availability Zone A."
   type        = string

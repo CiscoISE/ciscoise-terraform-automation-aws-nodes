@@ -34,6 +34,7 @@ module "cisco_ise_ec2" {
   primary_instance_config   = var.primary_instance_config
   secondary_instance_config = var.secondary_instance_config
   psn_instance_config       = var.psn_instance_config
+  enable_stickiness         = var.enable_stickiness
   ise_version               = var.ise_version
   password                  = var.password
   key_pair_name             = var.key_pair_name

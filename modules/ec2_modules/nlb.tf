@@ -37,7 +37,7 @@ resource "aws_lb_target_group" "psn_target_groupfor_radius1812" {
   }
   stickiness {
     type    = "source_ip"
-    enabled = true
+    enabled = var.enable_stickiness
   }
   tags = {
     Name = "Radius1812"
@@ -56,7 +56,7 @@ resource "aws_lb_target_group" "psn_target_groupfor_radius1813" {
   }
   stickiness {
     type    = "source_ip"
-    enabled = true
+    enabled = var.enable_stickiness
   }
   tags = {
     Name = "Radius1813"
@@ -78,7 +78,7 @@ resource "aws_lb_target_group" "psn_target_groupfor_radius1645" {
   }
   stickiness {
     type    = "source_ip"
-    enabled = true
+    enabled = var.enable_stickiness
   }
 }
 
@@ -97,7 +97,7 @@ resource "aws_lb_target_group" "psn_target_groupfor_radius1646" {
   }
   stickiness {
     type    = "source_ip"
-    enabled = true
+    enabled = var.enable_stickiness
   }
 }
 
@@ -113,7 +113,7 @@ resource "aws_lb_target_group" "psn_target_groupfor_tacacs49" {
   }
   stickiness {
     type    = "source_ip"
-    enabled = true
+    enabled = var.enable_stickiness
   }
   tags = {
     Name = "Tacacs49"
