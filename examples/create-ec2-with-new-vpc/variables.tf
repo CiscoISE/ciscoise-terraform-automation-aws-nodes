@@ -140,7 +140,6 @@ variable "key_pair_name" {
 }
 
 ###Storage Details###
-
 variable "ebs_encrypt" {
   description = "Choose true to enable EBS encryption"
 }
