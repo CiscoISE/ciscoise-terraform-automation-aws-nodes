@@ -17,9 +17,7 @@ resource "aws_lb" "psn_nlb" {
     private_ipv4_address = var.lb_private_address_subnet2
   }
 
-
-  enable_cross_zone_load_balancing = true
-
+  enable_cross_zone_load_balancing = false
   tags = {
     Name = format("%s-Nlb", var.vpcid)
   }
@@ -37,11 +35,10 @@ resource "aws_lb_target_group" "psn_target_groupfor_radius1812" {
     port     = "443"
     protocol = "TCP"
   }
-
-  /* stickiness {
-    type = true
-  } */
-
+  stickiness {
+    type    = "source_ip"
+    enabled = true
+  }
   tags = {
     Name = "Radius1812"
   }
@@ -57,13 +54,10 @@ resource "aws_lb_target_group" "psn_target_groupfor_radius1813" {
     port     = "443"
     protocol = "TCP"
   }
-
-
-
-  /* stickiness {
+  stickiness {
+    type    = "source_ip"
     enabled = true
-  } */
-
+  }
   tags = {
     Name = "Radius1813"
   }
@@ -79,10 +73,12 @@ resource "aws_lb_target_group" "psn_target_groupfor_radius1645" {
     port     = "443"
     protocol = "TCP"
   }
-
-
   tags = {
     Name = "Radius1645"
+  }
+  stickiness {
+    type    = "source_ip"
+    enabled = true
   }
 }
 
@@ -96,10 +92,12 @@ resource "aws_lb_target_group" "psn_target_groupfor_radius1646" {
     port     = "443"
     protocol = "TCP"
   }
-
-
   tags = {
     Name = "Radius1646"
+  }
+  stickiness {
+    type    = "source_ip"
+    enabled = true
   }
 }
 
@@ -113,13 +111,10 @@ resource "aws_lb_target_group" "psn_target_groupfor_tacacs49" {
     port     = "443"
     protocol = "TCP"
   }
-
-
-
-  /* stickiness {
+  stickiness {
+    type    = "source_ip"
     enabled = true
-  } */
-
+  }
   tags = {
     Name = "Tacacs49"
   }
