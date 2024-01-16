@@ -3,7 +3,7 @@
 
 The module uses below input variables. Update the values in terraform.tfvars file as per requirement
 
-:warning: **It is recommended not to make any changes to the `variables.tf` file. Instead, you should update the terraform input variables only in `terraform.tfvars` file**
+:warning: **It is recommended not to make any changes to the `variables.tf` file. Instead, update the terraform input variables only in `terraform.tfvars` file**
 
 ## Inputs
 
