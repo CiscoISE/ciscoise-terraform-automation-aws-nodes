@@ -89,11 +89,13 @@ After updating terraform.tfvars run the below commands
 Type 'yes' when prompted after running terraform apply
 
 After terraform apply is completed, output block as shown in the below screenshot will be generated
+
 ![alt terraform output](./docs/terraform_ouput.png)
 
 After setting up ISE infra using terraform, it will take 45-60 minutes for the stack to deploy and ISE application to come up
 
 For your reference, below screenshot shows the state machine output after ISE application is successfully launched and running
+
 ![alt state machine output](./docs/state_machine_diagram.png)
 
 
