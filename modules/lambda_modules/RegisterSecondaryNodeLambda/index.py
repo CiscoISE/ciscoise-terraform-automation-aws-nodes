@@ -73,8 +73,8 @@ def handler(event, context):
         if psn_services_str:
             psn_services = psn_services_str.split(',')
         else:
-            # If SSM parameter is empty or missing, provide default services
-            psn_services = ["Session", "Profiler"]
+            logging.warning("PSN services parameter is empty or missing.")
+            psn_services = []
 
         data["services"] = psn_services
  
