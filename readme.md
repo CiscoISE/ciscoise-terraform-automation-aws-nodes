@@ -94,7 +94,7 @@ After terraform apply is completed, output block as shown in the below screensho
 
 After setting up ISE infra using terraform, it will take 45-60 minutes (**Note**: Time may vary based on number of nodes) for the stack to deploy and ISE application to come up
 
-For your reference, below screenshot shows the state machine output after ISE application is successfully launched and running
+For your reference, below screenshot shows the AWS State Machine output (Can be found under AWS Step Functions) after ISE application is successfully launched and running. Each Lambda has its own Log Groups created while launching the stack. Please monitor logs as per the requirement.
 
 ![alt state machine output](./docs/state_machine_diagram.png)
 
