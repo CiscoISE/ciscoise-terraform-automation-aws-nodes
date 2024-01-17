@@ -88,7 +88,7 @@ After updating terraform.tfvars run the below commands
 
 Type 'yes' when prompted after running terraform apply
 
-After terraform apply is completed, output block as shown in the below screenshot will be generated
+After `terraform apply` is completed, the output block will be generated as shown in the screenshot below
 
 ![alt terraform output](./docs/terraform_ouput.png)
 
