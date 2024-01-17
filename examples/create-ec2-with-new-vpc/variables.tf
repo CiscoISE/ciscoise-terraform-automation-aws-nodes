@@ -122,6 +122,12 @@ variable "psn_instance_config" {
   }))
 }
 
+### Stickiness Block ###
+variable "enable_stickiness" {
+  description = "Choose true or false to enable/disable stickiness for the load balancer"
+  type        = bool
+}
+
 ### User needs to create a keypair and pass the key pair name
 variable "key_pair_name" {
   description = <<-EOT
@@ -134,7 +140,6 @@ variable "key_pair_name" {
 }
 
 ###Storage Details###
-
 variable "ebs_encrypt" {
   description = "Choose true to enable EBS encryption"
 }
