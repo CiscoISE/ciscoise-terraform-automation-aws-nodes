@@ -40,14 +40,15 @@ def handler(event, context):
 
     try:
         while True:
+            psn_ip_parameters = ssm_client.describe_parameters(ParameterFilters=[{"Key": "tag:type", "Values": ["psn_ip"]}])['Parameters']
+            if len(psn_ip_parameters) == 0:
+                sys.exit('No PSN node found')
+            psn_ips = {param['Name']: get_ssm_parameter(ssm_client, param['Name']) for param in psn_ip_parameters}
             psn_roles_parameters = ssm_client.describe_parameters(ParameterFilters=[{"Key": "tag:type", "Values": ["psn_roles"]}])['Parameters']
             psn_services_parameters = ssm_client.describe_parameters(ParameterFilters=[{"Key": "tag:type", "Values": ["psn_services"]}])['Parameters']
-            psn_ip_parameters = ssm_client.describe_parameters(ParameterFilters=[{"Key": "tag:type", "Values": ["psn_ip"]}])['Parameters']
 
             psn_roles = {param['Name']: get_ssm_parameter(ssm_client, param['Name']) for param in psn_roles_parameters}
             psn_services = {param['Name']: get_ssm_parameter(ssm_client, param['Name']) for param in psn_services_parameters}
-            psn_ips = {param['Name']: get_ssm_parameter(ssm_client, param['Name']) for param in psn_ip_parameters}
-
             logger.info(f"PSN Roles: {psn_roles}")
             logger.info(f"PSN Services: {psn_services}")
             logger.info(f"PSN IPs: {psn_ips}")
@@ -94,6 +95,11 @@ def handler(event, context):
                 current_services = psn_node_services[index].split(',') if index < len(psn_node_services) else ""
                 current_role = role.split(',') if role else []
 
+                if current_role == [' '] and current_services == [' ']:
+                    logger.error('PSN node should contain either role or serive')
+                    sys.exit(1)
+
+
                 if current_role != [' ']:
                     data["roles"] = current_role
                 else:
@@ -107,7 +113,7 @@ def handler(event, context):
                     data["services"] = current_services
                     
                 else:
-                    data["services"] = ["Session", "Profiler"]
+                    data["services"] = [' ']
 
                 logger.info('Url: {}, Data: {}'.format(url, data))
                 # Logic for API requests with these roles and services
