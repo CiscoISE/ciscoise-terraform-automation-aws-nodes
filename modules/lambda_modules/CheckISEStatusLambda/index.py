@@ -92,14 +92,11 @@ def handler(event, context):
         data = {}
         nodes_to_check = [Primary_IP, Secondary_IP]
         nodes_list = [Primary_IP, Secondary_IP]
-        # counter = 1
         psn_ips = []
         while True:
             try:
                 psn_ip_parameters = ssm_client.describe_parameters(ParameterFilters=[{"Key": "tag:type", "Values": ["psn_ip"]}])['Parameters']
                 psn_ips = {param['Name']: get_ssm_parameter(ssm_client, param['Name']) for param in psn_ip_parameters}
-                # psn_ips.append(get_ssm_parameter(ssm_client,"PSN_ISE_SERVER_" + str(counter) + "_IP"))
-                # counter += 1
             except Exception as e:
                 logging.info('Exception: %s' % e)
                 break

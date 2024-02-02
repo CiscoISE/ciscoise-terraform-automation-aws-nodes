@@ -38,7 +38,8 @@ resource "aws_iam_policy" "lambda_policy" {
           "ec2:DeleteNetworkInterface",
           "ssm:GetParameter",
           "ssm:PutParameter",
-          "ssm:DescribeParameters"
+          "ssm:DescribeParameters",
+          "tag:GetResources"
           # Add this line for EC2 permissions
         ],
         Effect   = "Allow",
