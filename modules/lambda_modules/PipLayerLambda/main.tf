@@ -6,10 +6,6 @@ resource "aws_lambda_function" "pip_layer_lambda" {
   runtime       = "python3.9"
   timeout       = 300
   filename      = "${path.module}/index.zip"
-
-
-
-
 }
 
 resource "aws_cloudwatch_log_group" "lambda_logs" {
