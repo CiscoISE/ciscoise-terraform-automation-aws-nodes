@@ -44,6 +44,8 @@ Before running terraform modules, follow below steps
   - Existing s3 bucket can be used to store the backend files. If you want to create a new bucket, Refer this documentation - [How to create a s3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html)
   - After creating s3 bucket, make sure to update the bucket name in the [least privilege access policy](./docs/terraform-policy.json#L206)
 
+5. As ISE is launched in a Private VPC, Currently EC2 machines are accessible for all IPs and Ports. To allow access for ISE specific ports and protocols, you can update the 'Inbound Rules' and 'Outbound Rules' accordingly on the AWS Console. Please updates Security Group named- "ISE-Security-group". This security group is created for the Cisco ISE instances by this module itself.
+
 
 
 
