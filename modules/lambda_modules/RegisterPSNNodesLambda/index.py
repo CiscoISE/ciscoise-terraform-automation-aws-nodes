@@ -42,7 +42,9 @@ def handler(event, context):
         while True:
             psn_ip_parameters = ssm_client.describe_parameters(ParameterFilters=[{"Key": "tag:type", "Values": ["psn_ip"]}])['Parameters']
             if len(psn_ip_parameters) == 0:
-                sys.exit('No PSN node found')
+                logger.info('No PSN node found')
+                return {"Status": "SUCCESS"}
+                # break
             psn_ips = {param['Name']: get_ssm_parameter(ssm_client, param['Name']) for param in psn_ip_parameters}
             psn_roles_parameters = ssm_client.describe_parameters(ParameterFilters=[{"Key": "tag:type", "Values": ["psn_roles"]}])['Parameters']
             psn_services_parameters = ssm_client.describe_parameters(ParameterFilters=[{"Key": "tag:type", "Values": ["psn_services"]}])['Parameters']
@@ -54,8 +56,8 @@ def handler(event, context):
             logger.info(f"PSN IPs: {psn_ips}")
 
             # Fetch FQDN parameters
-            psn_fqdn_parameters = ssm_client.describe_parameters(ParameterFilters=[{"Key": "tag:type", "Values": ["psn_fqdn"]}])['Parameters']
-            psn_fqdn = {param['Name']: get_ssm_parameter(ssm_client, param['Name']) for param in psn_fqdn_parameters}
+            # psn_fqdn_parameters = ssm_client.describe_parameters(ParameterFilters=[{"Key": "tag:type", "Values": ["psn_fqdn"]}])['Parameters']
+            # psn_fqdn = {param['Name']: get_ssm_parameter(ssm_client, param['Name']) for param in psn_fqdn_parameters}
 
             logger.info(f"PSN FQDN: {psn_fqdn}")
             primary_ip = get_ssm_parameter(ssm_client, "Primary_IP")
@@ -71,7 +73,7 @@ def handler(event, context):
                 psn_node_services = list(psn_services.values())
                 
             for index, role in enumerate(psn_node_roles):
-                psn_fqdn_param = f"{psn_ip_param.split('_')[0]}_FQDN"
+                # psn_fqdn_param = f"{psn_ip_param.split('_')[0]}_FQDN"
                 
 
                 logger.info(f"psn_ip_param: {psn_ip_param}, psn_ip_value: {psn_ip_value}")

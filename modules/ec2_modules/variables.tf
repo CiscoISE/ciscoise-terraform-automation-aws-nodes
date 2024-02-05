@@ -170,8 +170,8 @@ variable "secondary_instance_config" {
   type = map(object({
     instance_type = string
     storage_size  = number
-    services      = optional(string, "Session,Profiler,pxGrid")
-    roles         = optional(string, "SecondaryAdmin,SecondaryMonitoring")
+    services      = optional(string, " ")
+    roles         = optional(string, "SecondaryAdmin")
   }))
 
   validation {
@@ -222,7 +222,7 @@ variable "psn_instance_config" {
   type = map(object({
     instance_type = string
     storage_size  = number
-    services      = optional(string, "Session,Profiler")
+    services      = optional(string, " ")
     roles         = optional(string, " ")
   }))
 
@@ -232,11 +232,16 @@ variable "psn_instance_config" {
   }
 
   validation {
+    condition     = length([for vm in values(var.psn_instance_config) : vm if vm.roles == " " && vm.services == " "]) == 0
+    error_message = "PSN node should contain one of the role or service"
+  }
+
+  validation {
     condition = length(flatten([for vm in values(var.psn_instance_config) :
       [for service in split(",", vm.services) :
         service if service != "Session" && service != "Profiler" && service != "TC-NAC" &&
         service != "SXP" && service != "DeviceAdmin" && service != "PassiveIdentity" &&
-    service != "pxGrid" && service != "pxGridCloud"]])) == 0
+    service != "pxGrid" && service != "pxGridCloud" && service != " "]])) == 0
     error_message = "Services for PSN nodes can only accept values from Session, Profiler, TC-NAC, SXP, DeviceAdmin, PassiveIdentity, pxGrid, pxGridCloud."
   }
 

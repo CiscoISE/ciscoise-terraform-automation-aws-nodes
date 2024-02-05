@@ -84,8 +84,8 @@ variable "secondary_instance_config" {
   type = map(object({
     instance_type = string
     storage_size  = number
-    services      = optional(string, "Session,Profiler,pxGrid")
-    roles         = optional(string, "SecondaryAdmin,SecondaryMonitoring")
+    services      = optional(string, " ")
+    roles         = optional(string, "SecondaryAdmin")
   }))
 }
 
@@ -117,7 +117,7 @@ variable "psn_instance_config" {
   type = map(object({
     instance_type = string
     storage_size  = number
-    services      = optional(string, "Session,Profiler")
+    services      = optional(string, " ")
     roles         = optional(string, " ")
   }))
 }
