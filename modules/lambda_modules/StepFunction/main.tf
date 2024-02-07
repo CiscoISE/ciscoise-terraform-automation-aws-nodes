@@ -14,7 +14,13 @@ resource "aws_sfn_state_machine" "DeploymentStateMachine" {
       "InvokeCheckISEStatusLambda" = {
         Type     = "Task",
         Resource = var.check_ise_status_lambda_arn,
-        Next     = "CheckIseState"
+        Next     = "CheckIseState",
+        Catch : [
+          {
+            "ErrorEquals" : ["Lambda.Unknown"],
+            "Next" : "WaitAndRetryHealthCheck"
+          }
+        ]
       },
       "CheckIseState" : {
         Type : "Choice",

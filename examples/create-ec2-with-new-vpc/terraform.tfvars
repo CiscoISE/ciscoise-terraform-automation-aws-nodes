@@ -132,7 +132,26 @@ psn_instance_config = {
   psn-ise-server-3 = {
     instance_type = "c5.4xlarge"
     storage_size  = 700
+    services      = "Session,Profiler"
   }
+ psn-ise-server-4 = {
+    instance_type = "c5.4xlarge"
+    storage_size  = 700
+    services      = "Session,Profiler"
+  }
+
+
+   psn-ise-server-5 = {
+    instance_type = "c5.4xlarge"
+    storage_size  = 700
+    services      = "Session,Profiler"
+  }
+   psn-ise-server-3 = {
+    instance_type = "c5.4xlarge"
+    storage_size  = 700
+    services      = "Session,Profiler"
+  }
+
 }
 
 ### User needs to create a keypair and pass the key pair name
