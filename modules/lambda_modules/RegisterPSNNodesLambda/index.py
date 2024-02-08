@@ -56,8 +56,8 @@ def handler(event, context):
             logger.info(f"PSN IPs: {psn_ips}")
 
             # Fetch FQDN parameters
-            # psn_fqdn_parameters = ssm_client.describe_parameters(ParameterFilters=[{"Key": "tag:type", "Values": ["psn_fqdn"]}])['Parameters']
-            # psn_fqdn = {param['Name']: get_ssm_parameter(ssm_client, param['Name']) for param in psn_fqdn_parameters}
+            psn_fqdn_parameters = ssm_client.describe_parameters(ParameterFilters=[{"Key": "tag:type", "Values": ["psn_fqdn"]}])['Parameters']
+            psn_fqdn = {param['Name']: get_ssm_parameter(ssm_client, param['Name']) for param in psn_fqdn_parameters}
 
             logger.info(f"PSN FQDN: {psn_fqdn}")
             primary_ip = get_ssm_parameter(ssm_client, "Primary_IP")
@@ -73,7 +73,7 @@ def handler(event, context):
                 psn_node_services = list(psn_services.values())
                 
             for index, role in enumerate(psn_node_roles):
-                # psn_fqdn_param = f"{psn_ip_param.split('_')[0]}_FQDN"
+                psn_fqdn_param = f"{psn_ip_param.split('_')[0]}_FQDN"
                 
 
                 logger.info(f"psn_ip_param: {psn_ip_param}, psn_ip_value: {psn_ip_value}")
@@ -111,11 +111,11 @@ def handler(event, context):
                 
                     logger.info(f"No services required as it is dedicated monitoring node")
                     
-                elif current_services:
+                elif current_services and current_services != [' ']:
                     data["services"] = current_services
-                    
                 else:
-                    data["services"] = [' ']
+                    # If current_services is [' '], remove the "services" key from the data dictionary
+                    data.pop("services", None)
 
                 logger.info('Url: {}, Data: {}'.format(url, data))
                 # Logic for API requests with these roles and services
