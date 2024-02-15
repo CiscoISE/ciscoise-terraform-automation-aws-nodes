@@ -371,11 +371,9 @@ variable "px_grid_cloud" {
 }
 
 variable "primarynameserver" {
-  type    = string
-  default = ""
+  type = string
 }
 
 variable "ntpserver" {
-  type    = string
-  default = ""
+  type = string
 }

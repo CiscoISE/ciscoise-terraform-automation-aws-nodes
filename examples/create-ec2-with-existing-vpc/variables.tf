@@ -200,13 +200,11 @@ variable "px_grid_cloud" {
 variable "primarynameserver" {
   description = "Enter the IP address of the primary name server. Only IPv4 addresses are supported. Example: 169.254.169.253"
   type        = string
-  default     = ""
 }
 
 variable "ntpserver" {
   description = "Enter the IPv4 address or FQDN of the NTP server that must be used for synchronization, Example, 169.254.169.123"
   type        = string
-  default     = ""
 }
 
 #######################################
