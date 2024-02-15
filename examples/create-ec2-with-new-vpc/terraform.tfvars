@@ -118,22 +118,22 @@ Please use below example for the reference.
 
 
 psn_instance_config = {
-  # secmonitoring-server = {
-  #   instance_type = "m5.2xlarge"
-  #   storage_size  = 500
-  #   roles         = "SecondaryMonitoring"
-  # }
-  # psn-ise-server-2 = {
-  #   instance_type = "t3.xlarge"
-  #   storage_size  = 600
-  #   services      = "Session,Profiler,PassiveIdentity"
+  secmonitoring-server = {
+    instance_type = "m5.2xlarge"
+    storage_size  = 500
+    roles         = "SecondaryMonitoring"
+  }
+  psn-ise-server-2 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 600
+    services      = "Session,Profiler,PassiveIdentity"
 
-  # }
-  # psn-ise-server-3 = {
-  #   instance_type = "c5.4xlarge"
-  #   storage_size  = 700
-  #   services      = "Session,Profiler"
-  # }
+  }
+  psn-ise-server-3 = {
+    instance_type = "c5.4xlarge"
+    storage_size  = 700
+    services      = "Session,Profiler"
+  }
   # psn-ise-server-4 = {
   #   instance_type = "c5.4xlarge"
   #   storage_size  = 700
