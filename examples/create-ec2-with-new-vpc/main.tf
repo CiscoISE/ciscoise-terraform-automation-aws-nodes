@@ -44,6 +44,8 @@ module "cisco_ise_ec2" {
   open_api                  = var.open_api
   px_grid                   = var.px_grid
   px_grid_cloud             = var.px_grid_cloud
+  primarynameserver         = var.primarynameserver
+  ntpserver                 = var.ntpserver
 }
 
 ##### step - lambda

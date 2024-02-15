@@ -146,13 +146,15 @@ ebs_encrypt = false # Choose true to enable EBS encryption
 enable_stickiness = true # Choose true to enable stickiness for the load balancer
 
 # Application Details
-ise_version   = "3.1"        # The version of Cisco ISE (3.1 or 3.2)
-password      = "C!sc0Ind1@" # The password for the Cisco ISE GUI
-time_zone     = "UTC"        # Enter a timezone
-ers_api       = "yes"        # Enable/disable ERS
-open_api      = "yes"        # Enable/disable OpenAPI
-px_grid       = "yes"        # Enable/disable pxGrid
-px_grid_cloud = "yes"        # Enable/disable pxGrid Cloud
+ise_version       = "3.1"             # The version of Cisco ISE (3.1 or 3.2)
+password          = "C!sc0Ind1@"      # The password for the Cisco ISE GUI
+time_zone         = "UTC"             # Enter a timezone
+ers_api           = "yes"             # Enable/disable ERS
+open_api          = "yes"             # Enable/disable OpenAPI
+px_grid           = "yes"             # Enable/disable pxGrid
+px_grid_cloud     = "yes"             # Enable/disable pxGrid Cloud
+primarynameserver = "169.254.169.253" # Enter the IP address of the primary name server. Only IPv4 addresses are supported.
+ntpserver         = "169.254.169.123" # Enter the IPv4 address or FQDN of the NTP server that must be used for synchronization.
 
 # DNS Domain Name
 dns_domain = "drilldevops.in" # Enter a domain name in correct syntax

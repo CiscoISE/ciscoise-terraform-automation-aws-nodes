@@ -369,3 +369,13 @@ variable "px_grid_cloud" {
   type    = string
   default = "yes" # Set to the appropriate PX Grid Cloud value
 }
+
+variable "primarynameserver" {
+  type    = string
+  default = ""
+}
+
+variable "ntpserver" {
+  type    = string
+  default = ""
+}
