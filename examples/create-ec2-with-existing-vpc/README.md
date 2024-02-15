@@ -30,7 +30,9 @@ The module uses below input variables. Update the values in terraform.tfvars fil
 | <a name="input_ers_api"></a> [ers\_api](#input\_ers\_api) | Enter yes/no to enable/disable ERS | `string` | `"yes"` |  
 | <a name="input_open_api"></a> [open\_api](#input\_open\_api) | Enter yes/no to enable/disable OpenAPI | `string` | `"yes"` |  
 | <a name="input_px_grid"></a> [px\_grid](#input\_px\_grid) | Enter yes/no to enable/disable pxGrid | `string` | `"yes"` |  
-| <a name="input_px_grid_cloud"></a> [px\_grid\_cloud](#input\_px\_grid\_cloud) | Enter yes/no to enable/disable pxGrid Cloud. To enable pxGrid Cloud, you must enable pxGrid. If you disallow pxGrid, but enable pxGrid Cloud, pxGrid Cloud services are not enabled on launch | `string` | `"yes"` |  
+| <a name="input_px_grid_cloud"></a> [px\_grid\_cloud](#input\_px\_grid\_cloud) | Enter yes/no to enable/disable pxGrid Cloud. To enable pxGrid Cloud, you must enable pxGrid. If you disallow pxGrid, but enable pxGrid Cloud, pxGrid Cloud services are not enabled on launch | `string` | `"yes"` |
+| <a name="input_primarynameserver"></a> [primarynameserver](#input\_primarynameserver) | Enter the IP address of the Primary name server. Only IPv4 addresses are supported | `string` | `"169.254.169.253"` |
+| <a name="input_ntpserver"></a> [ntpserver](#input\_ntpserver) | Enter the IPv4 address or FQDN of the NTP server that must be used for synchronization. | `string` | `"169.254.169.123"` |  
 | <a name="input_dns_domain"></a> [dns\_domain](#input\_dns\_domain) | Enter a domain name in correct syntax (for example, cisco.com). The valid characters for this field are ASCII characters, numerals, hyphen (-), and period (.). If you use the wrong syntax, Cisco ISE services might not come up on launch. | `string` | `"drilldevops.in"` |
 
 ## Outputs

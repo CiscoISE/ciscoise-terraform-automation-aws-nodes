@@ -84,8 +84,8 @@ variable "secondary_instance_config" {
   type = map(object({
     instance_type = string
     storage_size  = number
-    services      = optional(string, "Session,Profiler,pxGrid")
-    roles         = optional(string, "SecondaryAdmin,SecondaryMonitoring")
+    services      = optional(string, " ")
+    roles         = optional(string, "SecondaryAdmin")
   }))
 }
 
@@ -117,7 +117,7 @@ variable "psn_instance_config" {
   type = map(object({
     instance_type = string
     storage_size  = number
-    services      = optional(string, "Session,Profiler")
+    services      = optional(string, " ")
     roles         = optional(string, " ")
   }))
 }
@@ -182,6 +182,18 @@ variable "px_grid_cloud" {
   description = "Enter yes/no to enable/disable pxGrid Cloud. To enable pxGrid Cloud, you must enable pxGrid. If you disallow pxGrid, but enable pxGrid Cloud, pxGrid Cloud services are not enabled on launch"
   type        = string
 }
+
+
+variable "primarynameserver" {
+  description = "Enter the IP address of the primary name server. Only IPv4 addresses are supported. Example: 169.254.169.253"
+  type        = string
+}
+
+variable "ntpserver" {
+  description = "Enter the IPv4 address or FQDN of the NTP server that must be used for synchronization, Example, 169.254.169.123"
+  type        = string
+}
+
 
 #######################################
 ### Block to Update DNS Domain Name ###
