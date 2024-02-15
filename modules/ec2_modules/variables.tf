@@ -280,21 +280,6 @@ variable "vpc_cidr" {
   type        = string
 }
 
-variable "max_size" {
-  description = "Max Size for ISE Auto scaling group"
-  default     = 5
-}
-
-variable "min_size" {
-  description = "Min Size for ISE Auto scaling group"
-  default     = 2
-}
-
-variable "desired_size" {
-  description = "Desired Size for ISE Auto scaling group"
-  default     = 3
-}
-
 variable "lb_private_address_subnet1" {
   description = "Private IP Address of Load Balancer for Private Subnet-1"
   type        = string
@@ -318,62 +303,47 @@ variable "subnet_id_list" {
   type        = list(string)
 }
 
-
-
-variable "is_ise_32_condition" {
-  type    = bool
-  default = true # Set to true or false based on your condition
-}
-
-variable "node1_hostname" {
-  type    = string
-  default = "ise-node1.example.com" # Set to the appropriate hostname for Node 1
-}
-
-variable "node2_hostname" {
-  type    = string
-  default = "ise-node2.example.com" # Set to the appropriate hostname for Node 2
-}
-
 variable "dns_domain" {
-  type    = string
-  default = "example.com" # Set to the appropriate DNS domain
+  description = "Enter a domain name in correct syntax (for example, cisco.com). The valid characters for this field are ASCII characters, numerals, hyphen (-), and period (.). If you use the wrong syntax, Cisco ISE services might not come up on launch."
+  type        = string
 }
 
 variable "password" {
-  type    = string
-  default = "aisndmoVLa3@" # Set to the appropriate password
+  description = "The password for username (admin) to log in to the Cisco ISE GUI. The password must contain a minimum of 6 and maximum of 25 characters, and must include at least one numeral, one uppercase letter, and one lowercase letter. Password should not be the same as username or its reverse(admin or nimdaesi) or (cisco or ocsic). Allowed Special Characters @~*!,+=_-"
+  type        = string
 }
 
 variable "time_zone" {
-  type    = string
-  default = "UTC" # Set to the appropriate timezone
+  description = "Enter a timezone, for example, Etc/UTC"
+  type        = string
 }
 
 variable "ers_api" {
-  type    = string
-  default = "yes" # Set to the appropriate ERS API value
+  description = "Enter yes/no to enable/disable ERS"
+  type        = string
 }
 
 variable "open_api" {
-  type    = string
-  default = "yes" # Set to the appropriate Open API value
+  description = "Enter yes/no to enable/disable OpenAPI"
+  type        = string
 }
 
 variable "px_grid" {
-  type    = string
-  default = "yes" # Set to the appropriate PX Grid value
+  description = "Enter yes/no to enable/disable pxGrid"
+  type        = string
 }
 
 variable "px_grid_cloud" {
-  type    = string
-  default = "yes" # Set to the appropriate PX Grid Cloud value
+  description = "Enter yes/no to enable/disable pxGrid Cloud. To enable pxGrid Cloud, you must enable pxGrid. If you disallow pxGrid, but enable pxGrid Cloud, pxGrid Cloud services are not enabled on launch"
+  type        = string
 }
 
 variable "primarynameserver" {
-  type = string
+  description = "Enter the IP address of the primary name server. Only IPv4 addresses are supported. Example: 169.254.169.253"
+  type        = string
 }
 
 variable "ntpserver" {
-  type = string
+  description = "Enter the IPv4 address or FQDN of the NTP server that must be used for synchronization, Example, 169.254.169.123"
+  type        = string
 }
