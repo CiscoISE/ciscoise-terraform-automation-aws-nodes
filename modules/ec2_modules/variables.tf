@@ -92,7 +92,143 @@ variable "ami_ids" {
         ami_id = "ami-060ed864daf36bcac"
       }
     }
-    # Add other regions and versions...
+    eu-south-2 = {
+      3.1 = {
+        ami_id = "ami-006a07d274fcaffac"
+      }
+      3.2 = {
+        ami_id = "ami-0b433a7587fea7e41"
+      }
+    }
+    ap-southeast-1 = {
+      3.1 = {
+        ami_id = "ami-0214a475ff692424f"
+      }
+      3.2 = {
+        ami_id = "ami-02bb8125b423c29dc"
+      }
+    }
+    ap-southeast-2 = {
+      3.1 = {
+        ami_id = "ami-0f1846c9d911d1727"
+      }
+      3.2 = {
+        ami_id = "ami-0f238188265b7f80b"
+      }
+    }
+    ap-southeast-3 = {
+      3.1 = {
+        ami_id = "ami-0a824feea34fe65fb"
+      }
+      3.2 = {
+        ami_id = "ami-0da7b907b79029925"
+      }
+    }
+    ap-southeast-4 = {
+      3.1 = {
+        ami_id = "ami-06a6a3b37cf23c6e7"
+      }
+      3.2 = {
+        ami_id = "ami-0ea8a008eea59002f"
+      }
+    }
+    ap-south-1 = {
+      3.1 = {
+        ami_id = "ami-0add11be4e3a2b72e"
+      }
+      3.2 = {
+        ami_id = "ami-05ef3254c75ce4053"
+      }
+    }
+    ap-south-2 = {
+      3.1 = {
+        ami_id = "ami-09896c9d9eeed3138"
+      }
+      3.2 = {
+        ami_id = "ami-0448864ec746d003a"
+      }
+    }
+    ap-northeast-1 = {
+      3.1 = {
+        ami_id = "ami-0da69493a00c3ebb1"
+      }
+      3.2 = {
+        ami_id = "ami-07a8db1bcd9d807a7"
+      }
+    }
+    ap-northeast-2 = {
+      3.1 = {
+        ami_id = "ami-0a56667a39f884c9e"
+      }
+      3.2 = {
+        ami_id = "ami-032bcdac0d576df35"
+      }
+    }
+    ap-east-1 = {
+      3.1 = {
+        ami_id = "ami-0118aa54aed56f415"
+      }
+      3.2 = {
+        ami_id = "ami-0e401f651fbb61c1d"
+      }
+    }
+    me-south-1 = {
+      3.1 = {
+        ami_id = "ami-0a2f4b9a138b52221"
+      }
+      3.2 = {
+        ami_id = "ami-0c8012fd684bdfbb5"
+      }
+    }
+    ap-northeast-3 = {
+      3.1 = {
+        ami_id = "ami-05d2412cb877a373f"
+      }
+      3.2 = {
+        ami_id = "ami-0d6ab22fd8ac904a3"
+      }
+    }
+    sa-east-1 = {
+      3.1 = {
+        ami_id = "ami-0feeceb6d1a0dd691"
+      }
+      3.2 = {
+        ami_id = "ami-0c1b6e1fb53940d10"
+      }
+    }
+    us-gov-west-1 = {
+      3.1 = {
+        ami_id = "ami-0692c2574536577a7"
+      }
+      3.2 = {
+        ami_id = "ami-0245b2414c12ac588"
+      }
+    }
+    us-gov-east-1 = {
+      3.1 = {
+        ami_id = "ami-0cf29ff16a189964b"
+      }
+      3.2 = {
+        ami_id = "ami-03594105967b59456"
+      }
+    }
+    af-south-1 = {
+      3.1 = {
+        ami_id = "ami-003d33a44238d468e"
+      }
+      3.2 = {
+        ami_id = "ami-08164edf9ea98e66e"
+      }
+    }
+    me-central-1 = {
+      3.1 = {
+        ami_id = "ami-023f6853b95edc0d7"
+      }
+      3.2 = {
+        ami_id = "ami-0889e9152037cb637"
+      }
+    }
+
   }
 }
 
