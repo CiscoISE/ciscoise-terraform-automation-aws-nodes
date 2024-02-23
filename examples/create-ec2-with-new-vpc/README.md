@@ -1,10 +1,10 @@
 <!-- BEGIN_TF_DOCS -->
-## VPC component list
+## VPC components
 
-This examples module creates below AWS VPC resources
+This examples module creates below AWS VPC resources to setup VPC infrastructure
 
 | Resource Type | Count | Comments |
-| ---- | :——: | ---- |
+| ---- | :---: | ---- |
 | aws_vpc | 1 | private network |
 | vpc_dhcp_options | 1 | default values<br>Domain name: ${region}.compute.internal<br>Domain name servers: AmazonProvidedDNS<br>NTP servers: |
 | internet_gateway | 1 | It will be associated with public route table |
@@ -16,6 +16,7 @@ This examples module creates below AWS VPC resources
 | nat_ips | 3 | depends on number of subnets provided by user |
 | public_subnet | 3 | depends on user input |
 | private_subnet | 3 | depends on user input | 
+
 
 
 ## Terraform variables
