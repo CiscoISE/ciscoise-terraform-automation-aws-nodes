@@ -1,5 +1,5 @@
 <!-- BEGIN_TF_DOCS -->
-## VPC Components
+## Required VPC Components
 
 Please review the table below and ensure to create the specified VPC resources for setting up the VPC infrastructure
 

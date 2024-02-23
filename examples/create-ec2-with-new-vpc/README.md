@@ -1,5 +1,5 @@
 <!-- BEGIN_TF_DOCS -->
-## VPC components
+## Required VPC components
 
 This examples module creates below AWS VPC resources to setup VPC infrastructure
 
