@@ -1,4 +1,24 @@
 <!-- BEGIN_TF_DOCS -->
+## Required VPC components
+
+This examples module creates below AWS VPC resources to setup VPC infrastructure
+
+| Resource Type | Count | Comments |
+| ---- | :---: | ---- |
+| aws_vpc | 1 | private network |
+| vpc_dhcp_options | 1 | default values<br>Domain name: ${region}.compute.internal<br>Domain name servers: AmazonProvidedDNS<br>NTP servers: |
+| internet_gateway | 1 | It will be associated with public route table |
+| public_subnet_route_table | 1 | depends on number of subnets provided by user |
+| private_subnet_route_tables | 3 | depends on number of subnets provided by user |
+| public_subnet_route | 3 | depends on number of subnets provided by user |
+| private_subnet_route | 3 | depends on number of subnets provided by user |
+| nat_gateways | 3 | It will be associated with private route table |
+| nat_ips | 3 | depends on number of subnets provided by user |
+| public_subnet | 3 | depends on user input |
+| private_subnet | 3 | depends on user input | 
+
+
+
 ## Terraform variables
 
 The module uses below input variables. Update the values in terraform.tfvars file as per requirement
