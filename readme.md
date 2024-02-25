@@ -100,5 +100,7 @@ For your reference, below screenshot shows the AWS State Machine output (Can be 
 
 ![alt state machine output](./docs/state_machine_diagram.png)
 
+check further on aws
+
 
 
