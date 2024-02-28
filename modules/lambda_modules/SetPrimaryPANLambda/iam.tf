@@ -50,19 +50,3 @@ resource "aws_iam_policy_attachment" "lambda_policy_attachment" {
   roles      = [aws_iam_role.pip_layer_lambda_role.name]
 }
 
-# resource "aws_iam_policy" "lambda_permissions_boundary" {
-#   name        = "${var.function_name}-LambdaPermissionsBoundary"
-#   description = "Permissions boundary for Lambda function"
-
-#   policy = jsonencode({
-#     Version = "2012-10-17",
-#     Statement = [
-#       {
-#         Action   = "ec2:CreateNetworkInterface", # Add this line for EC2 permissions
-#         Effect   = "Allow",
-#         Resource = ["*"]
-#       },
-#       # Add other permissions as needed
-#     ]
-#   })
-# }

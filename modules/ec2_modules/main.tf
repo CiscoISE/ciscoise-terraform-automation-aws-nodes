@@ -1,5 +1,5 @@
 provider "aws" {
-  region = var.aws_region # Update this to your desired region
+  region = var.aws_region 
 }
 
 locals {
@@ -14,7 +14,7 @@ data "assert_test" "redundant_monitoring_values" {
 resource "aws_launch_template" "ise_launch_template" {
   name_prefix            = "ise-launch-template"
   key_name               = var.key_pair_name
-  image_id               = var.ami_ids[var.aws_region][var.ise_version]["ami_id"] # Access the AMI ID based on region and version
+  image_id               = var.ami_ids[var.aws_region][var.ise_version]["ami_id"]
   vpc_security_group_ids = [aws_security_group.ise-sg.id]
 }
 

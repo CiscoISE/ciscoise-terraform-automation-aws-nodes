@@ -232,7 +232,7 @@ variable "ami_ids" {
   }
 }
 
-# Add other regions and versions here...
+
 variable "aws_region" {
   description = "The AWS region where resources will be created."
   type        = string

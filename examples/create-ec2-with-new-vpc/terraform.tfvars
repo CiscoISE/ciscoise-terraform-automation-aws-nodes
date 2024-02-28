@@ -146,7 +146,7 @@ psn_instance_config = {
   #   storage_size  = 700
   #   services      = "Session,Profiler"
   # }
-  # psn-ise-server-3 = {
+  # psn-ise-server-6 = {
   #   instance_type = "c5.4xlarge"
   #   storage_size  = 700
   #   services      = "Session,Profiler"

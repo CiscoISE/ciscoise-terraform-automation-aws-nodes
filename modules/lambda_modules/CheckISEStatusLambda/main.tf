@@ -4,7 +4,7 @@ resource "aws_security_group" "my_lambda_sg" {
   description = "Security group for Lambda function"
   vpc_id      = var.vpc_id
 
-  # Define your security group rules here
+ 
   ingress {
     from_port   = 80
     to_port     = 80

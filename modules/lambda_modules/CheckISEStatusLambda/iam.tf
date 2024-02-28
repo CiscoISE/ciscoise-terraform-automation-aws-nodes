@@ -40,12 +40,12 @@ resource "aws_iam_policy" "lambda_policy" {
           "ssm:PutParameter",
           "ssm:DescribeParameters",
           "tag:GetResources"
-          # Add this line for EC2 permissions
+          
         ],
         Effect   = "Allow",
         Resource = ["*"]
       },
-      # Add other permissions as needed
+      
     ]
   })
 }
@@ -58,11 +58,11 @@ resource "aws_iam_policy" "lambda_permissions_boundary" {
     Version = "2012-10-17",
     Statement = [
       {
-        Action   = "ec2:CreateNetworkInterface", # Add this line for EC2 permissions
+        Action   = "ec2:CreateNetworkInterface", 
         Effect   = "Allow",
         Resource = ["*"]
       },
-      # Add other permissions as needed
+     
     ]
   })
 }

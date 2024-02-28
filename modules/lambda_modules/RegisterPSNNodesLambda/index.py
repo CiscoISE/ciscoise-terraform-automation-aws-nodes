@@ -44,7 +44,7 @@ def handler(event, context):
             if len(psn_ip_parameters) == 0:
                 logger.info('No PSN node found')
                 return {"Status": "SUCCESS"}
-                # break
+                
             psn_ips = {param['Name']: get_ssm_parameter(ssm_client, param['Name']) for param in psn_ip_parameters}
             psn_roles_parameters = ssm_client.describe_parameters(ParameterFilters=[{"Key": "tag:type", "Values": ["psn_roles"]}])['Parameters']
             psn_services_parameters = ssm_client.describe_parameters(ParameterFilters=[{"Key": "tag:type", "Values": ["psn_services"]}])['Parameters']
@@ -80,7 +80,7 @@ def handler(event, context):
 
                 psn_fqdn_list = list(psn_fqdn.values())
                 psn_fqdn_list_data = psn_fqdn_list[index].split(',') if index < len(psn_fqdn_list) else ""
-                print(psn_fqdn_list_data)
+                logger.info(psn_fqdn_list_data)
                 # Prepare the data for API request
                 url = 'https://{}/api/v1/deployment/node'.format(primary_ip)
                 data = {

@@ -15,7 +15,7 @@ class PipLayerException(Exception):
 def _create():
     try:
         layername = "CiscoISEPackageLayer"
-        description = "testing lambda function"
+        description = "CiscoISEPackageLayer lambda function"
         packages = ["boto3", "requests"]
     except KeyError as e:
         raise PipLayerException("Missing parameter: %s" % e.args[0])

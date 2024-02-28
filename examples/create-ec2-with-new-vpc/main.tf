@@ -78,7 +78,6 @@ module "CheckISEStatusLambda" {
   aws_region         = var.aws_region
   layer_arn          = local.layer_arn
   depends_on         = [time_sleep.wait_8_minutes]
-  # security_group_ids = ["sg-073a9133478431344"]
 }
 
 module "SetPrimaryPANLambda" {
@@ -89,7 +88,6 @@ module "SetPrimaryPANLambda" {
   aws_region         = var.aws_region
   layer_arn          = local.layer_arn
   depends_on         = [time_sleep.wait_8_minutes]
-  # security_group_ids = ["sg-073a9133478431344"]
 }
 
 module "RegisterSecondaryNodeLambda" {
@@ -100,7 +98,6 @@ module "RegisterSecondaryNodeLambda" {
   aws_region         = var.aws_region
   layer_arn          = local.layer_arn
   depends_on         = [time_sleep.wait_8_minutes]
-  # security_group_ids = ["sg-073a9133478431344"]
 }
 
 module "RegisterPSNNodesLambda" {
@@ -111,7 +108,6 @@ module "RegisterPSNNodesLambda" {
   aws_region         = var.aws_region
   layer_arn          = local.layer_arn
   depends_on         = [time_sleep.wait_8_minutes]
-  # security_group_ids = ["sg-073a9133478431344"]
 }
 
 module "checkSyncStatusLambda" {
@@ -123,7 +119,6 @@ module "checkSyncStatusLambda" {
   aws_region         = var.aws_region
   layer_arn          = local.layer_arn
   depends_on         = [time_sleep.wait_8_minutes]
-  # security_group_ids = ["sg-073a9133478431344"]
 }
 
 module "StepFuntionExecution" {
