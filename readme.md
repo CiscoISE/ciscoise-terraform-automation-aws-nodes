@@ -44,10 +44,6 @@ Before running terraform modules, follow below steps
   - Existing s3 bucket can be used to store the backend files. If you want to create a new bucket, Refer this documentation - [How to create a s3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html)
   - After creating s3 bucket, make sure to update the bucket name in the [least privilege access policy](./docs/terraform-policy.json#L206)
 
-5. As ISE is launched in a Private VPC, Currently EC2 machines are accessible for all IPs and Ports. To allow access for ISE specific ports and protocols, you can update the 'Inbound Rules' and 'Outbound Rules' accordingly on the AWS Console. Please updates Security Group named- "ISE-Security-group". This security group is created for the Cisco ISE instances by this module itself.
-
-
-
 
 ## Terraform module structure
 
@@ -96,9 +92,24 @@ After `terraform apply` is completed, the output block will be generated as show
 
 After setting up ISE infra using terraform, it will take 45-60 minutes (**Note**: Time may vary based on number of nodes) for the stack to deploy and ISE application to come up
 
+`NOTE`: As ISE is launched in a Private VPC, Currently EC2 machines are accessible for all IPs and Ports. To allow access for ISE specific ports and protocols, you can update the 'Inbound Rules' and 'Outbound Rules' accordingly on the AWS Console. Please update Security Group named- "ISE-Security-group". This security group is created for the Cisco ISE instances by this module itself.
+
+
 For your reference, below screenshot shows the AWS State Machine output (Can be found under AWS Step Functions) after ISE application is successfully launched and running. Each Lambda has its own Log Groups created while launching the stack. Please monitor logs as per the requirement.
 
 ![alt state machine output](./docs/state_machine_diagram.png)
+
+## Destroy Infrastructure
+
+To destroy the ISE infrastructure resources created by this module, run below commands. 
+
+```
+terraform destroy -plan
+terraform destroy
+``` 
+To know more about the destroy command, please refer this [terraform destroy](https://developer.hashicorp.com/terraform/cli/commands/destroy) page
+
+
 
 
 
