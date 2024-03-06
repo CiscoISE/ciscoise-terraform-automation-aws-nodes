@@ -52,7 +52,8 @@ variable "internet_gateway_name" {
 
 variable "primary_instance_config" {
   description = <<-EOT
-  Specify the configuration for primary pan instance. It should follow below format where key is the hostname and values are instance attributes
+  Specify the configuration for primary pan instance. It should follow below format where key is the hostname and values are instance attributes.
+  Hostname only supports alphanumeric characters and hyphen (-). The length of the hostname should not exceed 19 characters.
   {
     <hostname> = {
       instance_type = "<instance_type>"
@@ -76,6 +77,7 @@ variable "primary_instance_config" {
 variable "secondary_instance_config" {
   description = <<-EOT
   Specify the configuration for secondary pan instance. It should follow below format where key is the hostname and values are instance attributes.
+  Hostname only supports alphanumeric characters and hyphen (-). The length of the hostname should not exceed 19 characters.
   {
     <hostname> = {
       instance_type = "<instance_type>"
@@ -105,6 +107,7 @@ variable "secondary_instance_config" {
 variable "psn_instance_config" {
   description = <<-EOT
   Specify the configuration for PSN nodes. It should follow below format where key is the hostname and values are instance attributes.
+  Hostname only supports alphanumeric characters and hyphen (-). The length of the hostname should not exceed 19 characters.
   {
     <hostname> = {
       instance_type = "<instance_type>"
