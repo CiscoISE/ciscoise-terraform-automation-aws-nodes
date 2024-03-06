@@ -49,6 +49,9 @@ internet_gateway_name = "Cisco_ISE_IGW" # Name tag for the Internet Gateway
       }
     }
    */
+#########################################Please Note#######################################
+#Length of hostname should not be more that 20 characters, otherwise deployment will fail.#
+###########################################################################################
 primary_instance_config = {
   primary-ise-server = {
     instance_type = "t3.xlarge"
@@ -77,6 +80,9 @@ primary_instance_config = {
   }
 }
 */
+#########################################Please Note#######################################
+#Length of hostname should not be more that 20 characters, otherwise deployment will fail.#
+###########################################################################################
 secondary_instance_config = {
   secondary-ise-server = {
     instance_type = "t3.xlarge"
@@ -117,7 +123,9 @@ Please use below example for the reference.
 }
 */
 
-
+#########################################Please Note#######################################
+#Length of hostname should not be more that 20 characters, otherwise deployment will fail.#
+###########################################################################################
 psn_instance_config = {
   secmonitoring-server = {
     instance_type = "m5.2xlarge"
