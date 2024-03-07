@@ -31,7 +31,8 @@ internet_gateway_name = "Cisco_ISE_IGW"                  # Name tag for the Inte
 # 5. Valid characters for hostnames are `ASCII(7)` letters from `a` to `z` , the digits from `0` to `9` , and the hyphen (`−`).
 
 
-#Specify instance configuration for Primary PAN node. It should follow below syntax where key is the hostname and values are instance attributes
+# Specify instance configuration for Primary PAN node. It should follow below syntax where key is the hostname and values are instance attributes
+# NOTE: Hostname only supports alphanumeric characters and hyphen (-). The length of the hostname should not exceed 19 characters, otherwise deployment will fail
 /*
   {
     <hostname> = {
@@ -56,7 +57,8 @@ primary_instance_config = {
 }
 
 
-# Specify instance configuration for Secondary PAN node. It should follow below syntax where key is the hostname and values are instance attributes.
+# Specify instance configuration for Secondary PAN node. It should follow below syntax where key is the hostname and values are instance attributes
+# NOTE: Hostname only supports alphanumeric characters and hyphen (-). The length of the hostname should not exceed 19 characters, otherwise deployment will fail
 /*
   {
     <hostname> = {
@@ -86,6 +88,7 @@ secondary_instance_config = {
 }
 
 # Specify instance configuration for N PSN nodes. It should follow below syntax where key is the hostname and values are instance attributes.
+# NOTE: Hostname only supports alphanumeric characters and hyphen (-). The length of the hostname should not exceed 19 characters, otherwise deployment will fail
 /*
  {
     <hostname> = {
@@ -134,24 +137,6 @@ psn_instance_config = {
     storage_size  = 700
     services      = "Session,Profiler"
   }
-  # psn-ise-server-4 = {
-  #   instance_type = "c5.4xlarge"
-  #   storage_size  = 700
-  #   services      = "Session,Profiler"
-  # }
-
-
-  # psn-ise-server-5 = {
-  #   instance_type = "c5.4xlarge"
-  #   storage_size  = 700
-  #   services      = "Session,Profiler"
-  # }
-  # psn-ise-server-6 = {
-  #   instance_type = "c5.4xlarge"
-  #   storage_size  = 700
-  #   services      = "Session,Profiler"
-  # }
-
 }
 
 ### User needs to create a keypair and pass the key pair name
