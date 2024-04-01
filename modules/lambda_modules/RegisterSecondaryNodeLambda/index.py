@@ -70,13 +70,14 @@ def handler(event, context):
         data["roles"] = roles_enabled  # Include roles_enabled parameter   
         # Retrieve PSN services from SSM parameter
         psn_services_str = get_ssm_parameter(ssm_client, "secondary_node_services")
-        if psn_services_str:
-            psn_services = psn_services_str.split(',')
+        psn_services_list = psn_services_str.split(',')
+        if psn_services_list != [' ']:
+            psn_services_enabled = psn_services_list
         else:
-            logging.warning("PSN services parameter is empty or missing.")
-            psn_services = []
+            logging.warning("Services parameter for secondary pan node is empty or missing.")
+            psn_services_enabled = []
 
-        data["services"] = psn_services
+        data["services"] = psn_services_enabled
  
 
 
