@@ -17,6 +17,7 @@ class RegisterPSNNodeFailed(Exception):
     """Raised when PSN node registration fails"""
     pass
 
+
 def get_ssm_parameter(ssm_client, ssm_parameter_name, WithDecryption=False):
     try:
         param_value = ssm_client.get_parameter(
@@ -26,6 +27,31 @@ def get_ssm_parameter(ssm_client, ssm_parameter_name, WithDecryption=False):
         return param_value.get('Parameter').get('Value')
     except ssm_client.exceptions.ParameterNotFound:
         return None
+    
+
+def get_and_increment_retry_count(ssm_client):
+    try:
+        # Retrieve the current retry count
+        param_name = "PSN_RETRY_COUNT"  # Replace with your SSM parameter name
+        response = ssm_client.get_parameter(Name=param_name, WithDecryption=False)
+        current_retry_count = int(response['Parameter']['Value'])
+
+        # Increment the retry count
+        current_retry_count += 1
+
+        # Update the SSM Parameter with the new retry count
+        ssm_client.put_parameter(
+            Name=param_name,
+            Value=str(current_retry_count),
+            Overwrite=True,
+            Type="String"
+        )
+
+        return current_retry_count
+    except Exception as e:
+        logger.error(f"Error while getting/incrementing retry count from SSM: {e}")
+        return 0  # In case of an error, start with 0
+    
 
 def timeout(event, context):
     logging.error('Execution is about to time out, sending failure response to CloudFormation')
@@ -69,6 +95,7 @@ def handler(event, context):
             api_auth = (admin_username, admin_password)
             api_header = {'Content-Type': 'application/json', 'Accept': 'application/json'}
             logger.info(f"PSN IPs: {psn_ips}")
+            nodes_fqdn_list = psn_fqdn.values
 
             for psn_ip_param, psn_ip_value in psn_ips.items():
                 psn_node_roles = list(psn_roles.values())
@@ -123,12 +150,19 @@ def handler(event, context):
                 logger.info('Url: {}, Data: {}'.format(url, data))
                 # Logic for API requests with these roles and services
                 
+
                 resp = requests.post(url, headers=api_header, auth=api_auth, data=json.dumps(data), verify=False)
                 logger.info(f'Register psn response: {resp.status_code}, {resp.text}')
                 if resp.status_code == 200 or resp.status_code == 400:
                     logger.info(f"Registered PSN node {psn_ip_param} successfully")
-                        
-        
+                    nodes_fqdn_list.remove(psn_fqdn_list_data[0])
+            
+            if len(nodes_fqdn_list) > 0:
+                current_retry_count = get_and_increment_retry_count(ssm_client)
+                return {
+                    "IseState": "pending",
+                    "retries": str(current_retry_count)
+                }
             timer.cancel()
             return {"Status": "SUCCESS"}
         
