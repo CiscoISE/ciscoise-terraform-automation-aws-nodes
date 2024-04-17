@@ -121,24 +121,291 @@ Please use below example for the reference.
 
 
 psn_instance_config = {
-  secmonitoring-server = {
-    instance_type = "m5.2xlarge"
-    storage_size  = 500
-    roles         = "SecondaryMonitoring"
-  }
-  psn-ise-server-2 = {
-    instance_type = "t3.xlarge"
-    storage_size  = 600
-    services      = "Session,Profiler,PassiveIdentity"
-
-  }
   psn-ise-server-3 = {
-    instance_type = "c5.4xlarge"
-    storage_size  = 700
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-4 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-5 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-6 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-7 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+
+  psn-ise-server-8 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-9 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-10 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-11 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-12 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-13 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-14 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-15 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-16 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-17 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-18 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-19 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+
+  psn-ise-server-20 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-21 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-22 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-23 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+
+  psn-ise-server-24 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-25 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-26 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-27 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+
+  psn-ise-server-28 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-29 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-30 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-31 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+
+  psn-ise-server-32 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-33 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-34 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+
+  psn-ise-server-35 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-36 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-37 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+
+  psn-ise-server-38 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-39 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-40 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+
+  psn-ise-server-41 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-42 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-43 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+
+  psn-ise-server-44 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-45 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-46 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+
+  psn-ise-server-47 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-48 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-49 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+
+  psn-ise-server-50 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+
+  psn-ise-server-51 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+
+  psn-ise-server-52 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-53 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+
+  psn-ise-server-54 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-55 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+  psn-ise-server-56 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
     services      = "Session,Profiler"
   }
 }
-
 ### User needs to create a keypair and pass the key pair name
 key_pair_name = "ise-test-nv" # Name of the key pair for SSH access
 

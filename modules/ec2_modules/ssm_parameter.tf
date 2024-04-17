@@ -40,6 +40,12 @@ resource "aws_ssm_parameter" "retry_count" {
   value = "0"
 }
 
+resource "aws_ssm_parameter" "psn_retry_count" {
+  name  = "PSN_RETRY_COUNT"
+  type  = "String"
+  value = "0"
+}
+
 resource "aws_ssm_parameter" "secondary_node_roles" {
   for_each = var.secondary_instance_config
   name     = "secondary_node_roles"
