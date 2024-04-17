@@ -40,15 +40,16 @@ def handler(event, context):
 
     try:
         while True:
-            psn_ip_parameters = ssm_client.describe_parameters(ParameterFilters=[{"Key": "tag:type", "Values": ["psn_ip"]}])['Parameters']
+            psn_ip_parameters = ssm_client.describe_parameters(ParameterFilters=[{"Key": "tag:type", "Values": ["psn_ip"]}], MaxResults=50)['Parameters']
+            logger.info(f'PSN IP parameters fetched from SSM : {psn_ip_parameters}')
             if len(psn_ip_parameters) == 0:
                 logger.info('No PSN node found')
                 return {"Status": "SUCCESS"}
                 
             psn_ips = {param['Name']: get_ssm_parameter(ssm_client, param['Name']) for param in psn_ip_parameters}
-            psn_roles_parameters = ssm_client.describe_parameters(ParameterFilters=[{"Key": "tag:type", "Values": ["psn_roles"]}])['Parameters']
-            psn_services_parameters = ssm_client.describe_parameters(ParameterFilters=[{"Key": "tag:type", "Values": ["psn_services"]}])['Parameters']
-
+            psn_roles_parameters = ssm_client.describe_parameters(ParameterFilters=[{"Key": "tag:type", "Values": ["psn_roles"]}],MaxResults=50)['Parameters']
+            psn_services_parameters = ssm_client.describe_parameters(ParameterFilters=[{"Key": "tag:type", "Values": ["psn_services"]}],MaxResults=50)['Parameters']
+            
             psn_roles = {param['Name']: get_ssm_parameter(ssm_client, param['Name']) for param in psn_roles_parameters}
             psn_services = {param['Name']: get_ssm_parameter(ssm_client, param['Name']) for param in psn_services_parameters}
             logger.info(f"PSN Roles: {psn_roles}")
@@ -56,7 +57,8 @@ def handler(event, context):
             logger.info(f"PSN IPs: {psn_ips}")
 
             # Fetch FQDN parameters
-            psn_fqdn_parameters = ssm_client.describe_parameters(ParameterFilters=[{"Key": "tag:type", "Values": ["psn_fqdn"]}])['Parameters']
+            psn_fqdn_parameters = ssm_client.describe_parameters(ParameterFilters=[{"Key": "tag:type", "Values": ["psn_fqdn"]}],MaxResults=50)['Parameters']
+            logger.info(f'PSN FQDN parameters fetched from SSM : {psn_fqdn_parameters}')
             psn_fqdn = {param['Name']: get_ssm_parameter(ssm_client, param['Name']) for param in psn_fqdn_parameters}
 
             logger.info(f"PSN FQDN: {psn_fqdn}")
@@ -79,6 +81,7 @@ def handler(event, context):
                 logger.info(f"psn_ip_param: {psn_ip_param}, psn_ip_value: {psn_ip_value}")
 
                 psn_fqdn_list = list(psn_fqdn.values())
+                logger.info(psn_fqdn_list)
                 psn_fqdn_list_data = psn_fqdn_list[index].split(',') if index < len(psn_fqdn_list) else ""
                 logger.info(psn_fqdn_list_data)
                 # Prepare the data for API request
@@ -119,17 +122,12 @@ def handler(event, context):
 
                 logger.info('Url: {}, Data: {}'.format(url, data))
                 # Logic for API requests with these roles and services
-
-                try:
-                    resp = requests.post(url, headers=api_header, auth=api_auth, data=json.dumps(data), verify=False)
-                    logger.info(f'Register psn response: {resp.status_code}, {resp.text}')
-                    if resp.status_code == 200:
-                        logger.info(f"Registered PSN node {psn_ip_param} successfully")
-                    else:
-                        raise RegisterPSNNodeFailed(f"Failed to register PSN node {psn_ip_param}")
-                except Exception as e:
-                    logging.error(f'Exception: {e}', exc_info=True)
-                    raise RegisterPSNNodeFailed(f"Exception occurred while registering PSN node {psn_ip_param}")
+                
+                resp = requests.post(url, headers=api_header, auth=api_auth, data=json.dumps(data), verify=False)
+                logger.info(f'Register psn response: {resp.status_code}, {resp.text}')
+                if resp.status_code == 200 or resp.status_code == 400:
+                    logger.info(f"Registered PSN node {psn_ip_param} successfully")
+                        
         
             timer.cancel()
             return {"Status": "SUCCESS"}

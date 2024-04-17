@@ -4,7 +4,7 @@ resource "aws_lambda_function" "pip_layer_lambda" {
   memory_size   = 1024
   role          = aws_iam_role.pip_layer_lambda_role.arn
   runtime       = "python3.9"
-  timeout       = 300
+  timeout       = 900
   filename      = "${path.module}/RegisterPSNNodesLambda.zip"
   vpc_config {
     subnet_ids         = var.subnet_ids
