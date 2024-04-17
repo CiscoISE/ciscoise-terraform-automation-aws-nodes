@@ -121,6 +121,16 @@ Please use below example for the reference.
 
 
 psn_instance_config = {
+    psn-ise-server-1 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
+    psn-ise-server-2 = {
+    instance_type = "t3.xlarge"
+    storage_size  = 500
+    services      = "Session,Profiler"
+  }
   psn-ise-server-3 = {
     instance_type = "t3.xlarge"
     storage_size  = 500

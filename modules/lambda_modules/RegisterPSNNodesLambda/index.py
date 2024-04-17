@@ -63,7 +63,7 @@ def handler(event, context):
     runtime_region = os.environ['AWS_REGION']
     ssm_client = boto3.client('ssm', region_name=runtime_region)
     timer = threading.Timer((context.get_remaining_time_in_millis() / 1000.00) - 0.5, timeout, args=[event, context])
-
+    current_retry_count = 0 
     try:
         while True:
             psn_ip_parameters = ssm_client.describe_parameters(ParameterFilters=[{"Key": "tag:type", "Values": ["psn_ip"]}], MaxResults=50)['Parameters']
@@ -98,7 +98,7 @@ def handler(event, context):
             api_auth = (admin_username, admin_password)
             api_header = {'Content-Type': 'application/json', 'Accept': 'application/json'}
             logger.info(f"PSN IPs: {psn_ips}")
-            nodes_fqdn_list = psn_fqdn.values
+            
 
             for psn_ip_param, psn_ip_value in psn_ips.items():
                 psn_node_roles = list(psn_roles.values())
@@ -157,19 +157,25 @@ def handler(event, context):
                 logger.info(f'Register psn response: {resp.status_code}, {resp.text}')
                 if resp.status_code == 200 or resp.status_code == 400:
                     logger.info(f"Registered PSN node {psn_ip_param} successfully")
-                    nodes_fqdn_list.remove(psn_fqdn_list_data[0])
-            
+                    psn_fqdn_values_list = list(psn_fqdn.values())
+                    
+                    if psn_fqdn_list_data and psn_fqdn_list_data[0] in psn_fqdn_values_list:
+                        psn_fqdn_values_list.remove(psn_fqdn_list_data[0])
+                    psn_fqdn = dict(zip(psn_fqdn.keys(), psn_fqdn_values_list))
+            nodes_fqdn_list = psn_fqdn.values
             if len(nodes_fqdn_list) > 0:
+                logger.info(f"nodes fqdn inside")
                 current_retry_count = get_and_increment_retry_count(ssm_client)
                 return {
                     "PSNState": "pending",
                     "retries": str(current_retry_count)
                 }
-            timer.cancel()
-            return {
-                "PSNState": "running",
-                "retries": str(current_retry_count)
-                }
+
         
     except Exception as e:
             logging.error(f'Exception: {e}', exc_info=True)
+    timer.cancel()
+    return {
+        "PSNState": "running",
+        "retries": str(current_retry_count)
+        }
