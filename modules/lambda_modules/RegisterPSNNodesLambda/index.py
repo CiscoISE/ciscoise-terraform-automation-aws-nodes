@@ -70,7 +70,10 @@ def handler(event, context):
             logger.info(f'PSN IP parameters fetched from SSM : {psn_ip_parameters}')
             if len(psn_ip_parameters) == 0:
                 logger.info('No PSN node found')
-                return {"Status": "SUCCESS"}
+                return {
+                    "PSNState": "running",
+                    "retries": 0
+                }
                 
             psn_ips = {param['Name']: get_ssm_parameter(ssm_client, param['Name']) for param in psn_ip_parameters}
             psn_roles_parameters = ssm_client.describe_parameters(ParameterFilters=[{"Key": "tag:type", "Values": ["psn_roles"]}],MaxResults=50)['Parameters']
@@ -150,7 +153,6 @@ def handler(event, context):
                 logger.info('Url: {}, Data: {}'.format(url, data))
                 # Logic for API requests with these roles and services
                 
-
                 resp = requests.post(url, headers=api_header, auth=api_auth, data=json.dumps(data), verify=False)
                 logger.info(f'Register psn response: {resp.status_code}, {resp.text}')
                 if resp.status_code == 200 or resp.status_code == 400:
@@ -160,11 +162,14 @@ def handler(event, context):
             if len(nodes_fqdn_list) > 0:
                 current_retry_count = get_and_increment_retry_count(ssm_client)
                 return {
-                    "IseState": "pending",
+                    "PSNState": "pending",
                     "retries": str(current_retry_count)
                 }
             timer.cancel()
-            return {"Status": "SUCCESS"}
+            return {
+                "PSNState": "running",
+                "retries": str(current_retry_count)
+                }
         
     except Exception as e:
             logging.error(f'Exception: {e}', exc_info=True)

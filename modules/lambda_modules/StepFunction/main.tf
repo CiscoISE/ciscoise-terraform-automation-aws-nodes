@@ -57,7 +57,35 @@ resource "aws_sfn_state_machine" "DeploymentStateMachine" {
       "InvokeRegisterPSNNodesLambda" = {
         Type     = "Task",
         Resource = var.register_psn_nodes_lambda_arn,
-        Next     = "InvokeCheckSyncStatusLambda"
+        Next     = "CheckPSNState",
+        Catch : [
+          {
+            "ErrorEquals" : ["Lambda.Unknown"],
+            "Next" : "WaitAndRetryPSN"
+          }
+        ]
+      },
+      "CheckPSNState" : {
+        Type : "Choice",
+        Choices : [
+          {
+            Variable : "$.PSNState",
+            StringEquals : "running",
+            Next : "InvokeCheckSyncStatusLambda"
+          },
+          {
+            Variable : "$.retries",
+            StringEquals : "3",
+            Next : "TerminateStateMachine"
+          },
+          # {
+          #   Variable : "$.PSNState",
+          #   StringEquals : "pending",
+          #   Next : "WaitAndRetryHealthCheck"
+          # },
+
+        ],
+        Default : "WaitAndRetryPSN"
       },
       "InvokeCheckSyncStatusLambda" = {
         Type     = "Task",
@@ -114,6 +142,11 @@ resource "aws_sfn_state_machine" "DeploymentStateMachine" {
         Seconds = 600, // Adjust the wait time as needed
         Next    = "InvokeCheckISEStatusLambda"
       },
+      "WaitAndRetryPSN" = {
+        Type    = "Wait",
+        Seconds = 30, // Adjust the wait time as needed
+        Next    = "InvokeRegisterPSNNodesLambda"
+      },
       "TerminateStateMachine" : {
         Type : "Fail",
         Error : "UnhealthyState",
@@ -121,4 +154,4 @@ resource "aws_sfn_state_machine" "DeploymentStateMachine" {
       },
     },
   })
-}
+} 
