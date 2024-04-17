@@ -322,7 +322,7 @@ variable "secondary_instance_config" {
       [for service in split(",", vm.services) :
         service if service != "Session" && service != "Profiler" && service != "TC-NAC" &&
         service != "SXP" && service != "DeviceAdmin" && service != "PassiveIdentity" &&
-    service != "pxGrid" && service != "pxGridCloud"]])) == 0
+    service != "pxGrid" && service != "pxGridCloud" && service != " "]])) == 0
     error_message = "Services for secondary node can only accept values from Session, Profiler, TC-NAC, SXP, DeviceAdmin, PassiveIdentity, pxGrid, pxGridCloud."
   }
 
