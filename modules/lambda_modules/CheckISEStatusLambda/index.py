@@ -33,10 +33,6 @@ def set_ssm_parameter(ssm_client, ssm_parameter_name, value, Overwrite=True, Typ
     )
     return response
 
-def timeout(event, context):
-    logging.error('Execution is about to time out, sending failure response to CloudFormation')
-    requests_data = json.dumps(data=dict(Status='FAILURE', Reason='Lambda timeout', UniqueId='ISENodeStates', Data='failed due to timeout')).encode('utf-8')
-    response = requests.put(event['ResourceProperties']['WaitHandle'], data=requests_data, headers={'Content-Type': ''})
     
 def get_and_increment_retry_count(ssm_client):
     try:
@@ -103,7 +99,6 @@ def get_psn_parameters(ssm_client, config_type, psn_token=None, ssm_parameter_na
 def handler(event, context):
     runtime_region = os.environ['AWS_REGION']
     ssm_client = boto3.client('ssm', region_name=runtime_region)
-    timer = threading.Timer((context.get_remaining_time_in_millis() / 1000.00) - 0.5, timeout, args=[event, context])
 
     try:
         retries = 10  # Polling rate to restrict Step functions looping
@@ -134,8 +129,7 @@ def handler(event, context):
         # Getting PSN values using function
 
         psn_ip_parameters = ssm_client.describe_parameters(
-                    ParameterFilters=[{"Key": "tag:type", "Values": ["psn_ip"]}],
-                    MaxResults=1
+                    ParameterFilters=[{"Key": "tag:type", "Values": ["psn_ip"]}]
                     )['Parameters']
         if len(psn_ip_parameters) != 0:
             logger.info('PSN node found')
@@ -171,7 +165,6 @@ def handler(event, context):
                 }
         
         if nodes_list:
-            timer.cancel()
             retries -= 1
             current_retry_count = get_and_increment_retry_count(ssm_client)
             return {
@@ -179,7 +172,6 @@ def handler(event, context):
                 "retries": str(current_retry_count)
             }
         else:
-            timer.cancel()
             ssm_client.put_parameter(
                 Name="RETRY_COUNT",
                 Value="0",
