@@ -121,48 +121,48 @@ Please use below example for the reference.
 
 
 psn_instance_config = {
-  psn-ise-server-1 = {
+  psn-ise-server-01 = {
     instance_type = "t3.xlarge"
     storage_size  = 500
     services      = "Session,Profiler"
   }
-  psn-ise-server-2 = {
+  psn-ise-server-02 = {
     instance_type = "t3.xlarge"
     storage_size  = 500
     services      = "Session,Profiler"
   }
-  psn-ise-server-3 = {
+  psn-ise-server-03 = {
     instance_type = "t3.xlarge"
     storage_size  = 500
     services      = "Session,Profiler"
   }
-  psn-ise-server-4 = {
+  psn-ise-server-04 = {
     instance_type = "t3.xlarge"
     storage_size  = 500
     services      = "Session,Profiler"
   }
-  psn-ise-server-5 = {
+  psn-ise-server-05 = {
     instance_type = "t3.xlarge"
     storage_size  = 500
     services      = "Session,Profiler"
   }
-  psn-ise-server-6 = {
+  psn-ise-server-06 = {
     instance_type = "t3.xlarge"
     storage_size  = 500
     services      = "Session,Profiler"
   }
-  psn-ise-server-7 = {
+  psn-ise-server-07 = {
     instance_type = "t3.xlarge"
     storage_size  = 500
     services      = "Session,Profiler"
   }
 
-  psn-ise-server-8 = {
+  psn-ise-server-08 = {
     instance_type = "t3.xlarge"
     storage_size  = 500
     services      = "Session,Profiler"
   }
-  psn-ise-server-9 = {
+  psn-ise-server-09 = {
     instance_type = "t3.xlarge"
     storage_size  = 500
     services      = "Session,Profiler"

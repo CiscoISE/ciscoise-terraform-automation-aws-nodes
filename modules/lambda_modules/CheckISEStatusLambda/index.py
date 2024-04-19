@@ -49,17 +49,56 @@ def get_and_increment_retry_count(ssm_client):
         current_retry_count += 1
 
         # Update the SSM Parameter with the new retry count
-        ssm_client.put_parameter(
-            Name=param_name,
-            Value=str(current_retry_count),
-            Overwrite=True,
-            Type="String"
-        )
+        set_ssm_parameter(ssm_client, param_name, str(current_retry_count))
+        # ssm_client.put_parameter(
+        #     Name=param_name,
+        #     Value=str(current_retry_count),
+        #     Overwrite=True,
+        #     Type="String"
+        # )
 
         return current_retry_count
     except Exception as e:
         logger.error(f"Error while getting/incrementing retry count from SSM: {e}")
         return 0  # In case of an error, start with 0
+
+def get_psn_parameters(ssm_client, config_type, psn_token=None, ssm_parameter_name=None, psn_enable_ip=False):
+    try:
+        psn_parameters = []
+        while True:
+            # Fetch PSN parameters
+            if psn_token:
+                response = ssm_client.describe_parameters(
+                    ParameterFilters=[{"Key": "tag:type", "Values": [config_type]}],
+                    MaxResults=50,
+                    NextToken=psn_token
+                    )
+            else:
+                response = ssm_client.describe_parameters(
+                    ParameterFilters=[{"Key": "tag:type", "Values": [config_type]}],
+                    MaxResults=50
+                    )
+                
+            logger.info(f"PSN response: {response}")
+            psn_parameters.extend(response['Parameters'])
+            psn_token = response.get('NextToken')
+            logger.info(f'PSN Config parameters fetched from SSM : {psn_parameters}')
+
+            if not psn_token:
+            # If no NextToken, we've retrieved all results
+                break
+
+        psn_config = {param['Name']: get_ssm_parameter(ssm_client, param['Name']) for param in psn_parameters}
+        logger.info(f"PSN Data List: {psn_config}")
+
+        if psn_enable_ip:
+            return psn_config
+        else:
+            logger.info(f"PSN Config Details: {psn_config.values()}")
+            set_ssm_parameter(ssm_client, ssm_parameter_name, value=json.dumps(psn_config), Type="String")
+    except Exception as e:
+        logger.info("Exception occur in getting PSN parameters")
+        logger.error('Exception: %s' % e, exc_info=True)
 
 def handler(event, context):
     runtime_region = os.environ['AWS_REGION']
@@ -71,8 +110,8 @@ def handler(event, context):
         if "taskresult" in event:
             retries = int(event['taskresult']['retries'])
         else:
-            PPAN_fqdn = get_ssm_parameter(ssm_client, "Primary_FQDN")
-            SPAN_fqdn = get_ssm_parameter(ssm_client, "Secondary_FQDN")
+            # PPAN_fqdn = get_ssm_parameter(ssm_client, "Primary_FQDN")
+            # SPAN_fqdn = get_ssm_parameter(ssm_client, "Secondary_FQDN")
             ADMIN_USERNAME = get_ssm_parameter(ssm_client, "ADMIN_USERNAME")
             ADMIN_PASSWORD = get_ssm_parameter(ssm_client, "ADMIN_PASSWORD")
 
@@ -91,13 +130,24 @@ def handler(event, context):
         logger.info("API_HEADER: {}".format(API_HEADER))
         logger.info("Secondary Policy Administration node FQDN: {}".format(Secondary_FQDN))
         data = {}
-
         nodes_to_check = [Primary_IP, Secondary_IP]
-        psn_ip_parameters = ssm_client.describe_parameters(ParameterFilters=[{"Key": "tag:type", "Values": ["psn_ip"]}])['Parameters']
-        psn_ips = {param['Name']: get_ssm_parameter(ssm_client, param['Name']) for param in psn_ip_parameters}
-        logger.info(f"PSN IPs: {psn_ips}")
-        for ip_value in psn_ips.values():
-           nodes_to_check.append(ip_value)
+        # Getting PSN values using function
+
+        psn_ip_parameters = ssm_client.describe_parameters(
+                    ParameterFilters=[{"Key": "tag:type", "Values": ["psn_ip"]}],
+                    MaxResults=1
+                    )['Parameters']
+        if len(psn_ip_parameters) != 0:
+            logger.info('PSN node found')
+            get_psn_parameters(ssm_client, config_type="psn_roles", psn_token=None, ssm_parameter_name="psn_roles_list")
+            get_psn_parameters(ssm_client, config_type="psn_services", psn_token=None, ssm_parameter_name="psn_services_list")
+            get_psn_parameters(ssm_client, config_type="psn_fqdn", psn_token=None, ssm_parameter_name="psn_fqdn_list")
+            
+            # Get all PSN IPs for check status
+            psn_ips = get_psn_parameters(ssm_client, config_type="psn_ip", psn_token=None, psn_enable_ip=True)
+            logger.info(f"PSN IPS Final List: {psn_ips}")
+            for ip_value in psn_ips.values():
+                nodes_to_check.append(ip_value)
 
         logger.info("Nodes to check: {}".format(nodes_to_check))
         nodes_list = list(nodes_to_check)
@@ -142,4 +192,3 @@ def handler(event, context):
             }
     except Exception as e:
         logger.error('Exception: %s' % e, exc_info=True)
-
