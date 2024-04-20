@@ -149,12 +149,13 @@ psn_instance_config = {
   psn-ise-server-06 = {
     instance_type = "t3.xlarge"
     storage_size  = 500
-    services      = "Session,Profiler"
+    services      = "Session,Profiler,PassiveIdentity"
+    
   }
   psn-ise-server-07 = {
     instance_type = "t3.xlarge"
     storage_size  = 500
-    services      = "Session,Profiler"
+    roles         = "SecondaryMonitoring"
   }
 
   psn-ise-server-08 = {

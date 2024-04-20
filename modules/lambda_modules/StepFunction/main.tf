@@ -75,7 +75,7 @@ resource "aws_sfn_state_machine" "DeploymentStateMachine" {
           },
           {
             Variable : "$.retries",
-            StringEquals : "3",
+            StringEquals : "10",
             Next : "TerminateStateMachine"
           },
           # {

@@ -183,5 +183,5 @@ def handler(event, context):
             logging.error(f'Exception: {e}', exc_info=True)
             return {
                     "PSNState": "exception",
-                    "retries": 3
+                    "retries": 10
                 }
