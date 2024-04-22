@@ -30,14 +30,9 @@ def get_ssm_parameter(ssm_client, ssm_parameter_name,WithDecryption=False):
 
         return param_value.get('Parameter').get('Value')
 
-def timeout():
-        logging.error('Lambda timeout RegisterSecondaryNodeLambda failed')
-        sys.exit(1)
-
 def handler(event, context):
     runtime_region = os.environ['AWS_REGION']
     ssm_client = boto3.client('ssm',region_name=runtime_region)
-    timer = threading.Timer((context.get_remaining_time_in_millis() / 1000.00) - 0.5, timeout)
     logger.info("#Retriving SSM parameters...")
     Primary_IP = get_ssm_parameter(ssm_client,"Primary_IP")
     Secondary_IP = get_ssm_parameter(ssm_client,"Secondary_IP")
@@ -87,7 +82,6 @@ def handler(event, context):
         logger.info('Register secondary response: {}, {}'.format(resp.status_code, resp.text))
         if resp.status_code == 200:
             logger.info("Register Secondary node is successfull, API response is {}".format(resp.text))
-            timer.cancel()
             return {
                     "task_status": "Done"
                     }
@@ -101,5 +95,4 @@ def handler(event, context):
 
     except Exception as e:
         requests_data=json.dumps(dict(Status='FAILURE',Reason='Secondary Node Registration Failed',UniqueId='ISENodeStates',Data='exception')).encode('utf-8')
-        timer.cancel()
         logging.error('Exception: %s' % e, exc_info=True)

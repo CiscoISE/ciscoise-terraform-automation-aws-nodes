@@ -30,15 +30,10 @@ def get_ssm_parameter(ssm_client, ssm_parameter_name,WithDecryption=False):
 
         return param_value.get('Parameter').get('Value')
 
-def timeout(event, context):
-        logging.error('Lambda timeout')
-        sys.exit(1)
-
 
 def handler(event, context):
     runtime_region = os.environ['AWS_REGION']
     ssm_client = boto3.client('ssm',region_name=runtime_region)
-    timer = threading.Timer((context.get_remaining_time_in_millis() / 1000.00) - 0.5, timeout, args=[event, context])
     logger.info("#Retriving SSM parameters...")
     Primary_IP = get_ssm_parameter(ssm_client,"Primary_IP")
     ADMIN_USERNAME = get_ssm_parameter(ssm_client,"ADMIN_USERNAME")
@@ -58,7 +53,6 @@ def handler(event, context):
         logger.info("API Response is : {}".format(resp))
         if resp.status_code == 200:
             logger.info("##### Standalone to Primary Successful on {} #####".format(Primary_IP))
-            timer.cancel()
             return {
                     "task_status": "Done"
                     }
@@ -66,4 +60,3 @@ def handler(event, context):
 
     except Exception as e:
         logging.error('Exception: %s' % e, exc_info=True)
-        timer.cancel()

@@ -5,7 +5,7 @@ resource "aws_lambda_function" "pip_layer_lambda" {
   role          = aws_iam_role.pip_layer_lambda_role.arn
   runtime       = "python3.9"
   timeout       = 300
-  filename      = "${path.module}/index.zip"
+  filename      = "${path.module}/PipLayerLambda.zip"
 }
 
 resource "aws_cloudwatch_log_group" "lambda_logs" {
