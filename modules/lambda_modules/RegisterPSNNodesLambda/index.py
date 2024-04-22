@@ -1,6 +1,5 @@
 import json
 import logging
-import threading
 import requests
 import boto3
 import sys

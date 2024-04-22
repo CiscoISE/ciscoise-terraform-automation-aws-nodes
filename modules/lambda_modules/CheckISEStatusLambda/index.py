@@ -1,12 +1,9 @@
 import json
 import logging
-import threading
-import time
 import requests
 import boto3
 import sys
 import os
-import socket
 import urllib3
 
 urllib3.disable_warnings()
