@@ -4,7 +4,7 @@ resource "aws_lambda_function" "check_sync_status_lambda" {
   handler       = "index.handler"
   runtime       = "python3.9"
   memory_size   = 1024
-  timeout       = 600
+  timeout       = 900
 
   filename = "${path.module}/CheckSyncStatusLambda.zip"
   role     = aws_iam_role.check_sync_status_execution_role.arn

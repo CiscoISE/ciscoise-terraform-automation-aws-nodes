@@ -19,7 +19,7 @@ resource "aws_lambda_function" "CheckISEStatusLambda" {
   handler       = "index.handler"
   runtime       = "python3.9"
   memory_size   = 1024
-  timeout       = 600
+  timeout       = 900
 
   filename = "${path.module}/CheckISEStatusLambda.zip"
   role     = aws_iam_role.lambda_role.arn
