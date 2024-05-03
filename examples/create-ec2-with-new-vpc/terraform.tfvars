@@ -66,6 +66,9 @@ internet_gateway_name = "Cisco_ISE_IGW"                  # Name tag for the Inte
       }
     }
    */
+
+# NOTE: Hostname only supports alphanumeric characters and hyphen (-). The length of the hostname should not exceed 19 characters, otherwise deployment will fail
+# Example: Below primary-ise-server is a dynamic hostname provided by user.
 primary_instance_config = {
   primary-ise-server = {
     instance_type = "m5.4xlarge"
@@ -74,7 +77,7 @@ primary_instance_config = {
 }
 
 
-# Specify instance configuration for Secondary PAN node. It should follow below syntax where key is the hostname and values are instance attributes
+# Specify instance configuration for Secondary PAN node. It should follow below syntax where key is the hostname and values are instance attributes.
 # NOTE: Hostname only supports alphanumeric characters and hyphen (-). The length of the hostname should not exceed 19 characters, otherwise deployment will fail
 /*
   {
@@ -95,8 +98,11 @@ primary_instance_config = {
   }
 }
 */
+
+# NOTE: Hostname only supports alphanumeric characters and hyphen (-). The length of the hostname should not exceed 19 characters, otherwise deployment will fail
+# Example: Below sec-ise-server is a dynamic hostname provided by user.
 secondary_instance_config = {
-  secondary-ise-server = {
+  sec-ise-server = {
     instance_type = "t3.xlarge"
     storage_size  = 500
     services      = "Session,Profiler,pxGrid"
@@ -136,9 +142,10 @@ Please use below example for the reference.
 }
 */
 
-
+# NOTE: Hostname only supports alphanumeric characters and hyphen (-). The length of the hostname should not exceed 19 characters, otherwise deployment will fail
+# Example: Below secmon-server, psn-ise-server-2 and so on are the dynamic hostname provided by user.
 psn_instance_config = {
-  secmonitoring-server = {
+  secmon-server = {
     instance_type = "m5.2xlarge"
     storage_size  = 500
     roles         = "SecondaryMonitoring"

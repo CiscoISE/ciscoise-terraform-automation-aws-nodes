@@ -113,6 +113,7 @@ module "RegisterPSNNodesLambda" {
   layer_arn          = local.layer_arn
   depends_on         = [time_sleep.wait_8_minutes]
 }
+
 module "checkSyncStatusLambda" {
   source             = "../../modules/lambda_modules/checkSyncStatusLambda"
   function_name      = "CheckSyncStatusLambda"

@@ -98,6 +98,15 @@ variable "secondary_instance_config" {
       roles = "<role_1>,<role_2>"
     }
   }
+  Example usage -
+  {
+  secondary-ise-server = { 
+      instance_type = "t3.xlarge"
+      storage_size = 500
+      services = "Session,Profiler,pxGrid"
+      roles = "SecondaryAdmin"
+    }
+  }
   EOT
   type = map(object({
     instance_type = string
