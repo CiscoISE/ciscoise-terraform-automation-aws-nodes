@@ -1,3 +1,7 @@
+[![ISE VERSION](https://img.shields.io/badge/ISE%20SUPPORTED%20VERSIONS-3.2%20AND%203.3-blue?style=for-the-badge&logo=cisco)]([https://github.com/CiscoISE/ciscoise-terraform-automation-azure-nodes](https://www.cisco.com/c/en/us/support/security/identity-services-engine/series.html))
+[![Terraform Azure](https://img.shields.io/badge/IaC-Terraform-blue?style=for-the-badge&logo=terraform)](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
+[![AWS](https://img.shields.io/badge/AWS-Cloud-blue?style=for-the-badge&logo=amazonaws)](https://aws.amazon.com/))
+
 # Automated ISE setup using Terraform on AWS
 
 1. This project runs terraform module to deploy upto 58 ISE nodes(min:2 | max:58) on AWS based on User Input
