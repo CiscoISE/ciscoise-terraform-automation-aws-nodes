@@ -115,8 +115,8 @@ variable "secondary_instance_config" {
   type = map(object({
     instance_type = string
     storage_size  = number
-    services      = optional(string, "Session,Profiler,pxGrid")
-    roles         = optional(string, "SecondaryAdmin,SecondaryMonitoring")
+    services      = optional(string, " ")
+    roles         = optional(string, "SecondaryAdmin")
   }))
 }
 
@@ -149,7 +149,7 @@ variable "psn_instance_config" {
   type = map(object({
     instance_type = string
     storage_size  = number
-    services      = optional(string, "Session,Profiler")
+    services      = optional(string, " ")
     roles         = optional(string, " ")
   }))
 }
@@ -166,13 +166,12 @@ variable "key_pair_name" {
     To access the Cisco ISE instance via SSH, choose the key pair that you created/imported in AWS.
     Create/import a key pair in AWS now if you have not configured one already.
     Usage example:  ssh -i mykeypair.pem admin@myhostname.compute-1.amazonaws.com.
-    NOTE: The username for ISE 3.1 is "admin" and for ISE 3.2+ is "iseadmin".
+    NOTE: The username for ISE 3.1 is "admin" and for ISE 3.2/3.3 is "iseadmin".
   EOT  
   type        = string
 }
 
 ###Storage Details###
-
 variable "ebs_encrypt" {
   description = "Choose true to enable EBS encryption"
 }
@@ -180,9 +179,9 @@ variable "ebs_encrypt" {
 ###########################################
 ### Block to Update Application Details ###
 ###########################################
-### NOTE: The username for ISE 3.1 is "admin" and for ISE 3.2+ is "iseadmin" ###
+### NOTE: The username for ISE 3.1 is "admin" and for ISE 3.2/3.3 is "iseadmin" ###
 variable "ise_version" {
-  description = "The version of Cisco ISE (3.1 or 3.2)"
+  description = "The version of Cisco ISE (3.1 or 3.2 or 3.3)"
   type        = string
 }
 
@@ -216,6 +215,7 @@ variable "px_grid_cloud" {
   type        = string
 }
 
+
 variable "primarynameserver" {
   description = "Enter the IP address of the primary name server. Only IPv4 addresses are supported. Example: 169.254.169.253"
   type        = string
@@ -225,6 +225,7 @@ variable "ntpserver" {
   description = "Enter the IPv4 address or FQDN of the NTP server that must be used for synchronization, Example, 169.254.169.123"
   type        = string
 }
+
 
 #######################################
 ### Block to Update DNS Domain Name ###

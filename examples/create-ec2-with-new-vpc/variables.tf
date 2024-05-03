@@ -98,6 +98,15 @@ variable "secondary_instance_config" {
       roles = "<role_1>,<role_2>"
     }
   }
+  Example usage -
+  {
+  secondary-ise-server = { 
+      instance_type = "t3.xlarge"
+      storage_size = 500
+      services = "Session,Profiler,pxGrid"
+      roles = "SecondaryAdmin"
+    }
+  }
   EOT
   type = map(object({
     instance_type = string
@@ -153,7 +162,7 @@ variable "key_pair_name" {
     To access the Cisco ISE instance via SSH, choose the key pair that you created/imported in AWS.
     Create/import a key pair in AWS now if you have not configured one already.
     Usage example:  ssh -i mykeypair.pem admin@myhostname.compute-1.amazonaws.com.
-    NOTE: The username for ISE 3.1 is "admin" and for ISE 3.2+ is "iseadmin".
+    NOTE: The username for ISE 3.1 is "admin" and for ISE 3.2/3.3 is "iseadmin".
   EOT  
   type        = string
 }
@@ -166,9 +175,9 @@ variable "ebs_encrypt" {
 ###########################################
 ### Block to Update Application Details ###
 ###########################################
-### NOTE: The username for ISE 3.1 is "admin" and for ISE 3.2+ is "iseadmin" ###
+### NOTE: The username for ISE 3.1 is "admin" and for ISE 3.2/3.3 is "iseadmin" ###
 variable "ise_version" {
-  description = "The version of Cisco ISE (3.1 or 3.2)"
+  description = "The version of Cisco ISE (3.1 or 3.2 or 3.3)"
   type        = string
 }
 

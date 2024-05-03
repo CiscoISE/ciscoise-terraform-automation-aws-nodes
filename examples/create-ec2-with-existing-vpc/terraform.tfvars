@@ -49,6 +49,7 @@ internet_gateway_name = "Cisco_ISE_IGW" # Name tag for the Internet Gateway
 # 5. Service pxGridCloud cannot be added more than once in workload nodes
 # 6. Valid characters for hostnames are `ASCII(7)` letters from `a` to `z` , the digits from `0` to `9` , and the hyphen (`−`).
 
+
 # Specify instance configuration for Primary PAN node. It should follow below syntax where key is the hostname and values are instance attributes
 # NOTE: Hostname only supports alphanumeric characters and hyphen (-). The length of the hostname should not exceed 19 characters, otherwise deployment will fail
 /*
@@ -67,9 +68,12 @@ internet_gateway_name = "Cisco_ISE_IGW" # Name tag for the Internet Gateway
       }
     }
    */
+
+# NOTE: Hostname only supports alphanumeric characters and hyphen (-). The length of the hostname should not exceed 19 characters, otherwise deployment will fail
+# Example: Below primary-ise-server is a dynamic hostname provided by user.
 primary_instance_config = {
   primary-ise-server = {
-    instance_type = "t3.xlarge"
+    instance_type = "m5.4xlarge"
     storage_size  = 500
   }
 }
@@ -96,8 +100,11 @@ primary_instance_config = {
   }
 }
 */
+
+# NOTE: Hostname only supports alphanumeric characters and hyphen (-). The length of the hostname should not exceed 19 characters, otherwise deployment will fail
+# Example: Below sec-ise-server is a dynamic hostname provided by user.
 secondary_instance_config = {
-  secondary-ise-server = {
+  sec-ise-server = {
     instance_type = "t3.xlarge"
     storage_size  = 500
     services      = "Session,Profiler,pxGrid"
@@ -131,13 +138,16 @@ Please use below example for the reference.
       services      = "Session,Profiler,PassiveIdentity"
     }
     psn-ise-server-3 = {
-      instance_type = "c5.4xlarge
+      instance_type = "c5.4xlarge"
       storage_size  = 700
     }
 }
 */
+
+# NOTE: Hostname only supports alphanumeric characters and hyphen (-). The length of the hostname should not exceed 19 characters, otherwise deployment will fail
+# Example: Below secmon-server, psn-ise-server-2 and so on are the dynamic hostname provided by user.
 psn_instance_config = {
-  secmonitoring-server = {
+  secmon-server = {
     instance_type = "m5.2xlarge"
     storage_size  = 500
     roles         = "SecondaryMonitoring"
@@ -149,8 +159,9 @@ psn_instance_config = {
 
   }
   psn-ise-server-3 = {
-    instance_type = "c5.4xlarge"
+    instance_type = "t3.xlarge"
     storage_size  = 700
+    services      = "Session,Profiler"
   }
 }
 
@@ -164,7 +175,7 @@ ebs_encrypt = false # Choose true to enable EBS encryption
 enable_stickiness = true # Choose true to enable stickiness for the load balancer
 
 # Application Details
-ise_version       = "3.1"             # The version of Cisco ISE (3.1 or 3.2)
+ise_version       = "3.1"             # The version of Cisco ISE (3.1 or 3.2 or 3.3)
 password          = "C!sc0Ind1@"      # Set a password for GUI-based login to Cisco ISE. The password that you enter must comply with the Cisco ISE password policy. The password must contain 6 to 25 characters and include at least one numeral, one uppercase letter, and one lowercase letter. The password cannot be the same as the username or its reverse (iseadmin or nimdaesi), cisco, or ocsic. The allowed special characters are @~*!,+=_-.
 time_zone         = "UTC"             # Enter a timezone
 ers_api           = "yes"             # Enable/disable ERS

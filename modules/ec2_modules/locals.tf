@@ -15,7 +15,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 locals {
-  ise_username_map     = { 3.1 = "admin", 3.2 = "iseadmin" }
+  ise_username_map     = { 3.1 = "admin", 3.2 = "iseadmin",3.3 = "iseadmin"}
   roles                = flatten(concat([for vm in values(var.secondary_instance_config) : split(",", vm.roles)], [for vm in values(var.psn_instance_config) : split(",", vm.roles)]))
   ise_nodes_list       = concat([for key in keys(var.primary_instance_config) : aws_instance.primary_ise_server[key].id], [for key in keys(var.secondary_instance_config) : aws_instance.secondary_ise_server[key].id], [for key in keys(var.psn_instance_config) : aws_instance.PSN_node[key].id])
   ise_hostnames_list   = concat([for key in keys(var.primary_instance_config) : key], [for key in keys(var.secondary_instance_config) : key], [for key in keys(var.psn_instance_config) : key])
