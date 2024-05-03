@@ -177,7 +177,7 @@ variable "ebs_encrypt" {
 ###########################################
 ### NOTE: The username for ISE 3.1 is "admin" and for ISE 3.2+ is "iseadmin" ###
 variable "ise_version" {
-  description = "The version of Cisco ISE (3.1 or 3.2)"
+  description = "The version of Cisco ISE (3.1 or 3.2 or 3.3)"
   type        = string
 }
 

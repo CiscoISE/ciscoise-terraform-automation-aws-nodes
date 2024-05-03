@@ -27,6 +27,9 @@ variable "ami_ids" {
       3.2 = {
         ami_id = "ami-08c545c5ef3cacced"
       }
+      3.3 = {
+        ami_id = "ami-0b23511ddfe2744e2"
+      }
     }
     us-east-2 = {
       3.1 = {
@@ -34,6 +37,9 @@ variable "ami_ids" {
       }
       3.2 = {
         ami_id = "ami-068b6e34ad1266819"
+      }
+      3.3 = {
+        ami_id = "ami-07bc77592aa26607e"
       }
     }
     us-west-1 = {
@@ -43,6 +49,9 @@ variable "ami_ids" {
       3.2 = {
         ami_id = "ami-0768dd8e82836d887"
       }
+      3.3 = {
+        ami_id = "ami-0c6108f8e0494c81a"
+      }
     }
     us-west-2 = {
       3.1 = {
@@ -50,6 +59,9 @@ variable "ami_ids" {
       }
       3.2 = {
         ami_id = "ami-0531d829a9e4d6b83"
+      }
+      3.3 = {
+        ami_id = "ami-0944cc49bd9c49681"
       }
     }
     ca-central-1 = {
@@ -59,6 +71,9 @@ variable "ami_ids" {
       3.2 = {
         ami_id = "ami-0d440428a5401cd3e"
       }
+      3.3 = {
+        ami_id = "ami-04c7ccc68bf2544ff"
+      }
     }
     eu-central-1 = {
       3.1 = {
@@ -66,6 +81,9 @@ variable "ami_ids" {
       }
       3.2 = {
         ami_id = "ami-0959760bb044c3247"
+      }
+      3.3 = {
+        ami_id = "ami-049d026e31f08279c"
       }
     }
     eu-west-1 = {
@@ -75,6 +93,9 @@ variable "ami_ids" {
       3.2 = {
         ami_id = "ami-0c3b9a181c1c91a3a"
       }
+      3.3 = {
+        ami_id = "ami-0f1d929fc7cf03199"
+      }
     }
     eu-west-2 = {
       3.1 = {
@@ -82,6 +103,9 @@ variable "ami_ids" {
       }
       3.2 = {
         ami_id = "ami-00e0b109d715904ad"
+      }
+      3.3 = {
+        ami_id = "ami-0b5146dc1129aa7b9"
       }
     }
     eu-west-3 = {
@@ -91,6 +115,9 @@ variable "ami_ids" {
       3.2 = {
         ami_id = "ami-04dee19d63c2edb18"
       }
+      3.3 = {
+        ami_id = "ami-0483c024c7e731b9e"
+      }
     }
     eu-north-1 = {
       3.1 = {
@@ -98,6 +125,9 @@ variable "ami_ids" {
       }
       3.2 = {
         ami_id = "ami-00e9fa9b6e9bcec20"
+      }
+      3.3 = {
+        ami_id = "ami-0c7ca7c09e252a93b"
       }
     }
     eu-south-1 = {
@@ -107,6 +137,9 @@ variable "ami_ids" {
       3.2 = {
         ami_id = "ami-060ed864daf36bcac"
       }
+      3.3 = {
+        ami_id = "ami-0d2b7e3a5df8a5197"
+      }
     }
     eu-south-2 = {
       3.1 = {
@@ -114,6 +147,9 @@ variable "ami_ids" {
       }
       3.2 = {
         ami_id = "ami-0b433a7587fea7e41"
+      }
+      3.3 = {
+        ami_id = "ami-081444bce937f7c9b"
       }
     }
     ap-southeast-1 = {
@@ -123,6 +159,9 @@ variable "ami_ids" {
       3.2 = {
         ami_id = "ami-02bb8125b423c29dc"
       }
+      3.3 = {
+        ami_id = "ami-0f4814f9ae2583a15"
+      }
     }
     ap-southeast-2 = {
       3.1 = {
@@ -130,6 +169,9 @@ variable "ami_ids" {
       }
       3.2 = {
         ami_id = "ami-0f238188265b7f80b"
+      }
+      3.3 = {
+        ami_id = "ami-02027215ea0072c8f"
       }
     }
     ap-southeast-3 = {
@@ -139,6 +181,9 @@ variable "ami_ids" {
       3.2 = {
         ami_id = "ami-0da7b907b79029925"
       }
+      3.3 = {
+        ami_id = "ami-0f936b043bc6b482d"
+      }
     }
     ap-southeast-4 = {
       3.1 = {
@@ -146,6 +191,9 @@ variable "ami_ids" {
       }
       3.2 = {
         ami_id = "ami-0ea8a008eea59002f"
+      }
+      3.3 = {
+        ami_id = "ami-0383b709504b87155"
       }
     }
     ap-south-1 = {
@@ -155,6 +203,9 @@ variable "ami_ids" {
       3.2 = {
         ami_id = "ami-05ef3254c75ce4053"
       }
+      3.3 = {
+        ami_id = "ami-0aadef45f85ef1b7b"
+      }
     }
     ap-south-2 = {
       3.1 = {
@@ -162,6 +213,9 @@ variable "ami_ids" {
       }
       3.2 = {
         ami_id = "ami-0448864ec746d003a"
+      }
+      3.3 = {
+        ami_id = "ami-04186583d88f91bf3"
       }
     }
     ap-northeast-1 = {
@@ -171,6 +225,9 @@ variable "ami_ids" {
       3.2 = {
         ami_id = "ami-07a8db1bcd9d807a7"
       }
+      3.3 = {
+        ami_id = "ami-05a21a97c3a5939ab"
+      }
     }
     ap-northeast-2 = {
       3.1 = {
@@ -178,6 +235,9 @@ variable "ami_ids" {
       }
       3.2 = {
         ami_id = "ami-032bcdac0d576df35"
+      }
+      3.3 = {
+        ami_id = "ami-0ce3292a83e3e0dcb"
       }
     }
     ap-east-1 = {
@@ -187,6 +247,9 @@ variable "ami_ids" {
       3.2 = {
         ami_id = "ami-0e401f651fbb61c1d"
       }
+      3.3 = {
+        ami_id = "ami-0778f4d43c1ecac49"
+      }
     }
     me-south-1 = {
       3.1 = {
@@ -194,6 +257,9 @@ variable "ami_ids" {
       }
       3.2 = {
         ami_id = "ami-0c8012fd684bdfbb5"
+      }
+      3.3 = {
+        ami_id = "ami-0ad2060a705b74100"
       }
     }
     ap-northeast-3 = {
@@ -203,6 +269,9 @@ variable "ami_ids" {
       3.2 = {
         ami_id = "ami-0d6ab22fd8ac904a3"
       }
+      3.3 = {
+        ami_id = "ami-0cb4882d88690e63d"
+      }
     }
     sa-east-1 = {
       3.1 = {
@@ -210,6 +279,9 @@ variable "ami_ids" {
       }
       3.2 = {
         ami_id = "ami-0c1b6e1fb53940d10"
+      }
+      3.3 = {
+        ami_id = "ami-0d8c1eb49a17cd4d3"
       }
     }
     us-gov-west-1 = {
@@ -219,6 +291,9 @@ variable "ami_ids" {
       3.2 = {
         ami_id = "ami-0245b2414c12ac588"
       }
+      3.3 = {
+        ami_id = "ami-048a087b1d0622685"
+      }
     }
     us-gov-east-1 = {
       3.1 = {
@@ -226,6 +301,9 @@ variable "ami_ids" {
       }
       3.2 = {
         ami_id = "ami-03594105967b59456"
+      }
+      3.3 = {
+        ami_id = "ami-00e50ac7c4253b34c"
       }
     }
     af-south-1 = {
@@ -235,6 +313,9 @@ variable "ami_ids" {
       3.2 = {
         ami_id = "ami-08164edf9ea98e66e"
       }
+      3.3 = {
+        ami_id = "ami-0e0656268b8ffd19e"
+      }
     }
     me-central-1 = {
       3.1 = {
@@ -242,6 +323,9 @@ variable "ami_ids" {
       }
       3.2 = {
         ami_id = "ami-0889e9152037cb637"
+      }
+      3.3 = {
+        ami_id = "ami-02775edd7f0c60278"
       }
     }
 
