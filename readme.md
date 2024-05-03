@@ -1,6 +1,8 @@
-# Automated ISE setup with Infrastructure as Code using Terraform on AWS
+# Automated ISE setup using Terraform on AWS
 
-This project runs terraform module to setup ISE infrastructure on AWS
+1. This project runs terraform module to deploy upto 58 ISE nodes(min:2 | max:58) on AWS based on User Input
+2. It deploys the required Infrastucutre and configure ISE nodes as per user Input
+
 
 ## Requirements
 - Terraform >= 1.5.0
