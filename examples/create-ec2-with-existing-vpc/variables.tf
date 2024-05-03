@@ -166,7 +166,7 @@ variable "key_pair_name" {
     To access the Cisco ISE instance via SSH, choose the key pair that you created/imported in AWS.
     Create/import a key pair in AWS now if you have not configured one already.
     Usage example:  ssh -i mykeypair.pem admin@myhostname.compute-1.amazonaws.com.
-    NOTE: The username for ISE 3.1 is "admin" and for ISE 3.2+ is "iseadmin".
+    NOTE: The username for ISE 3.1 is "admin" and for ISE 3.2/3.3 is "iseadmin".
   EOT  
   type        = string
 }
@@ -179,7 +179,7 @@ variable "ebs_encrypt" {
 ###########################################
 ### Block to Update Application Details ###
 ###########################################
-### NOTE: The username for ISE 3.1 is "admin" and for ISE 3.2+ is "iseadmin" ###
+### NOTE: The username for ISE 3.1 is "admin" and for ISE 3.2/3.3 is "iseadmin" ###
 variable "ise_version" {
   description = "The version of Cisco ISE (3.1 or 3.2 or 3.3)"
   type        = string
