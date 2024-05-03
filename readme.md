@@ -3,7 +3,7 @@
 This project runs terraform module to setup ISE infrastructure on AWS
 
 ## Requirements
-- Terraform >= 1.0.0
+- Terraform >= 1.5.0
 - AWS CLIv2
 
 ## Installations
