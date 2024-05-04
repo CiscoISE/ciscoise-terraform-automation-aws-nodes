@@ -1,6 +1,7 @@
-[![ISE VERSION](https://img.shields.io/badge/ISE%20SUPPORTED%20VERSIONS-3.1,%203.2%20AND%203.3-blue?style=for-the-badge&logo=cisco)](https://www.cisco.com/c/en/us/support/security/identity-services-engine/series.html))
+[![ISE VERSION](https://img.shields.io/badge/ISE%20SUPPORTED%20VERSIONS-3.1,%203.2%20AND%203.3-blue?style=for-the-badge&logo=cisco)](https://www.cisco.com/c/en/us/support/security/identity-services-engine/series.html)
 [![Terraform Azure](https://img.shields.io/badge/IaC-Terraform-blue?style=for-the-badge&logo=terraform)](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
-[![AWS](https://img.shields.io/badge/AWS-Cloud-blue?style=for-the-badge&logo=amazonaws)](https://aws.amazon.com/))
+[![AWS](https://img.shields.io/badge/AWS-Cloud-blue?style=for-the-badge&logo=amazonaws)](https://aws.amazon.com/)
+![Python](https://img.shields.io/badge/AWS%20Lambda-Python-3572A5?style=for-the-badge)
 
 # Automated ISE setup using Terraform on AWS
 
