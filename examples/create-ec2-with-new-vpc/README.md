@@ -1,7 +1,7 @@
 <!-- BEGIN_TF_DOCS -->
 ## Required VPC components
 
-This examples module creates below AWS VPC resources to setup VPC infrastructure
+This examples module creates below AWS VPC resources to setup VPC infrastructure. `NOTE:`  Minimum 2 subnets are required by this module to ensure availability
 
 | Resource Type | Count | Comments |
 | ---- | :---: | ---- |

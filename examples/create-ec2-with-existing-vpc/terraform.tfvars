@@ -27,6 +27,8 @@ availability_zones = ["us-east-1a", "us-east-1b"] # List of Availability Zones
 ######################################
 ### Block to Update Subnet Details ###
 ######################################
+
+# NOTE: Minimum 2 subnets are required by this module to ensure availability 
 public_subnet_cidrs  = ["10.0.1.0/24", "10.0.2.0/24"]                           # List of CIDR blocks for public subnets
 private_subnet_cidrs = ["10.0.11.0/24", "10.0.12.0/24"]                         # List of CIDR blocks for private subnets
 subnet_id_list       = ["subnet-0b5a68382f34e14f2", "subnet-0334025fc3cdafb31"] # List of private subnet IDs to launch resources in

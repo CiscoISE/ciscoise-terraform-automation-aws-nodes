@@ -27,6 +27,7 @@ enable_dns_hostnames = true                         # Whether to enable DNS host
 ### Block to Update Subnet Details ###
 ######################################
 
+ # NOTE: Minimum 2 subnets are required by this module to ensure availability 
 public_subnet_cidrs   = ["10.0.1.0/24", "10.0.2.0/24"]   # List of CIDR blocks for public subnets
 private_subnet_cidrs  = ["10.0.11.0/24", "10.0.12.0/24"] # List of CIDR blocks for private subnets
 internet_gateway_name = "Cisco_ISE_IGW"                  # Name tag for the Internet Gateway

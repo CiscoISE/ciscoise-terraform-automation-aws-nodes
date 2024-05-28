@@ -7,6 +7,7 @@
 
 1. This project runs terraform module to deploy upto 58 ISE nodes(min:2 | max:58) on AWS based on User Input
 2. It deploys the required Infrastructure and configure ISE nodes as per user Input
+3. This module requires creation of minimun 2 subnets in the VPC infrastructure
 
 ## ISE Supported Versions
 - 3.1
@@ -112,13 +113,23 @@ For your reference, below screenshot shows the AWS State Machine output (Can be 
 
 ## Destroy Infrastructure
 
-To destroy the ISE infrastructure resources created by this module, run below commands. 
+To destroy the ISE infrastructure resources created by this module, run below commands.
+
+`NOTE:`
+Manual changes/resource creation outside this terrform module will not be tracked in the terraform state and cause issues if user needs to upgrade/destory the deployed stack. Please avoid manual changes. 
+If still manual changes are needed then please keep a note of changes, revert them before making any upgrade or destroy.
 
 ```
 terraform destroy -plan
 terraform destroy
 ``` 
 To know more about the destroy command, please refer this [terraform destroy](https://developer.hashicorp.com/terraform/cli/commands/destroy) page
+
+If you encounter issues with the `terraform destroy` command, attempt to run the command again. Additionally, you can track the resources managed by Terraform using the following command
+
+```
+terraform state list
+```
 
 
 

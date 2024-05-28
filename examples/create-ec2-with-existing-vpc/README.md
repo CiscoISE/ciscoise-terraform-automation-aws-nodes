@@ -1,7 +1,7 @@
 <!-- BEGIN_TF_DOCS -->
 ## Required VPC Components
 
-Please review the table below and ensure to create the specified VPC resources for setting up the VPC infrastructure
+Please review the table below and ensure to create the specified VPC resources for setting up the VPC infrastructure. `NOTE:` Minimum `2 subnets` are required by this module to ensure availability
 
 | Resource Type | Count | Comments |
 | ---- | :---: | ---- |
