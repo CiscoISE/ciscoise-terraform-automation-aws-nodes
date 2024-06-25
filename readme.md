@@ -65,7 +65,7 @@ To refer the detailed structure of this terraform module, check here - [Module s
 
 Clone this git repo by using below this command 
   ```
-  git clone https://github3.cisco.com/techops-operation/ise_launch_template-terraform-aws-ec2.git
+  git clone https://github.com/CiscoISE/ciscoise-terraform-automation-aws-nodes.git
   ```
 
 Choose one of the following options to setup ISE infra
