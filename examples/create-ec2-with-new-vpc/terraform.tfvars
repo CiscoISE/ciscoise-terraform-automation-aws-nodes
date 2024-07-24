@@ -47,6 +47,7 @@ internet_gateway_name = "Cisco_ISE_IGW"                  # Name tag for the Inte
 # 4. Monitoring role can only be passed once across secondary_instance_config and psn_instance_config variable
 # 5. Service pxGridCloud cannot be added more than once in workload nodes
 # 6. Valid characters for hostnames are `ASCII(7)` letters from `a` to `z` , the digits from `0` to `9` , and the hyphen (`−`).
+# 7. To create only Primary and secondary nodes without any PSN's, psn_instance_config variable should be set to {}
 
 
 # Specify instance configuration for Primary PAN node. It should follow below syntax where key is the hostname and values are instance attributes
