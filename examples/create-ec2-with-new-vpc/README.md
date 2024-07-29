@@ -44,7 +44,7 @@ The module uses below input variables. Update the values in terraform.tfvars fil
 | <a name="input_enable_stickiness"></a> [enable\_stickiness](#input\_enable\_stickiness) | Choose true or false to enable/disable stickiness for the load balancer | `bool` | `true` | 
 | <a name="input_ise_version"></a> [ise\_version](#input\_ise\_version) | The version of Cisco ISE (3.1 or 3.2 or 3.3) | `string` | `"3.1"` |  
 | <a name="input_password"></a> [password](#input\_password) | The password for username (admin) to log in to the Cisco ISE GUI. The password must contain a minimum of 6 and maximum of 25 characters, and must include at least one numeral, one uppercase letter, and one lowercase letter. Password should not be the same as username or its reverse(admin or nimdaesi) or (cisco or ocsic). Allowed Special Characters @~*!,+=\_- | `string` | ` "" ` |
-| <a name="input_time_zone"></a> [time\_zone](#input\_time\_zone) | Enter a timezone, for example, Etc/UTC | `string` | `"UTC"` |  
+| <a name="input_time_zone"></a> [time\_zone](#input\_time\_zone) | Enter a timezone that is allowed by ISE nodes. For information on the supported timezone formats, refer to this documentation - https://www.cisco.com/c/en/us/td/docs/security/ise/3-3/cli_guide/b_ise_CLI_Reference_Guide_33/b_ise_CLIReferenceGuide_33_chapter_011.html?#wp2884933107 | `string` | `"UTC"` |  
 | <a name="input_ers_api"></a> [ers\_api](#input\_ers\_api) | Enter yes/no to enable/disable ERS | `string` | `"yes"` |  
 | <a name="input_open_api"></a> [open\_api](#input\_open\_api) | Enter yes/no to enable/disable OpenAPI | `string` | `"yes"` |  
 | <a name="input_px_grid"></a> [px\_grid](#input\_px\_grid) | Enter yes/no to enable/disable pxGrid | `string` | `"yes"` |  
