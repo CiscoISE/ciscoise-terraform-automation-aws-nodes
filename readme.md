@@ -13,6 +13,7 @@
 - 3.1
 - 3.2
 - 3.3
+- 3.4
 
 ## Requirements
 - Terraform >= 1.5.0
