@@ -428,7 +428,7 @@ variable "key_pair_name" {
 }
 
 variable "ise_version" {
-  description = "The version of Cisco ISE (3.1 or 3.2)"
+  description = "The version of Cisco ISE (3.1, 3.2, 3.3 or 3.4)"
   type        = string
 }
 
