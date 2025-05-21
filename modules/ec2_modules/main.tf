@@ -52,7 +52,7 @@ resource "aws_instance" "primary_ise_server" {
   tags = {
     Name = each.key
   }
-  user_data = base64encode(templatefile("${path.module}/userdata.tftpl", { hostname = each.key, dns_domain = var.dns_domain, username = local.ise_username, password = var.password, time_zone = var.time_zone, ers_api = var.ers_api, open_api = var.open_api, px_grid = var.px_grid, px_grid_cloud = var.px_grid_cloud, primarynameserver = var.primarynameserver, ntpserver = var.ntpserver }))
+  user_data = base64encode(templatefile("${path.module}/${local.ise_userdata_map[var.ise_version]}", { hostname = each.key, dns_domain = var.dns_domain, username = local.ise_username, password = var.password, time_zone = var.time_zone, ers_api = var.ers_api, open_api = var.open_api, px_grid = var.px_grid, px_grid_cloud = var.px_grid_cloud, primarynameserver = var.primarynameserver, ntpserver = var.ntpserver }))
 }
 
 resource "aws_instance" "secondary_ise_server" {
@@ -73,7 +73,7 @@ resource "aws_instance" "secondary_ise_server" {
   tags = {
     Name = each.key
   }
-  user_data = base64encode(templatefile("${path.module}/userdata.tftpl", { hostname = each.key, dns_domain = var.dns_domain, username = local.ise_username, password = var.password, time_zone = var.time_zone, ers_api = var.ers_api, open_api = var.open_api, px_grid = var.px_grid, px_grid_cloud = var.px_grid_cloud, primarynameserver = var.primarynameserver, ntpserver = var.ntpserver }))
+  user_data = base64encode(templatefile("${path.module}/${local.ise_userdata_map[var.ise_version]}", { hostname = each.key, dns_domain = var.dns_domain, username = local.ise_username, password = var.password, time_zone = var.time_zone, ers_api = var.ers_api, open_api = var.open_api, px_grid = var.px_grid, px_grid_cloud = var.px_grid_cloud, primarynameserver = var.primarynameserver, ntpserver = var.ntpserver }))
 }
 
 resource "aws_instance" "PSN_node" {
@@ -94,7 +94,7 @@ resource "aws_instance" "PSN_node" {
   tags = {
     Name = each.key
   }
-  user_data = base64encode(templatefile("${path.module}/userdata.tftpl", { hostname = each.key, dns_domain = var.dns_domain, username = local.ise_username, password = var.password, time_zone = var.time_zone, ers_api = var.ers_api, open_api = var.open_api, px_grid = var.px_grid, px_grid_cloud = var.px_grid_cloud, primarynameserver = var.primarynameserver, ntpserver = var.ntpserver }))
+  user_data = base64encode(templatefile("${path.module}/${local.ise_userdata_map[var.ise_version]}", { hostname = each.key, dns_domain = var.dns_domain, username = local.ise_username, password = var.password, time_zone = var.time_zone, ers_api = var.ers_api, open_api = var.open_api, px_grid = var.px_grid, px_grid_cloud = var.px_grid_cloud, primarynameserver = var.primarynameserver, ntpserver = var.ntpserver }))
 }
 
 
