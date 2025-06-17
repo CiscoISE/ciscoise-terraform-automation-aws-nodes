@@ -1,4 +1,4 @@
-[![ISE VERSION](https://img.shields.io/badge/ISE%20SUPPORTED%20VERSIONS-3.1,%203.2%20AND%203.3-blue?style=for-the-badge&logo=cisco)](#)
+[![ISE VERSION](https://img.shields.io/badge/ISE%20SUPPORTED%20VERSIONS-3.1,%203.2%20,%203.3%20AND%203.4-blue?style=for-the-badge&logo=cisco)](#)
 [![Terraform](https://img.shields.io/badge/IaC-Terraform-blue?style=for-the-badge&logo=terraform)](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
 [![AWS](https://img.shields.io/badge/Cloud-AWS-blue?style=for-the-badge&logo=amazonaws)](https://aws.amazon.com/)
 [![Python](https://img.shields.io/badge/AWS%20Lambda-Python-3572A5?style=for-the-badge)](./modules/lambda_modules)
@@ -13,6 +13,7 @@
 - 3.1
 - 3.2
 - 3.3
+- 3.4
 
 ## Requirements
 - Terraform >= 1.5.0

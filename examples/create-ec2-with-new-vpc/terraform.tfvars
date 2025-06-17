@@ -27,7 +27,7 @@ enable_dns_hostnames = true                         # Whether to enable DNS host
 ### Block to Update Subnet Details ###
 ######################################
 
- # NOTE: Minimum 2 subnets are required by this module to ensure availability 
+# NOTE: Minimum 2 subnets are required by this module to ensure availability 
 public_subnet_cidrs   = ["10.0.1.0/24", "10.0.2.0/24"]   # List of CIDR blocks for public subnets
 private_subnet_cidrs  = ["10.0.11.0/24", "10.0.12.0/24"] # List of CIDR blocks for private subnets
 internet_gateway_name = "Cisco_ISE_IGW"                  # Name tag for the Internet Gateway
@@ -175,7 +175,7 @@ ebs_encrypt = false # Choose true to enable EBS encryption
 enable_stickiness = true # Choose true to enable stickiness for the load balancer
 
 # Application Details
-ise_version       = "3.1"             # The version of Cisco ISE (3.1 or 3.2 or 3.3)
+ise_version       = "3.4"             # The version of Cisco ISE (3.1, 3.2, 3.3 or 3.4)
 password          = "C!sc0Ind1@"      # Set a password for GUI-based login to Cisco ISE. The password that you enter must comply with the Cisco ISE password policy. The password must contain 6 to 25 characters and include at least one numeral, one uppercase letter, and one lowercase letter. The password cannot be the same as the username or its reverse (iseadmin or nimdaesi), cisco, or ocsic. The allowed special characters are @~*!,+=_-.
 time_zone         = "UTC"             # Enter a timezone that is allowed by ISE nodes. For information on the supported timezone formats, refer to this documentation - https://www.cisco.com/c/en/us/td/docs/security/ise/3-3/cli_guide/b_ise_CLI_Reference_Guide_33/b_ise_CLIReferenceGuide_33_chapter_011.html?#wp2884933107
 ers_api           = "yes"             # Enable/disable ERS
