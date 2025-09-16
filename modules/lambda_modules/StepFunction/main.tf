@@ -33,7 +33,7 @@ resource "aws_sfn_state_machine" "DeploymentStateMachine" {
         Next     = "CheckIseState",
         Catch : [
           {
-            "ErrorEquals" : ["Lambda.Unknown"],
+            "ErrorEquals" : ["Lambda.Unknown","States.Timeout","Sandbox.Timedout"],
             "Next" : "WaitAndRetryHealthCheck"
           }
         ]
@@ -109,7 +109,7 @@ resource "aws_sfn_state_machine" "DeploymentStateMachine" {
         Next     = "CheckSyncStatus",
         Catch : [
           {
-            ErrorEquals : ["Lambda.Unknown"],
+            ErrorEquals : ["Lambda.Unknown","States.Timeout","Sandbox.Timedout"],
             Next : "WaitAndRetrySyncStatusCheck"
           }
         ],
