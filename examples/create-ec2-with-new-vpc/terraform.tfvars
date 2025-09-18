@@ -108,7 +108,7 @@ secondary_instance_config = {
     instance_type = "t3.xlarge"
     storage_size  = 500
     services      = "Session,Profiler,pxGrid"
-    roles         = "SecondaryAdmin"
+    roles         = "SecondaryAdmin,SecondaryMonitoring"
   }
 }
 
@@ -147,11 +147,11 @@ Please use below example for the reference.
 # NOTE: Hostname only supports alphanumeric characters and hyphen (-). The length of the hostname should not exceed 19 characters, otherwise deployment will fail
 # Example: Below secmon-server, psn-ise-server-2 and so on are the dynamic hostname provided by user.
 psn_instance_config = {
-  secmon-server = {
-    instance_type = "m5.2xlarge"
-    storage_size  = 500
-    roles         = "SecondaryMonitoring"
-  }
+  # secmon-server = {
+  #   instance_type = "m5.2xlarge"
+  #   storage_size  = 500
+  #   roles         = "SecondaryMonitoring"
+  # }
   psn-ise-server-2 = {
     instance_type = "t3.xlarge"
     storage_size  = 600
@@ -183,7 +183,17 @@ open_api          = "yes"             # Enable/disable OpenAPI
 px_grid           = "yes"             # Enable/disable pxGrid
 px_grid_cloud     = "yes"             # Enable/disable pxGrid Cloud
 primarynameserver = "169.254.169.253" # Enter the IP address of the primary name server. Only IPv4 addresses are supported.
+secondarynameserver="169.254.169.252"
+tertiarynameserver="169.254.169.251"
 ntpserver         = "169.254.169.123" # Enter the IPv4 address or FQDN of the NTP server that must be used for synchronization.
+secondaryntpserver="169.254.169.124"
+tertiaryntpserver="169.254.169.125"
+# Optional secondary and tertiary DNS/NTP servers (only used for ISE 3.4+)
+# Uncomment and set values if you want to use secondary/tertiary servers
+# secondarynameserver = "172.31.31.255"  # Enter the IP address of the secondary name server (optional)
+# tertiarynameserver  = "172.31.31.256"  # Enter the IP address of the tertiary name server (optional)
+# secondaryntpserver  = "169.254.169.124" # Enter the IPv4 address or FQDN of the secondary NTP server (optional)
+# tertiaryntpserver   = "169.254.169.125" # Enter the IPv4 address or FQDN of the tertiary NTP server (optional)
 
 # DNS Domain Name
 dns_domain = "example.com" # Enter a domain name in correct syntax

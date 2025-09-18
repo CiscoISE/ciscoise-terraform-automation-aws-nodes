@@ -50,6 +50,10 @@ module "cisco_ise_ec2" {
   px_grid_cloud             = var.px_grid_cloud
   primarynameserver         = var.primarynameserver
   ntpserver                 = var.ntpserver
+  secondarynameserver       = var.secondarynameserver
+  tertiarynameserver        = var.tertiarynameserver
+  secondaryntpserver        = var.secondaryntpserver
+  tertiaryntpserver         = var.tertiaryntpserver
 }
 
 ##### step - lambda

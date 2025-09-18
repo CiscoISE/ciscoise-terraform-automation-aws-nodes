@@ -58,3 +58,9 @@ output "psn_dns_name" {
   description = "Private DNSName of the PSN ISE nodes"
   value       = module.cisco_ise_ec2.psn_dns_name
 }
+
+output "primary_ise_server_userdata" {
+  description = "Actual userdata used by primary ISE server instances"
+  value       = module.cisco_ise_ec2.primary_ise_server_userdata
+  sensitive   = true
+}

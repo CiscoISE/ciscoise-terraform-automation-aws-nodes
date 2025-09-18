@@ -664,3 +664,27 @@ variable "ntpserver" {
   description = "Enter the IPv4 address or FQDN of the NTP server that must be used for synchronization, Example, 169.254.169.123"
   type        = string
 }
+
+variable "secondarynameserver" {
+  description = "Enter the IP address of the secondary name server (optional). Only IPv4 addresses are supported."
+  type        = string
+  default     = ""
+}
+
+variable "tertiarynameserver" {
+  description = "Enter the IP address of the tertiary name server (optional). Only IPv4 addresses are supported."
+  type        = string
+  default     = ""
+}
+
+variable "secondaryntpserver" {
+  description = "Enter the IPv4 address or FQDN of the secondary NTP server (optional)"
+  type        = string
+  default     = ""
+}
+
+variable "tertiaryntpserver" {
+  description = "Enter the IPv4 address or FQDN of the tertiary NTP server (optional)"
+  type        = string
+  default     = ""
+}

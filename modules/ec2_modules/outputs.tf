@@ -73,3 +73,25 @@ output "psn_dns_name" {
   description = "Private DNSName of the PSN ISE nodes"
   value       = [for name in slice(local.ise_hostnames_list, 2, length(local.ise_hostnames_list)) : aws_route53_record.ise_node_dns_record[name].name]
 }
+
+output "primary_ise_server_userdata" {
+  description = "Actual userdata used by primary ISE server instances (decoded from template)"
+  value = { for key in keys(var.primary_instance_config) : key => templatefile("${path.module}/${local.ise_userdata_map[var.ise_version]}", { 
+    hostname = key, 
+    dns_domain = var.dns_domain, 
+    username = local.ise_username, 
+    password = var.password, 
+    time_zone = var.time_zone, 
+    ers_api = var.ers_api, 
+    open_api = var.open_api, 
+    px_grid = var.px_grid, 
+    px_grid_cloud = var.px_grid_cloud, 
+    primarynameserver = var.primarynameserver, 
+    ntpserver = var.ntpserver, 
+    secondarynameserver = var.secondarynameserver, 
+    tertiarynameserver = var.tertiarynameserver, 
+    secondaryntpserver = var.secondaryntpserver, 
+    tertiaryntpserver = var.tertiaryntpserver 
+  }) }
+  sensitive = true
+}

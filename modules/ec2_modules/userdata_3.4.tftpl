@@ -1,9 +1,14 @@
-hostname=${hostname}
-dnsdomain=${dns_domain}
-primarynameserver=${primarynameserver}
-primaryntpserver=${ntpserver}
-password=${password}
-timezone=${time_zone}
-ersapi=${ers_api}
-pxGrid=${px_grid}
-pxgrid_cloud=${px_grid_cloud}
+%{ if hostname != "" }hostname=${hostname}%{ endif }%{ if dns_domain != "" }
+dnsdomain=${dns_domain}%{ endif }%{ if primarynameserver != "" }
+primarynameserver=${primarynameserver}%{ endif }%{ if secondarynameserver != "" }
+secondarynameserver=${secondarynameserver}%{ endif }%{ if tertiarynameserver != "" }
+tertiarynameserver=${tertiarynameserver}%{ endif }%{ if ntpserver != "" }
+primaryntpserver=${ntpserver}%{ endif }%{ if secondaryntpserver != "" }
+secondaryntpserver=${secondaryntpserver}%{ endif }%{ if tertiaryntpserver != "" }
+tertiaryntpserver=${tertiaryntpserver}%{ endif }%{ if time_zone != "" }
+timezone=${time_zone}%{ endif }%{ if username != "" }
+username=${username}%{ endif }%{ if password != "" }
+password=${password}%{ endif }%{ if ers_api != "" }
+ersapi=${ers_api}%{ endif }%{ if px_grid != "" }
+pxGrid=${px_grid}%{ endif }%{ if px_grid_cloud != "" }
+pxgrid_cloud=${px_grid_cloud}%{ endif }
