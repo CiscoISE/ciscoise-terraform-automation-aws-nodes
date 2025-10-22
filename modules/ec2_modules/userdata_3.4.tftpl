@@ -1,9 +1,9 @@
 %{ if hostname != "" }hostname=${hostname}%{ endif }%{ if dns_domain != "" }
-dnsdomain=${dns_domain}%{ endif }%{ if primarynameserver != "" }
-primarynameserver=${primarynameserver}%{ endif }%{ if secondarynameserver != "" }
+dnsdomain=${dns_domain}%{ endif }
+primarynameserver=${primarynameserver}%{ if secondarynameserver != "" }
 secondarynameserver=${secondarynameserver}%{ endif }%{ if tertiarynameserver != "" }
-tertiarynameserver=${tertiarynameserver}%{ endif }%{ if ntpserver != "" }
-primaryntpserver=${ntpserver}%{ endif }%{ if secondaryntpserver != "" }
+tertiarynameserver=${tertiarynameserver}%{ endif }
+primaryntpserver=${ntpserver}%{ if secondaryntpserver != "" }
 secondaryntpserver=${secondaryntpserver}%{ endif }%{ if tertiaryntpserver != "" }
 tertiaryntpserver=${tertiaryntpserver}%{ endif }%{ if time_zone != "" }
 timezone=${time_zone}%{ endif }%{ if username != "" }

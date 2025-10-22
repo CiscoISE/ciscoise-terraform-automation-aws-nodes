@@ -658,11 +658,21 @@ variable "px_grid_cloud" {
 variable "primarynameserver" {
   description = "Enter the IP address of the primary name server. Only IPv4 addresses are supported. Example: 169.254.169.253"
   type        = string
+  
+  validation {
+    condition     = var.primarynameserver != null && var.primarynameserver != ""
+    error_message = "The primarynameserver variable must be defined and cannot be empty. Please provide a valid IP address for the primary name server."
+  }
 }
 
 variable "ntpserver" {
   description = "Enter the IPv4 address or FQDN of the NTP server that must be used for synchronization, Example, 169.254.169.123"
   type        = string
+  
+  validation {
+    condition     = var.ntpserver != null && var.ntpserver != ""
+    error_message = "The ntpserver variable must be defined and cannot be empty. Please provide a valid IP address or FQDN for the NTP server."
+  }
 }
 
 variable "secondarynameserver" {
