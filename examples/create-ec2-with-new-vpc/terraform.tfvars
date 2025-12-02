@@ -108,7 +108,7 @@ secondary_instance_config = {
     instance_type = "t3.xlarge"
     storage_size  = 500
     services      = "Session,Profiler,pxGrid"
-    roles         = "SecondaryAdmin,SecondaryMonitoring"
+    roles         = "SecondaryAdmin"
   }
 }
 
@@ -147,11 +147,11 @@ Please use below example for the reference.
 # NOTE: Hostname only supports alphanumeric characters and hyphen (-). The length of the hostname should not exceed 19 characters, otherwise deployment will fail
 # Example: Below secmon-server, psn-ise-server-2 and so on are the dynamic hostname provided by user.
 psn_instance_config = {
-  # secmon-server = {
-  #   instance_type = "m5.2xlarge"
-  #   storage_size  = 500
-  #   roles         = "SecondaryMonitoring"
-  # }
+  secmon-server = {
+    instance_type = "m5.2xlarge"
+    storage_size  = 500
+    roles         = "SecondaryMonitoring"
+  }
   psn-ise-server-2 = {
     instance_type = "t3.xlarge"
     storage_size  = 600
