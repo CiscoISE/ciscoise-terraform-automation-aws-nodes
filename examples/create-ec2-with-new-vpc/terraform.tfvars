@@ -183,11 +183,8 @@ open_api          = "yes"             # Enable/disable OpenAPI
 px_grid           = "yes"             # Enable/disable pxGrid
 px_grid_cloud     = "yes"             # Enable/disable pxGrid Cloud
 primarynameserver = "169.254.169.253" # Enter the IP address of the primary name server. Only IPv4 addresses are supported.
-secondarynameserver="169.254.169.252"
-tertiarynameserver="169.254.169.251"
 ntpserver         = "169.254.169.123" # Enter the IPv4 address or FQDN of the NTP server that must be used for synchronization.
-secondaryntpserver="169.254.169.124"
-tertiaryntpserver="169.254.169.125"
+
 # Optional secondary and tertiary DNS/NTP servers (only used for ISE 3.4+)
 # Uncomment and set values if you want to use secondary/tertiary servers
 # secondarynameserver = "172.31.31.255"  # Enter the IP address of the secondary name server (optional)
