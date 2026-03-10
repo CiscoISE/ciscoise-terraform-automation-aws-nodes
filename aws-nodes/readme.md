@@ -26,9 +26,9 @@
 
 
 ## Configure AWS
-1. To configure and allow access to AWS account, create IAM user with least privilege access policy- [create terraform-iam-policy](./docs/terraform-policy.json). 
+1. To configure and allow access to AWS account, create IAM user with least privilege access policy- [create terraform-iam-policy](./../docs/terraform-policy.json). 
 
-      For more comprehensive information on configuring Identity and  Access Management You can find detailed guidance  [here](./docs/iampolicyreadme.md).
+      For more comprehensive information on configuring Identity and  Access Management You can find detailed guidance  [here](./../docs/iampolicyreadme.md).
 
  2. create Programmatic Access Key (AWS Access key and Secret key). Follow this document to manage access keys - [How to manage aws access keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey). 
 
@@ -55,12 +55,12 @@ Before running terraform modules, follow below steps
 
 4. It is recommended to create a s3 bucket beforehand to store terraform backend state files which needs to be referenced in below [terraform init command](#terraform_init_command). Storing terraform state files in s3 provides enhanced collaboration, security and durability over keeping state files locally
   - Existing s3 bucket can be used to store the backend files. If you want to create a new bucket, Refer this documentation - [How to create a s3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html)
-  - After creating s3 bucket, make sure to update the bucket name in the [least privilege access policy](./docs/terraform-policy.json#L206)
+  - After creating s3 bucket, make sure to update the bucket name in the [least privilege access policy](./../docs/terraform-policy.json#L206)
 
 
 ## Terraform module structure
 
-To refer the detailed structure of this terraform module, check here - [Module structure](./docs/directory-structure.md)
+To refer the detailed structure of this terraform module, check here - [Module structure](./../docs/directory-structure.md)
 
 ## Run terraform modules
 
@@ -101,7 +101,7 @@ Type 'yes' when prompted after running terraform apply
 
 After `terraform apply` is completed, the output block will be generated as shown in the screenshot below
 
-![alt terraform output](./docs/terraform_ouput.png)
+![alt terraform output](./../docs/terraform_ouput.png)
 
 After setting up ISE infra using terraform, it will take 45-60 minutes (**Note**: Time may vary based on number of nodes) for the stack to deploy and ISE application to come up
 
@@ -110,7 +110,7 @@ After setting up ISE infra using terraform, it will take 45-60 minutes (**Note**
 
 For your reference, below screenshot shows the AWS State Machine output (Can be found under AWS Step Functions) after ISE application is successfully launched and running. Each Lambda has its own Log Groups created while launching the stack. Please monitor logs as per the requirement.
 
-![alt state machine output](./docs/state_machine_diagram.png)
+![alt state machine output](./../docs/state_machine_diagram.png)
 
 ## Destroy Infrastructure
 
