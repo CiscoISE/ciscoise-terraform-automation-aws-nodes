@@ -7,6 +7,7 @@
 
 1. This project runs terraform module to deploy upto 58 ISE nodes(min:2 | max:58) on AWS based on User Input
 2. It deploys the required Infrastructure and configure ISE nodes as per user Input
+3. This module requires creation of minimun 2 subnets in the VPC infrastructure
 
 ## ISE Supported Versions
 - 3.1
@@ -25,9 +26,9 @@
 
 
 ## Configure AWS
-1. To configure and allow access to AWS account, create IAM user with least privilege access policy- [create terraform-iam-policy](./aws-nodes/docs/terraform-policy.json). 
+1. To configure and allow access to AWS account, create IAM user with least privilege access policy- [create terraform-iam-policy](./docs/terraform-policy.json). 
 
-      For more comprehensive information on configuring Identity and  Access Management You can find detailed guidance  [here](./aws-nodes/docs/iampolicyreadme.md).
+      For more comprehensive information on configuring Identity and  Access Management You can find detailed guidance  [here](./docs/iampolicyreadme.md).
 
  2. create Programmatic Access Key (AWS Access key and Secret key). Follow this document to manage access keys - [How to manage aws access keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey). 
 
@@ -54,12 +55,12 @@ Before running terraform modules, follow below steps
 
 4. It is recommended to create a s3 bucket beforehand to store terraform backend state files which needs to be referenced in below [terraform init command](#terraform_init_command). Storing terraform state files in s3 provides enhanced collaboration, security and durability over keeping state files locally
   - Existing s3 bucket can be used to store the backend files. If you want to create a new bucket, Refer this documentation - [How to create a s3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html)
-  - After creating s3 bucket, make sure to update the bucket name in the [least privilege access policy](./aws-nodes/docs/terraform-policy.json#L206)
+  - After creating s3 bucket, make sure to update the bucket name in the [least privilege access policy](./docs/terraform-policy.json#L206)
 
 
 ## Terraform module structure
 
-To refer the detailed structure of this terraform module, check here - [Module structure](./aws-nodes/docs/directory-structure.md)
+To refer the detailed structure of this terraform module, check here - [Module structure](./docs/directory-structure.md)
 
 ## Run terraform modules
 
@@ -69,21 +70,21 @@ Clone this git repo by using below this command
   ```
 
 Choose one of the following options to setup ISE infra
-### 1. [Deploy using an existing VPC](./aws-nodes/examples/create-ec2-with-existing-vpc/)
+### 1. [Deploy using an existing VPC](./examples/create-ec2-with-existing-vpc/)
 
 To deploy using an existing VPC
   ```
-  cd aws-nodes/examples/create-ec2-with-existing-vpc
+  cd examples/create-ec2-with-existing-vpc
   ```
-  Refer [create-ec2-with-existing-vpc README](./aws-nodes/examples/create-ec2-with-existing-vpc/README.md) and update the variables in terraform.tfvars
+  Refer [create-ec2-with-existing-vpc README](./examples/create-ec2-with-existing-vpc/README.md) and update the variables in terraform.tfvars
 
-### 2. [Deploy using a new VPC](./aws-nodes/examples/create-ec2-with-new-vpc/)
+### 2. [Deploy using a new VPC](./examples/create-ec2-with-new-vpc/)
 
 To deploy using a new VPC
 ```
-cd aws-nodes/examples/create-ec2-with-new-vpc
+cd examples/create-ec2-with-new-vpc
 ```
-Refer [create-ec2-with-new-vpc README](./aws-nodes/examples/create-ec2-with-new-vpc/README.md) and update the variables in terraform.tfvars
+Refer [create-ec2-with-new-vpc README](./examples/create-ec2-with-new-vpc/README.md) and update the variables in terraform.tfvars
 
 <a name="terraform_init_command"></a>
 After updating terraform.tfvars run the below commands
@@ -100,7 +101,7 @@ Type 'yes' when prompted after running terraform apply
 
 After `terraform apply` is completed, the output block will be generated as shown in the screenshot below
 
-![alt terraform output](./aws-nodes/docs/terraform_ouput.png)
+![alt terraform output](./docs/terraform_ouput.png)
 
 After setting up ISE infra using terraform, it will take 45-60 minutes (**Note**: Time may vary based on number of nodes) for the stack to deploy and ISE application to come up
 
@@ -109,7 +110,7 @@ After setting up ISE infra using terraform, it will take 45-60 minutes (**Note**
 
 For your reference, below screenshot shows the AWS State Machine output (Can be found under AWS Step Functions) after ISE application is successfully launched and running. Each Lambda has its own Log Groups created while launching the stack. Please monitor logs as per the requirement.
 
-![alt state machine output](./aws-nodes/docs/state_machine_diagram.png)
+![alt state machine output](./docs/state_machine_diagram.png)
 
 ## Destroy Infrastructure
 
