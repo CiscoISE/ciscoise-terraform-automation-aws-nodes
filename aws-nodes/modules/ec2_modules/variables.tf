@@ -536,6 +536,7 @@ variable "psn_instance_config" {
       storage_size = "<storage_size>"
       services =  "<service_1>,<service_2>"
       roles = "<role_1>,<role_2>"
+      enable_nlb = true|false
     }
   }
    Example usage - 
@@ -543,12 +544,14 @@ variable "psn_instance_config" {
     secmonitoring-server = {
       instance_type = "t3.xlarge"
       storage_size  = 500
-      roles = "SecondaryMonitoring"
+      roles         = "SecondaryMonitoring"
+      enable_nlb    = true
     }
     psn-ise-server-2 = {
       instance_type = "t3.xlarge"
       storage_size  = 600
       services      = "Session,Profiler,PassiveIdentity"
+      enable_nlb    = true
     }
   }
     EOT
@@ -557,6 +560,7 @@ variable "psn_instance_config" {
     storage_size  = number
     services      = optional(string, " ")
     roles         = optional(string, " ")
+    enable_nlb    = optional(bool, false)
   }))
 
   validation {

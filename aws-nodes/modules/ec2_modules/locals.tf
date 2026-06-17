@@ -19,7 +19,8 @@ locals {
   ise_userdata_map     = merge({ for ise_version in ["3.1", "3.2", "3.3"] : ise_version => "userdata.tftpl" }, { "3.4" : "userdata_3.4.tftpl" })
   ise_instance_config  = merge(var.primary_instance_config, var.secondary_instance_config, var.psn_instance_config)
   roles                = flatten(concat([for vm in values(var.secondary_instance_config) : split(",", vm.roles)], [for vm in values(var.psn_instance_config) : split(",", vm.roles)]))
-  ise_nodes_list       = concat([for key in keys(var.primary_instance_config) : aws_instance.ise_node[key].id], [for key in keys(var.secondary_instance_config) : aws_instance.ise_node[key].id], [for key in keys(var.psn_instance_config) : aws_instance.ise_node[key].id])
+  create_nlb           = anytrue([for key, config in var.psn_instance_config : config.enable_nlb])
+  ise_nodes_list       = [for key, config in var.psn_instance_config : aws_instance.ise_node[key].id if config.enable_nlb == true]
   ise_hostnames_list   = concat(keys(var.primary_instance_config), keys(var.secondary_instance_config), keys(var.psn_instance_config))
   ise_private_ip_list  = concat([for key in keys(var.primary_instance_config) : aws_instance.ise_node[key].private_ip], [for key in keys(var.secondary_instance_config) : aws_instance.ise_node[key].private_ip], [for key in keys(var.psn_instance_config) : aws_instance.ise_node[key].private_ip])
   ise_ssm_pan_fqdn_map = merge({ Primary_FQDN = "${local.ise_hostnames_list[0]}.${var.dns_domain}", Secondary_FQDN = "${local.ise_hostnames_list[1]}.${var.dns_domain}" })

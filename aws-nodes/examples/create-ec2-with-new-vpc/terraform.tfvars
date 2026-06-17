@@ -84,9 +84,9 @@ primary_instance_config = {
   {
     <hostname> = {
       instance_type = "<instance_type>"
-      storage_size = "<storage_size>"
-      services =  "<service_1>,<service_2>"
-      roles = "<role_1>,<role_2>"
+      storage_size  = "<storage_size>"
+      services      =  "<service_1>,<service_2>"
+      roles         = "<role_1>,<role_2>"
     }
   }
   Example usage -
@@ -113,13 +113,15 @@ secondary_instance_config = {
 
 # Specify instance configuration for N PSN nodes. It should follow below syntax where key is the hostname and values are instance attributes.
 # NOTE: Hostname only supports alphanumeric characters and hyphen (-). The length of the hostname should not exceed 19 characters, otherwise deployment will fail
+# Allowed values for enable_nlb : true or false. Specify true to add the ise nodes as targets for NLB, default value is false.
 /*
  {
     <hostname> = {
       instance_type = "<instance_type>"
-      storage_size = "<storage_size>"
-      services =  "<service_1>,<service_2>"
-      roles = "<role_1>,<role_2>"
+      storage_size  = "<storage_size>"
+      services      =  "<service_1>,<service_2>"
+      roles         = "<role_1>,<role_2>"
+      enable_nlb    = true|false
     }
   }
   
@@ -129,12 +131,14 @@ Please use below example for the reference.
     secmonitoring-server = {
       instance_type = "m5.2xlarge"
       storage_size  = 500
-      roles = "SecondaryDedicatedMonitoring"
+      roles         = "SecondaryDedicatedMonitoring"
+      enable_nlb    = true
     }
     psn-ise-server-2 = {
       instance_type = "t3.xlarge"
       storage_size  = 600
       services      = "Session,Profiler,PassiveIdentity"
+      enable_nlb    = true
     }
     psn-ise-server-3 = {
       instance_type = "c5.4xlarge"
@@ -155,7 +159,7 @@ psn_instance_config = {
     instance_type = "t3.xlarge"
     storage_size  = 600
     services      = "Session,Profiler,PassiveIdentity"
-
+    enable_nlb    = true
   }
   psn-ise-server-3 = {
     instance_type = "t3.xlarge"

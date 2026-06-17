@@ -27,13 +27,14 @@ resource "aws_route53_zone" "forward_dns" {
 }
 
 resource "aws_route53_record" "lb_dns_record" {
+  count   = local.create_nlb ? 1 : 0
   zone_id = aws_route53_zone.forward_dns.zone_id
   name    = "lb.${var.dns_domain}"
   type    = "A"
 
   alias {
-    name                   = aws_lb.psn_nlb.dns_name
-    zone_id                = aws_lb.psn_nlb.zone_id
+    name                   = aws_lb.psn_nlb[count.index].dns_name
+    zone_id                = aws_lb.psn_nlb[count.index].zone_id
     evaluate_target_health = true
   }
 }

@@ -5,7 +5,7 @@ output "launch_template_id" {
 
 output "nlb_dns_name" {
   description = "DNS name of the Network Load Balancer."
-  value       = aws_lb.psn_nlb.dns_name
+  value       = local.create_nlb ? aws_lb.psn_nlb[0].dns_name : ""
 }
 
 output "security_group_ids" {

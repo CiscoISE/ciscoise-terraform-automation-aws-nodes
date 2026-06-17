@@ -18,6 +18,7 @@
 # NLB creation
 
 resource "aws_lb" "psn_nlb" {
+  count              = local.create_nlb ? 1 : 0
   name               = "PSNNLB"
   internal           = true
   load_balancer_type = "network"
@@ -39,6 +40,7 @@ resource "aws_lb" "psn_nlb" {
 # Required Target groups
 
 resource "aws_lb_target_group" "psn_target_groupfor_radius1812" {
+  count    = local.create_nlb ? 1 : 0
   name     = "PSNTargetGroupforRADIUS1812"
   port     = 1812
   protocol = "UDP"
@@ -58,6 +60,7 @@ resource "aws_lb_target_group" "psn_target_groupfor_radius1812" {
 }
 
 resource "aws_lb_target_group" "psn_target_groupfor_radius1813" {
+  count    = local.create_nlb ? 1 : 0
   name     = "PSNTargetGroupforRADIUS1813"
   port     = 1813
   protocol = "UDP"
@@ -77,6 +80,7 @@ resource "aws_lb_target_group" "psn_target_groupfor_radius1813" {
 }
 
 resource "aws_lb_target_group" "psn_target_groupfor_radius1645" {
+  count    = local.create_nlb ? 1 : 0
   name     = "PSNTargetGroupforRADIUS1645"
   port     = 1645
   protocol = "UDP"
@@ -96,6 +100,7 @@ resource "aws_lb_target_group" "psn_target_groupfor_radius1645" {
 }
 
 resource "aws_lb_target_group" "psn_target_groupfor_radius1646" {
+  count    = local.create_nlb ? 1 : 0
   name     = "PSNTargetGroupforRADIUS1646"
   port     = 1646
   protocol = "UDP"
@@ -115,6 +120,7 @@ resource "aws_lb_target_group" "psn_target_groupfor_radius1646" {
 }
 
 resource "aws_lb_target_group" "psn_target_groupfor_tacacs49" {
+  count    = local.create_nlb ? 1 : 0
   name     = "PSNTargetGroupforTACACS49"
   port     = 49
   protocol = "TCP"
@@ -135,36 +141,36 @@ resource "aws_lb_target_group" "psn_target_groupfor_tacacs49" {
 
 # target group attachment
 resource "aws_lb_target_group_attachment" "psn_attachment_for_radius1812" {
-  count            = length(local.ise_nodes_list)
-  target_group_arn = aws_lb_target_group.psn_target_groupfor_radius1812.arn
+  count            = local.create_nlb ? length(local.ise_nodes_list) : 0
+  target_group_arn = aws_lb_target_group.psn_target_groupfor_radius1812[0].arn
   target_id        = local.ise_nodes_list[count.index]
   port             = 1812
 }
 
 resource "aws_lb_target_group_attachment" "psn_attachment_for_radius1813" {
-  count            = length(local.ise_nodes_list)
-  target_group_arn = aws_lb_target_group.psn_target_groupfor_radius1813.arn
+  count            = local.create_nlb ? length(local.ise_nodes_list) : 0
+  target_group_arn = aws_lb_target_group.psn_target_groupfor_radius1813[0].arn
   target_id        = local.ise_nodes_list[count.index]
   port             = 1813
 }
 
 resource "aws_lb_target_group_attachment" "psn_attachment_for_radius1645" {
-  count            = length(local.ise_nodes_list)
-  target_group_arn = aws_lb_target_group.psn_target_groupfor_radius1645.arn
+  count            = local.create_nlb ? length(local.ise_nodes_list) : 0
+  target_group_arn = aws_lb_target_group.psn_target_groupfor_radius1645[0].arn
   target_id        = local.ise_nodes_list[count.index]
   port             = 1645
 }
 
 resource "aws_lb_target_group_attachment" "psn_attachment_for_radius1646" {
-  count            = length(local.ise_nodes_list)
-  target_group_arn = aws_lb_target_group.psn_target_groupfor_radius1646.arn
+  count            = local.create_nlb ? length(local.ise_nodes_list) : 0
+  target_group_arn = aws_lb_target_group.psn_target_groupfor_radius1646[0].arn
   target_id        = local.ise_nodes_list[count.index]
   port             = 1646
 }
 
 resource "aws_lb_target_group_attachment" "psn_attachment_for_tacacs49" {
-  count            = length(local.ise_nodes_list)
-  target_group_arn = aws_lb_target_group.psn_target_groupfor_tacacs49.arn
+  count            = local.create_nlb ? length(local.ise_nodes_list) : 0
+  target_group_arn = aws_lb_target_group.psn_target_groupfor_tacacs49[0].arn
   target_id        = local.ise_nodes_list[count.index]
   port             = 49
 }
@@ -174,57 +180,62 @@ resource "aws_lb_target_group_attachment" "psn_attachment_for_tacacs49" {
 # listeners
 
 resource "aws_lb_listener" "psn_listener_1" {
-  load_balancer_arn = aws_lb.psn_nlb.arn // Reference to your NLB resource
+  count             = local.create_nlb ? 1 : 0
+  load_balancer_arn = aws_lb.psn_nlb[count.index].arn // Reference to your NLB resource
   port              = 1812
   protocol          = "UDP"
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.psn_target_groupfor_radius1812.arn // Reference to your Target Group resource
+    target_group_arn = aws_lb_target_group.psn_target_groupfor_radius1812[0].arn // Reference to your Target Group resource
   }
 }
 
 resource "aws_lb_listener" "psn_listener_2" {
-  load_balancer_arn = aws_lb.psn_nlb.arn // Reference to your NLB resource
+  count             = local.create_nlb ? 1 : 0
+  load_balancer_arn = aws_lb.psn_nlb[count.index].arn // Reference to your NLB resource
   port              = 1813
   protocol          = "UDP"
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.psn_target_groupfor_radius1813.arn // Reference to your Target Group resource
+    target_group_arn = aws_lb_target_group.psn_target_groupfor_radius1813[0].arn // Reference to your Target Group resource
   }
 }
 
 resource "aws_lb_listener" "psn_listener_3" {
-  load_balancer_arn = aws_lb.psn_nlb.arn // Reference to your NLB resource
+  count             = local.create_nlb ? 1 : 0
+  load_balancer_arn = aws_lb.psn_nlb[count.index].arn // Reference to your NLB resource
   port              = 49
   protocol          = "TCP"
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.psn_target_groupfor_tacacs49.arn // Reference to your Target Group resource
+    target_group_arn = aws_lb_target_group.psn_target_groupfor_tacacs49[0].arn // Reference to your Target Group resource
   }
 }
 
 resource "aws_lb_listener" "psn_listener_4" {
-  load_balancer_arn = aws_lb.psn_nlb.arn // Reference to your NLB resource
+  count             = local.create_nlb ? 1 : 0
+  load_balancer_arn = aws_lb.psn_nlb[count.index].arn // Reference to your NLB resource
   port              = 1645
   protocol          = "UDP"
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.psn_target_groupfor_radius1645.arn // Reference to your Target Group resource
+    target_group_arn = aws_lb_target_group.psn_target_groupfor_radius1645[0].arn // Reference to your Target Group resource
   }
 }
 
 resource "aws_lb_listener" "psn_listener_5" {
-  load_balancer_arn = aws_lb.psn_nlb.arn // Reference to your NLB resource
+  count             = local.create_nlb ? 1 : 0
+  load_balancer_arn = aws_lb.psn_nlb[count.index].arn // Reference to your NLB resource
   port              = 1646
   protocol          = "UDP"
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.psn_target_groupfor_radius1646.arn // Reference to your Target Group resource
+    target_group_arn = aws_lb_target_group.psn_target_groupfor_radius1646[0].arn // Reference to your Target Group resource
   }
 }
 
